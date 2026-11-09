@@ -1,0 +1,7462 @@
+{
+  "schema": 1,
+  "startedAt": "2026-11-10T14:04:27.178Z",
+  "sourceCommit": "79c0f63ea166dceabebb79279cb3c560cb3c1fc0",
+  "sourceHashes": {
+    "bench/ssg/run.mjs": "cc488d12a989205c3dc78e99a39419215be33d3bbdc49113dc30798176135ecf",
+    "bench/ssg/adapter.mjs": "a1dcb4db1c46000319932e0e84b441eef0c201a8310ae7c0b749ddde6f35924a",
+    "bench/ssg/profile.mjs": "5d292e18a7edfed3b4f975fb9f93ce349cdbd4143f925237cc8e94df29a6116a",
+    "bench/ssg/integration.mjs": "47e9c9f5e4d8a6891ede4f2526385d38e36050099b870aba6e59f89150941a65",
+    "bench/ssg/bootstrap.mjs": "b8c096e591aba3bab4cb8147a1b4e76a3c30e442e80e2b34b2e19106118dd345",
+    "bench/ssg/output.mjs": "5868ea08c6c0c0dafd0aa4c09f8fb05b51ed1dc4c75a6c9a4abced155454d03c",
+    "bench/ssg/report.mjs": "03972b5406415dca6293744f7ac5358d2544f3bc7298f0d751646daf406897fc",
+    "bench/astro/ssg-site/astro.config.mjs": "6237cbc64b1cb1391afe4c76799d685ca715afc7cb4e0014218a560b59baf89c",
+    "bench/astro/ssg-site/src/pages/[page].astro": "a6c409aaba75391325f56f6b40895f06f1d24ff38c7ff4f95ab2898181ee309f",
+    "bench/astro/ssg-site/src/components/Article.md": "649b7b8faef7ad19c096737723d41c71d11853de957ad6210b9c3737f07d8820",
+    "bench/astro/package-lock.json": "d2f7eb50d4fc5a2ff9f003e7b82373c14c5d69fb8790593c3b358df5d346c666",
+    "bench/competitors/package-lock.json": "30b1cef3629ae628c0ccccda53d0ed000d1a7b2bc1bcd9f74e361c3cd53a139e",
+    "dist/native.mjs": "d8f4413380c6c21dd21704e2b7ba87102092c6fefba1ada86467f2d7410790eb",
+    "dist/escape-core.mjs": "36c56b6330c3057ed15414fb27c6e2c5aa9f2b97241109b02c841d93663e80e4",
+    "dist/wasm.mjs": "bd57077599a731ffabacfdb71d7b9e45d825f049d0572089a2cdfc689a8c9a51",
+    "dist/escape_html.wasm": "92c5cd1a223149418c78bf87f923c4e4a07e6f06688210449f534aac97541047",
+    "dist/native/escape_html.win32-x64-msvc.node": "75ee7b811f1618595bc39b94f4f462740e72325130d19092291ab40e717f5e33"
+  },
+  "smoke": false,
+  "environment": {
+    "node": "v22.23.4",
+    "v8": "12.4.254.21-node.57",
+    "platform": "win32",
+    "arch": "x64",
+    "osRelease": "10.0.20348",
+    "cpu": "AMD EPYC 7763 64-Core Processor                ",
+    "logicalCpus": 4,
+    "totalMemory": 17174360064,
+    "libc": null,
+    "astro": "7.4.8",
+    "competitors": {
+      "escape-html": "1.0.3",
+      "fast-escape-html": "1.1.0",
+      "html-escaper": "3.0.3"
+    }
+  },
+  "protocol": {
+    "variants": [
+      "native",
+      "wasm",
+      "escape-html",
+      "fast-escape-html",
+      "html-escaper"
+    ],
+    "scenarios": [
+      "articles",
+      "catalog",
+      "props"
+    ],
+    "workers": [
+      0,
+      2
+    ],
+    "rounds": 5,
+    "pageCounts": {
+      "articles": 1000,
+      "catalog": 250,
+      "props": 64
+    },
+    "freshNode": true,
+    "cleanAstroCache": true,
+    "compileCache": false,
+    "filesystemCache": "uncontrolled",
+    "installIncluded": false,
+    "profilesExcludedFromTiming": true
+  },
+  "profiles": [
+    {
+      "id": "articles-w0-profile-native",
+      "variant": "native",
+      "scenario": "articles",
+      "workerCount": 0,
+      "round": 0,
+      "pages": 1000,
+      "output": {
+        "sha256": "3dadc8b33be340a3e95afbebb69e956573e6a6df9499bad952935d1817978c3c",
+        "files": 1000,
+        "htmlFiles": 1000,
+        "bytes": 10632245
+      },
+      "maxRssMiB": 244.0078125,
+      "userCpuMs": 3734,
+      "systemCpuMs": 1140,
+      "adapters": [
+        {
+          "variant": "native",
+          "pid": 1756,
+          "threadId": 0,
+          "loadMs": 2.609899999999925,
+          "profile": {
+            "calls": 6000,
+            "units": 89462,
+            "unchanged": 4000,
+            "targets": 10000,
+            "maxLength": 30,
+            "lengths": [
+              {
+                "label": "0-16",
+                "calls": 4000,
+                "units": 29682,
+                "unchanged": 4000,
+                "targets": 0
+              },
+              {
+                "label": "17-64",
+                "calls": 2000,
+                "units": 59780,
+                "unchanged": 0,
+                "targets": 10000
+              },
+              {
+                "label": "65-256",
+                "calls": 0,
+                "units": 0,
+                "unchanged": 0,
+                "targets": 0
+              },
+              {
+                "label": "257-4096",
+                "calls": 0,
+                "units": 0,
+                "unchanged": 0,
+                "targets": 0
+              },
+              {
+                "label": "4097-65536",
+                "calls": 0,
+                "units": 0,
+                "unchanged": 0,
+                "targets": 0
+              },
+              {
+                "label": "65537+",
+                "calls": 0,
+                "units": 0,
+                "unchanged": 0,
+                "targets": 0
+              }
+            ]
+          }
+        }
+      ],
+      "processes": [
+        {
+          "pid": 1756,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 4114.7667,
+          "maxRssKiB": 249864,
+          "userCpuMs": 3734,
+          "systemCpuMs": 1140,
+          "gcCount": 39,
+          "gcMs": 77.74849999998696
+        }
+      ],
+      "input": {
+        "calls": 6000,
+        "units": 89462,
+        "unchanged": 4000,
+        "targets": 10000,
+        "maxLength": 30,
+        "lengths": [
+          {
+            "label": "0-16",
+            "calls": 4000,
+            "units": 29682,
+            "unchanged": 4000,
+            "targets": 0
+          },
+          {
+            "label": "17-64",
+            "calls": 2000,
+            "units": 59780,
+            "unchanged": 0,
+            "targets": 10000
+          },
+          {
+            "label": "65-256",
+            "calls": 0,
+            "units": 0,
+            "unchanged": 0,
+            "targets": 0
+          },
+          {
+            "label": "257-4096",
+            "calls": 0,
+            "units": 0,
+            "unchanged": 0,
+            "targets": 0
+          },
+          {
+            "label": "4097-65536",
+            "calls": 0,
+            "units": 0,
+            "unchanged": 0,
+            "targets": 0
+          },
+          {
+            "label": "65537+",
+            "calls": 0,
+            "units": 0,
+            "unchanged": 0,
+            "targets": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "articles-w2-profile-native",
+      "variant": "native",
+      "scenario": "articles",
+      "workerCount": 2,
+      "round": 0,
+      "pages": 1000,
+      "output": {
+        "sha256": "3dadc8b33be340a3e95afbebb69e956573e6a6df9499bad952935d1817978c3c",
+        "files": 1000,
+        "htmlFiles": 1000,
+        "bytes": 10632245
+      },
+      "maxRssMiB": 347.4453125,
+      "userCpuMs": 5218,
+      "systemCpuMs": 1609,
+      "adapters": [
+        {
+          "variant": "native",
+          "pid": 1764,
+          "threadId": 1,
+          "loadMs": 4.653000000000247,
+          "profile": {
+            "calls": 3000,
+            "units": 44731,
+            "unchanged": 2000,
+            "targets": 5000,
+            "maxLength": 30,
+            "lengths": [
+              {
+                "label": "0-16",
+                "calls": 2000,
+                "units": 14841,
+                "unchanged": 2000,
+                "targets": 0
+              },
+              {
+                "label": "17-64",
+                "calls": 1000,
+                "units": 29890,
+                "unchanged": 0,
+                "targets": 5000
+              },
+              {
+                "label": "65-256",
+                "calls": 0,
+                "units": 0,
+                "unchanged": 0,
+                "targets": 0
+              },
+              {
+                "label": "257-4096",
+                "calls": 0,
+                "units": 0,
+                "unchanged": 0,
+                "targets": 0
+              },
+              {
+                "label": "4097-65536",
+                "calls": 0,
+                "units": 0,
+                "unchanged": 0,
+                "targets": 0
+              },
+              {
+                "label": "65537+",
+                "calls": 0,
+                "units": 0,
+                "unchanged": 0,
+                "targets": 0
+              }
+            ]
+          }
+        },
+        {
+          "variant": "native",
+          "pid": 1764,
+          "threadId": 2,
+          "loadMs": 4.5538000000001375,
+          "profile": {
+            "calls": 3000,
+            "units": 44731,
+            "unchanged": 2000,
+            "targets": 5000,
+            "maxLength": 30,
+            "lengths": [
+              {
+                "label": "0-16",
+                "calls": 2000,
+                "units": 14841,
+                "unchanged": 2000,
+                "targets": 0
+              },
+              {
+                "label": "17-64",
+                "calls": 1000,
+                "units": 29890,
+                "unchanged": 0,
+                "targets": 5000
+              },
+              {
+                "label": "65-256",
+                "calls": 0,
+                "units": 0,
+                "unchanged": 0,
+                "targets": 0
+              },
+              {
+                "label": "257-4096",
+                "calls": 0,
+                "units": 0,
+                "unchanged": 0,
+                "targets": 0
+              },
+              {
+                "label": "4097-65536",
+                "calls": 0,
+                "units": 0,
+                "unchanged": 0,
+                "targets": 0
+              },
+              {
+                "label": "65537+",
+                "calls": 0,
+                "units": 0,
+                "unchanged": 0,
+                "targets": 0
+              }
+            ]
+          }
+        }
+      ],
+      "processes": [
+        {
+          "pid": 1764,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 3729.7341,
+          "maxRssKiB": 355784,
+          "userCpuMs": 5218,
+          "systemCpuMs": 1609,
+          "gcCount": 31,
+          "gcMs": 63.59419999999227
+        },
+        {
+          "pid": 1764,
+          "threadId": 1,
+          "isMainThread": false,
+          "elapsedMs": 1334.5052999999998,
+          "maxRssKiB": 354356,
+          "userCpuMs": 4921,
+          "systemCpuMs": 1515,
+          "gcCount": 16,
+          "gcMs": 20.67779999988852
+        },
+        {
+          "pid": 1764,
+          "threadId": 2,
+          "isMainThread": false,
+          "elapsedMs": 1405.8791999999999,
+          "maxRssKiB": 355784,
+          "userCpuMs": 5046,
+          "systemCpuMs": 1562,
+          "gcCount": 16,
+          "gcMs": 21.486900000018068
+        }
+      ],
+      "input": {
+        "calls": 6000,
+        "units": 89462,
+        "unchanged": 4000,
+        "targets": 10000,
+        "maxLength": 30,
+        "lengths": [
+          {
+            "label": "0-16",
+            "calls": 4000,
+            "units": 29682,
+            "unchanged": 4000,
+            "targets": 0
+          },
+          {
+            "label": "17-64",
+            "calls": 2000,
+            "units": 59780,
+            "unchanged": 0,
+            "targets": 10000
+          },
+          {
+            "label": "65-256",
+            "calls": 0,
+            "units": 0,
+            "unchanged": 0,
+            "targets": 0
+          },
+          {
+            "label": "257-4096",
+            "calls": 0,
+            "units": 0,
+            "unchanged": 0,
+            "targets": 0
+          },
+          {
+            "label": "4097-65536",
+            "calls": 0,
+            "units": 0,
+            "unchanged": 0,
+            "targets": 0
+          },
+          {
+            "label": "65537+",
+            "calls": 0,
+            "units": 0,
+            "unchanged": 0,
+            "targets": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "catalog-w0-profile-native",
+      "variant": "native",
+      "scenario": "catalog",
+      "workerCount": 0,
+      "round": 0,
+      "pages": 250,
+      "output": {
+        "sha256": "1bbcebfd5df63482c727d5fda725d53707efd329e10304da2afe8041b7aca8b0",
+        "files": 250,
+        "htmlFiles": 250,
+        "bytes": 6924222
+      },
+      "maxRssMiB": 233.66015625,
+      "userCpuMs": 2875,
+      "systemCpuMs": 812,
+      "adapters": [
+        {
+          "variant": "native",
+          "pid": 5888,
+          "threadId": 0,
+          "loadMs": 2.39870000000019,
+          "profile": {
+            "calls": 33250,
+            "units": 1215030,
+            "unchanged": 750,
+            "targets": 114500,
+            "maxLength": 49,
+            "lengths": [
+              {
+                "label": "0-16",
+                "calls": 750,
+                "units": 5250,
+                "unchanged": 750,
+                "targets": 0
+              },
+              {
+                "label": "17-64",
+                "calls": 32500,
+                "units": 1209780,
+                "unchanged": 0,
+                "targets": 114500
+              },
+              {
+                "label": "65-256",
+                "calls": 0,
+                "units": 0,
+                "unchanged": 0,
+                "targets": 0
+              },
+              {
+                "label": "257-4096",
+                "calls": 0,
+                "units": 0,
+                "unchanged": 0,
+                "targets": 0
+              },
+              {
+                "label": "4097-65536",
+                "calls": 0,
+                "units": 0,
+                "unchanged": 0,
+                "targets": 0
+              },
+              {
+                "label": "65537+",
+                "calls": 0,
+                "units": 0,
+                "unchanged": 0,
+                "targets": 0
+              }
+            ]
+          }
+        }
+      ],
+      "processes": [
+        {
+          "pid": 5888,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2662.1952,
+          "maxRssKiB": 239268,
+          "userCpuMs": 2875,
+          "systemCpuMs": 812,
+          "gcCount": 34,
+          "gcMs": 61.23689999972703
+        }
+      ],
+      "input": {
+        "calls": 33250,
+        "units": 1215030,
+        "unchanged": 750,
+        "targets": 114500,
+        "maxLength": 49,
+        "lengths": [
+          {
+            "label": "0-16",
+            "calls": 750,
+            "units": 5250,
+            "unchanged": 750,
+            "targets": 0
+          },
+          {
+            "label": "17-64",
+            "calls": 32500,
+            "units": 1209780,
+            "unchanged": 0,
+            "targets": 114500
+          },
+          {
+            "label": "65-256",
+            "calls": 0,
+            "units": 0,
+            "unchanged": 0,
+            "targets": 0
+          },
+          {
+            "label": "257-4096",
+            "calls": 0,
+            "units": 0,
+            "unchanged": 0,
+            "targets": 0
+          },
+          {
+            "label": "4097-65536",
+            "calls": 0,
+            "units": 0,
+            "unchanged": 0,
+            "targets": 0
+          },
+          {
+            "label": "65537+",
+            "calls": 0,
+            "units": 0,
+            "unchanged": 0,
+            "targets": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "catalog-w2-profile-native",
+      "variant": "native",
+      "scenario": "catalog",
+      "workerCount": 2,
+      "round": 0,
+      "pages": 250,
+      "output": {
+        "sha256": "1bbcebfd5df63482c727d5fda725d53707efd329e10304da2afe8041b7aca8b0",
+        "files": 250,
+        "htmlFiles": 250,
+        "bytes": 6924222
+      },
+      "maxRssMiB": 307.55859375,
+      "userCpuMs": 4156,
+      "systemCpuMs": 1062,
+      "adapters": [
+        {
+          "variant": "native",
+          "pid": 2976,
+          "threadId": 1,
+          "loadMs": 4.237099999999828,
+          "profile": {
+            "calls": 16891,
+            "units": 617233,
+            "unchanged": 381,
+            "targets": 58166,
+            "maxLength": 49,
+            "lengths": [
+              {
+                "label": "0-16",
+                "calls": 381,
+                "units": 2667,
+                "unchanged": 381,
+                "targets": 0
+              },
+              {
+                "label": "17-64",
+                "calls": 16510,
+                "units": 614566,
+                "unchanged": 0,
+                "targets": 58166
+              },
+              {
+                "label": "65-256",
+                "calls": 0,
+                "units": 0,
+                "unchanged": 0,
+                "targets": 0
+              },
+              {
+                "label": "257-4096",
+                "calls": 0,
+                "units": 0,
+                "unchanged": 0,
+                "targets": 0
+              },
+              {
+                "label": "4097-65536",
+                "calls": 0,
+                "units": 0,
+                "unchanged": 0,
+                "targets": 0
+              },
+              {
+                "label": "65537+",
+                "calls": 0,
+                "units": 0,
+                "unchanged": 0,
+                "targets": 0
+              }
+            ]
+          }
+        },
+        {
+          "variant": "native",
+          "pid": 2976,
+          "threadId": 2,
+          "loadMs": 3.9537999999997737,
+          "profile": {
+            "calls": 16359,
+            "units": 597797,
+            "unchanged": 369,
+            "targets": 56334,
+            "maxLength": 49,
+            "lengths": [
+              {
+                "label": "0-16",
+                "calls": 369,
+                "units": 2583,
+                "unchanged": 369,
+                "targets": 0
+              },
+              {
+                "label": "17-64",
+                "calls": 15990,
+                "units": 595214,
+                "unchanged": 0,
+                "targets": 56334
+              },
+              {
+                "label": "65-256",
+                "calls": 0,
+                "units": 0,
+                "unchanged": 0,
+                "targets": 0
+              },
+              {
+                "label": "257-4096",
+                "calls": 0,
+                "units": 0,
+                "unchanged": 0,
+                "targets": 0
+              },
+              {
+                "label": "4097-65536",
+                "calls": 0,
+                "units": 0,
+                "unchanged": 0,
+                "targets": 0
+              },
+              {
+                "label": "65537+",
+                "calls": 0,
+                "units": 0,
+                "unchanged": 0,
+                "targets": 0
+              }
+            ]
+          }
+        }
+      ],
+      "processes": [
+        {
+          "pid": 2976,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2962.4907000000003,
+          "maxRssKiB": 314940,
+          "userCpuMs": 4156,
+          "systemCpuMs": 1062,
+          "gcCount": 28,
+          "gcMs": 62.357699999934994
+        },
+        {
+          "pid": 2976,
+          "threadId": 1,
+          "isMainThread": false,
+          "elapsedMs": 703.1286,
+          "maxRssKiB": 314940,
+          "userCpuMs": 4031,
+          "systemCpuMs": 1046,
+          "gcCount": 14,
+          "gcMs": 15.441400000243448
+        },
+        {
+          "pid": 2976,
+          "threadId": 2,
+          "isMainThread": false,
+          "elapsedMs": 695.8084000000003,
+          "maxRssKiB": 314940,
+          "userCpuMs": 4031,
+          "systemCpuMs": 1046,
+          "gcCount": 14,
+          "gcMs": 15.921700000413693
+        }
+      ],
+      "input": {
+        "calls": 33250,
+        "units": 1215030,
+        "unchanged": 750,
+        "targets": 114500,
+        "maxLength": 49,
+        "lengths": [
+          {
+            "label": "0-16",
+            "calls": 750,
+            "units": 5250,
+            "unchanged": 750,
+            "targets": 0
+          },
+          {
+            "label": "17-64",
+            "calls": 32500,
+            "units": 1209780,
+            "unchanged": 0,
+            "targets": 114500
+          },
+          {
+            "label": "65-256",
+            "calls": 0,
+            "units": 0,
+            "unchanged": 0,
+            "targets": 0
+          },
+          {
+            "label": "257-4096",
+            "calls": 0,
+            "units": 0,
+            "unchanged": 0,
+            "targets": 0
+          },
+          {
+            "label": "4097-65536",
+            "calls": 0,
+            "units": 0,
+            "unchanged": 0,
+            "targets": 0
+          },
+          {
+            "label": "65537+",
+            "calls": 0,
+            "units": 0,
+            "unchanged": 0,
+            "targets": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "props-w0-profile-native",
+      "variant": "native",
+      "scenario": "props",
+      "workerCount": 0,
+      "round": 0,
+      "pages": 64,
+      "output": {
+        "sha256": "17e02dfef2a0622113f67af4af7706478571a605a041ea14baf17ab09f347ccc",
+        "files": 64,
+        "htmlFiles": 64,
+        "bytes": 34604557
+      },
+      "maxRssMiB": 270.70703125,
+      "userCpuMs": 3078,
+      "systemCpuMs": 875,
+      "adapters": [
+        {
+          "variant": "native",
+          "pid": 4300,
+          "threadId": 0,
+          "loadMs": 2.453599999999824,
+          "profile": {
+            "calls": 384,
+            "units": 10387462,
+            "unchanged": 192,
+            "targets": 1442432,
+            "maxLength": 162559,
+            "lengths": [
+              {
+                "label": "0-16",
+                "calls": 192,
+                "units": 1344,
+                "unchanged": 192,
+                "targets": 0
+              },
+              {
+                "label": "17-64",
+                "calls": 128,
+                "units": 3692,
+                "unchanged": 0,
+                "targets": 640
+              },
+              {
+                "label": "65-256",
+                "calls": 0,
+                "units": 0,
+                "unchanged": 0,
+                "targets": 0
+              },
+              {
+                "label": "257-4096",
+                "calls": 0,
+                "units": 0,
+                "unchanged": 0,
+                "targets": 0
+              },
+              {
+                "label": "4097-65536",
+                "calls": 0,
+                "units": 0,
+                "unchanged": 0,
+                "targets": 0
+              },
+              {
+                "label": "65537+",
+                "calls": 64,
+                "units": 10382426,
+                "unchanged": 0,
+                "targets": 1441792
+              }
+            ]
+          }
+        }
+      ],
+      "processes": [
+        {
+          "pid": 4300,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2730.4192,
+          "maxRssKiB": 277204,
+          "userCpuMs": 3078,
+          "systemCpuMs": 875,
+          "gcCount": 37,
+          "gcMs": 68.11670000012964
+        }
+      ],
+      "input": {
+        "calls": 384,
+        "units": 10387462,
+        "unchanged": 192,
+        "targets": 1442432,
+        "maxLength": 162559,
+        "lengths": [
+          {
+            "label": "0-16",
+            "calls": 192,
+            "units": 1344,
+            "unchanged": 192,
+            "targets": 0
+          },
+          {
+            "label": "17-64",
+            "calls": 128,
+            "units": 3692,
+            "unchanged": 0,
+            "targets": 640
+          },
+          {
+            "label": "65-256",
+            "calls": 0,
+            "units": 0,
+            "unchanged": 0,
+            "targets": 0
+          },
+          {
+            "label": "257-4096",
+            "calls": 0,
+            "units": 0,
+            "unchanged": 0,
+            "targets": 0
+          },
+          {
+            "label": "4097-65536",
+            "calls": 0,
+            "units": 0,
+            "unchanged": 0,
+            "targets": 0
+          },
+          {
+            "label": "65537+",
+            "calls": 64,
+            "units": 10382426,
+            "unchanged": 0,
+            "targets": 1441792
+          }
+        ]
+      }
+    },
+    {
+      "id": "props-w2-profile-native",
+      "variant": "native",
+      "scenario": "props",
+      "workerCount": 2,
+      "round": 0,
+      "pages": 64,
+      "output": {
+        "sha256": "17e02dfef2a0622113f67af4af7706478571a605a041ea14baf17ab09f347ccc",
+        "files": 64,
+        "htmlFiles": 64,
+        "bytes": 34604557
+      },
+      "maxRssMiB": 404.63671875,
+      "userCpuMs": 4031,
+      "systemCpuMs": 1031,
+      "adapters": [
+        {
+          "variant": "native",
+          "pid": 3772,
+          "threadId": 1,
+          "loadMs": 3.5830000000000837,
+          "profile": {
+            "calls": 192,
+            "units": 5194406,
+            "unchanged": 96,
+            "targets": 721216,
+            "maxLength": 162559,
+            "lengths": [
+              {
+                "label": "0-16",
+                "calls": 96,
+                "units": 672,
+                "unchanged": 96,
+                "targets": 0
+              },
+              {
+                "label": "17-64",
+                "calls": 64,
+                "units": 1846,
+                "unchanged": 0,
+                "targets": 320
+              },
+              {
+                "label": "65-256",
+                "calls": 0,
+                "units": 0,
+                "unchanged": 0,
+                "targets": 0
+              },
+              {
+                "label": "257-4096",
+                "calls": 0,
+                "units": 0,
+                "unchanged": 0,
+                "targets": 0
+              },
+              {
+                "label": "4097-65536",
+                "calls": 0,
+                "units": 0,
+                "unchanged": 0,
+                "targets": 0
+              },
+              {
+                "label": "65537+",
+                "calls": 32,
+                "units": 5191888,
+                "unchanged": 0,
+                "targets": 720896
+              }
+            ]
+          }
+        },
+        {
+          "variant": "native",
+          "pid": 3772,
+          "threadId": 2,
+          "loadMs": 4.21140000000014,
+          "profile": {
+            "calls": 192,
+            "units": 5193056,
+            "unchanged": 96,
+            "targets": 721216,
+            "maxLength": 162559,
+            "lengths": [
+              {
+                "label": "0-16",
+                "calls": 96,
+                "units": 672,
+                "unchanged": 96,
+                "targets": 0
+              },
+              {
+                "label": "17-64",
+                "calls": 64,
+                "units": 1846,
+                "unchanged": 0,
+                "targets": 320
+              },
+              {
+                "label": "65-256",
+                "calls": 0,
+                "units": 0,
+                "unchanged": 0,
+                "targets": 0
+              },
+              {
+                "label": "257-4096",
+                "calls": 0,
+                "units": 0,
+                "unchanged": 0,
+                "targets": 0
+              },
+              {
+                "label": "4097-65536",
+                "calls": 0,
+                "units": 0,
+                "unchanged": 0,
+                "targets": 0
+              },
+              {
+                "label": "65537+",
+                "calls": 32,
+                "units": 5190538,
+                "unchanged": 0,
+                "targets": 720896
+              }
+            ]
+          }
+        }
+      ],
+      "processes": [
+        {
+          "pid": 3772,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2979.7394,
+          "maxRssKiB": 414348,
+          "userCpuMs": 4031,
+          "systemCpuMs": 1031,
+          "gcCount": 30,
+          "gcMs": 60.027999999932945
+        },
+        {
+          "pid": 3772,
+          "threadId": 1,
+          "isMainThread": false,
+          "elapsedMs": 715.1552000000001,
+          "maxRssKiB": 414348,
+          "userCpuMs": 3875,
+          "systemCpuMs": 984,
+          "gcCount": 14,
+          "gcMs": 18.254000000073574
+        },
+        {
+          "pid": 3772,
+          "threadId": 2,
+          "isMainThread": false,
+          "elapsedMs": 743.4331000000002,
+          "maxRssKiB": 414348,
+          "userCpuMs": 3921,
+          "systemCpuMs": 1000,
+          "gcCount": 15,
+          "gcMs": 22.437800000072457
+        }
+      ],
+      "input": {
+        "calls": 384,
+        "units": 10387462,
+        "unchanged": 192,
+        "targets": 1442432,
+        "maxLength": 162559,
+        "lengths": [
+          {
+            "label": "0-16",
+            "calls": 192,
+            "units": 1344,
+            "unchanged": 192,
+            "targets": 0
+          },
+          {
+            "label": "17-64",
+            "calls": 128,
+            "units": 3692,
+            "unchanged": 0,
+            "targets": 640
+          },
+          {
+            "label": "65-256",
+            "calls": 0,
+            "units": 0,
+            "unchanged": 0,
+            "targets": 0
+          },
+          {
+            "label": "257-4096",
+            "calls": 0,
+            "units": 0,
+            "unchanged": 0,
+            "targets": 0
+          },
+          {
+            "label": "4097-65536",
+            "calls": 0,
+            "units": 0,
+            "unchanged": 0,
+            "targets": 0
+          },
+          {
+            "label": "65537+",
+            "calls": 64,
+            "units": 10382426,
+            "unchanged": 0,
+            "targets": 1441792
+          }
+        ]
+      }
+    }
+  ],
+  "runs": [
+    {
+      "id": "articles-w0-r0-native",
+      "variant": "native",
+      "scenario": "articles",
+      "workerCount": 0,
+      "round": 0,
+      "pages": 1000,
+      "output": {
+        "sha256": "3dadc8b33be340a3e95afbebb69e956573e6a6df9499bad952935d1817978c3c",
+        "files": 1000,
+        "htmlFiles": 1000,
+        "bytes": 10632245
+      },
+      "wallMs": 3423.1531999999997,
+      "maxRssMiB": 244.59765625,
+      "userCpuMs": 3593,
+      "systemCpuMs": 1000,
+      "adapters": [
+        {
+          "variant": "native",
+          "pid": 2896,
+          "threadId": 0,
+          "loadMs": 2.435599999999795
+        }
+      ],
+      "processes": [
+        {
+          "pid": 2896,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 3354.5296,
+          "maxRssKiB": 250468,
+          "userCpuMs": 3593,
+          "systemCpuMs": 1000
+        }
+      ]
+    },
+    {
+      "id": "articles-w0-r0-wasm",
+      "variant": "wasm",
+      "scenario": "articles",
+      "workerCount": 0,
+      "round": 0,
+      "pages": 1000,
+      "output": {
+        "sha256": "3dadc8b33be340a3e95afbebb69e956573e6a6df9499bad952935d1817978c3c",
+        "files": 1000,
+        "htmlFiles": 1000,
+        "bytes": 10632245
+      },
+      "wallMs": 3437.9215000000004,
+      "maxRssMiB": 244.2421875,
+      "userCpuMs": 3984,
+      "systemCpuMs": 875,
+      "adapters": [
+        {
+          "variant": "wasm",
+          "pid": 2128,
+          "threadId": 0,
+          "loadMs": 1.233900000000176
+        }
+      ],
+      "processes": [
+        {
+          "pid": 2128,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 3371.0932000000003,
+          "maxRssKiB": 250104,
+          "userCpuMs": 3984,
+          "systemCpuMs": 875
+        }
+      ]
+    },
+    {
+      "id": "articles-w0-r0-escape-html",
+      "variant": "escape-html",
+      "scenario": "articles",
+      "workerCount": 0,
+      "round": 0,
+      "pages": 1000,
+      "output": {
+        "sha256": "3dadc8b33be340a3e95afbebb69e956573e6a6df9499bad952935d1817978c3c",
+        "files": 1000,
+        "htmlFiles": 1000,
+        "bytes": 10632245
+      },
+      "wallMs": 3429.3505000000005,
+      "maxRssMiB": 243.84375,
+      "userCpuMs": 3953,
+      "systemCpuMs": 906,
+      "adapters": [
+        {
+          "variant": "escape-html",
+          "pid": 1596,
+          "threadId": 0,
+          "loadMs": 0.8005000000002838
+        }
+      ],
+      "processes": [
+        {
+          "pid": 1596,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 3358.3759,
+          "maxRssKiB": 249696,
+          "userCpuMs": 3953,
+          "systemCpuMs": 906
+        }
+      ]
+    },
+    {
+      "id": "articles-w0-r0-fast-escape-html",
+      "variant": "fast-escape-html",
+      "scenario": "articles",
+      "workerCount": 0,
+      "round": 0,
+      "pages": 1000,
+      "output": {
+        "sha256": "3dadc8b33be340a3e95afbebb69e956573e6a6df9499bad952935d1817978c3c",
+        "files": 1000,
+        "htmlFiles": 1000,
+        "bytes": 10632245
+      },
+      "wallMs": 3655.0734999999986,
+      "maxRssMiB": 245.09375,
+      "userCpuMs": 3750,
+      "systemCpuMs": 1171,
+      "adapters": [
+        {
+          "variant": "fast-escape-html",
+          "pid": 6448,
+          "threadId": 0,
+          "loadMs": 1.3409999999998945
+        }
+      ],
+      "processes": [
+        {
+          "pid": 6448,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 3582.859,
+          "maxRssKiB": 250976,
+          "userCpuMs": 3750,
+          "systemCpuMs": 1171
+        }
+      ]
+    },
+    {
+      "id": "articles-w0-r0-html-escaper",
+      "variant": "html-escaper",
+      "scenario": "articles",
+      "workerCount": 0,
+      "round": 0,
+      "pages": 1000,
+      "output": {
+        "sha256": "3dadc8b33be340a3e95afbebb69e956573e6a6df9499bad952935d1817978c3c",
+        "files": 1000,
+        "htmlFiles": 1000,
+        "bytes": 10632245
+      },
+      "wallMs": 3933.4252000000015,
+      "maxRssMiB": 244.3125,
+      "userCpuMs": 4000,
+      "systemCpuMs": 1078,
+      "adapters": [
+        {
+          "variant": "html-escaper",
+          "pid": 6208,
+          "threadId": 0,
+          "loadMs": 0.9429000000000087
+        }
+      ],
+      "processes": [
+        {
+          "pid": 6208,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 3854.1294,
+          "maxRssKiB": 250176,
+          "userCpuMs": 4000,
+          "systemCpuMs": 1078
+        }
+      ]
+    },
+    {
+      "id": "articles-w0-r1-wasm",
+      "variant": "wasm",
+      "scenario": "articles",
+      "workerCount": 0,
+      "round": 1,
+      "pages": 1000,
+      "output": {
+        "sha256": "3dadc8b33be340a3e95afbebb69e956573e6a6df9499bad952935d1817978c3c",
+        "files": 1000,
+        "htmlFiles": 1000,
+        "bytes": 10632245
+      },
+      "wallMs": 3408.8401999999987,
+      "maxRssMiB": 244.62109375,
+      "userCpuMs": 3968,
+      "systemCpuMs": 906,
+      "adapters": [
+        {
+          "variant": "wasm",
+          "pid": 7044,
+          "threadId": 0,
+          "loadMs": 1.1718999999998232
+        }
+      ],
+      "processes": [
+        {
+          "pid": 7044,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 3339.0514000000003,
+          "maxRssKiB": 250492,
+          "userCpuMs": 3968,
+          "systemCpuMs": 906
+        }
+      ]
+    },
+    {
+      "id": "articles-w0-r1-escape-html",
+      "variant": "escape-html",
+      "scenario": "articles",
+      "workerCount": 0,
+      "round": 1,
+      "pages": 1000,
+      "output": {
+        "sha256": "3dadc8b33be340a3e95afbebb69e956573e6a6df9499bad952935d1817978c3c",
+        "files": 1000,
+        "htmlFiles": 1000,
+        "bytes": 10632245
+      },
+      "wallMs": 3397.317899999998,
+      "maxRssMiB": 244.72265625,
+      "userCpuMs": 3687,
+      "systemCpuMs": 1031,
+      "adapters": [
+        {
+          "variant": "escape-html",
+          "pid": 4036,
+          "threadId": 0,
+          "loadMs": 0.783900000000358
+        }
+      ],
+      "processes": [
+        {
+          "pid": 4036,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 3321.0847000000003,
+          "maxRssKiB": 250596,
+          "userCpuMs": 3687,
+          "systemCpuMs": 1031
+        }
+      ]
+    },
+    {
+      "id": "articles-w0-r1-fast-escape-html",
+      "variant": "fast-escape-html",
+      "scenario": "articles",
+      "workerCount": 0,
+      "round": 1,
+      "pages": 1000,
+      "output": {
+        "sha256": "3dadc8b33be340a3e95afbebb69e956573e6a6df9499bad952935d1817978c3c",
+        "files": 1000,
+        "htmlFiles": 1000,
+        "bytes": 10632245
+      },
+      "wallMs": 3409.331099999996,
+      "maxRssMiB": 245.68359375,
+      "userCpuMs": 3765,
+      "systemCpuMs": 1015,
+      "adapters": [
+        {
+          "variant": "fast-escape-html",
+          "pid": 5400,
+          "threadId": 0,
+          "loadMs": 0.9063000000001011
+        }
+      ],
+      "processes": [
+        {
+          "pid": 5400,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 3336.3066,
+          "maxRssKiB": 251580,
+          "userCpuMs": 3765,
+          "systemCpuMs": 1015
+        }
+      ]
+    },
+    {
+      "id": "articles-w0-r1-html-escaper",
+      "variant": "html-escaper",
+      "scenario": "articles",
+      "workerCount": 0,
+      "round": 1,
+      "pages": 1000,
+      "output": {
+        "sha256": "3dadc8b33be340a3e95afbebb69e956573e6a6df9499bad952935d1817978c3c",
+        "files": 1000,
+        "htmlFiles": 1000,
+        "bytes": 10632245
+      },
+      "wallMs": 3391.493300000002,
+      "maxRssMiB": 244.66015625,
+      "userCpuMs": 3453,
+      "systemCpuMs": 1125,
+      "adapters": [
+        {
+          "variant": "html-escaper",
+          "pid": 3040,
+          "threadId": 0,
+          "loadMs": 0.8265999999998712
+        }
+      ],
+      "processes": [
+        {
+          "pid": 3040,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 3320.5864,
+          "maxRssKiB": 250532,
+          "userCpuMs": 3453,
+          "systemCpuMs": 1125
+        }
+      ]
+    },
+    {
+      "id": "articles-w0-r1-native",
+      "variant": "native",
+      "scenario": "articles",
+      "workerCount": 0,
+      "round": 1,
+      "pages": 1000,
+      "output": {
+        "sha256": "3dadc8b33be340a3e95afbebb69e956573e6a6df9499bad952935d1817978c3c",
+        "files": 1000,
+        "htmlFiles": 1000,
+        "bytes": 10632245
+      },
+      "wallMs": 3395.1010000000024,
+      "maxRssMiB": 244.9140625,
+      "userCpuMs": 3593,
+      "systemCpuMs": 1093,
+      "adapters": [
+        {
+          "variant": "native",
+          "pid": 1260,
+          "threadId": 0,
+          "loadMs": 2.503099999999904
+        }
+      ],
+      "processes": [
+        {
+          "pid": 1260,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 3325.5803,
+          "maxRssKiB": 250792,
+          "userCpuMs": 3593,
+          "systemCpuMs": 1093
+        }
+      ]
+    },
+    {
+      "id": "articles-w0-r2-escape-html",
+      "variant": "escape-html",
+      "scenario": "articles",
+      "workerCount": 0,
+      "round": 2,
+      "pages": 1000,
+      "output": {
+        "sha256": "3dadc8b33be340a3e95afbebb69e956573e6a6df9499bad952935d1817978c3c",
+        "files": 1000,
+        "htmlFiles": 1000,
+        "bytes": 10632245
+      },
+      "wallMs": 3417.3215000000055,
+      "maxRssMiB": 243.9609375,
+      "userCpuMs": 3671,
+      "systemCpuMs": 1109,
+      "adapters": [
+        {
+          "variant": "escape-html",
+          "pid": 4236,
+          "threadId": 0,
+          "loadMs": 0.7739999999998872
+        }
+      ],
+      "processes": [
+        {
+          "pid": 4236,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 3347.6825,
+          "maxRssKiB": 249816,
+          "userCpuMs": 3671,
+          "systemCpuMs": 1109
+        }
+      ]
+    },
+    {
+      "id": "articles-w0-r2-fast-escape-html",
+      "variant": "fast-escape-html",
+      "scenario": "articles",
+      "workerCount": 0,
+      "round": 2,
+      "pages": 1000,
+      "output": {
+        "sha256": "3dadc8b33be340a3e95afbebb69e956573e6a6df9499bad952935d1817978c3c",
+        "files": 1000,
+        "htmlFiles": 1000,
+        "bytes": 10632245
+      },
+      "wallMs": 3421.246500000001,
+      "maxRssMiB": 244.53515625,
+      "userCpuMs": 3859,
+      "systemCpuMs": 1109,
+      "adapters": [
+        {
+          "variant": "fast-escape-html",
+          "pid": 3676,
+          "threadId": 0,
+          "loadMs": 0.9528000000000247
+        }
+      ],
+      "processes": [
+        {
+          "pid": 3676,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 3351.1477,
+          "maxRssKiB": 250404,
+          "userCpuMs": 3859,
+          "systemCpuMs": 1109
+        }
+      ]
+    },
+    {
+      "id": "articles-w0-r2-html-escaper",
+      "variant": "html-escaper",
+      "scenario": "articles",
+      "workerCount": 0,
+      "round": 2,
+      "pages": 1000,
+      "output": {
+        "sha256": "3dadc8b33be340a3e95afbebb69e956573e6a6df9499bad952935d1817978c3c",
+        "files": 1000,
+        "htmlFiles": 1000,
+        "bytes": 10632245
+      },
+      "wallMs": 3409.9784999999974,
+      "maxRssMiB": 243.49609375,
+      "userCpuMs": 3984,
+      "systemCpuMs": 812,
+      "adapters": [
+        {
+          "variant": "html-escaper",
+          "pid": 5360,
+          "threadId": 0,
+          "loadMs": 0.9245999999998276
+        }
+      ],
+      "processes": [
+        {
+          "pid": 5360,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 3341.1739000000002,
+          "maxRssKiB": 249340,
+          "userCpuMs": 3984,
+          "systemCpuMs": 812
+        }
+      ]
+    },
+    {
+      "id": "articles-w0-r2-native",
+      "variant": "native",
+      "scenario": "articles",
+      "workerCount": 0,
+      "round": 2,
+      "pages": 1000,
+      "output": {
+        "sha256": "3dadc8b33be340a3e95afbebb69e956573e6a6df9499bad952935d1817978c3c",
+        "files": 1000,
+        "htmlFiles": 1000,
+        "bytes": 10632245
+      },
+      "wallMs": 3404.055499999995,
+      "maxRssMiB": 244.7890625,
+      "userCpuMs": 3453,
+      "systemCpuMs": 1015,
+      "adapters": [
+        {
+          "variant": "native",
+          "pid": 1196,
+          "threadId": 0,
+          "loadMs": 2.4403000000002066
+        }
+      ],
+      "processes": [
+        {
+          "pid": 1196,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 3335.0187,
+          "maxRssKiB": 250664,
+          "userCpuMs": 3453,
+          "systemCpuMs": 1015
+        }
+      ]
+    },
+    {
+      "id": "articles-w0-r2-wasm",
+      "variant": "wasm",
+      "scenario": "articles",
+      "workerCount": 0,
+      "round": 2,
+      "pages": 1000,
+      "output": {
+        "sha256": "3dadc8b33be340a3e95afbebb69e956573e6a6df9499bad952935d1817978c3c",
+        "files": 1000,
+        "htmlFiles": 1000,
+        "bytes": 10632245
+      },
+      "wallMs": 3390.436099999999,
+      "maxRssMiB": 245.265625,
+      "userCpuMs": 3750,
+      "systemCpuMs": 1015,
+      "adapters": [
+        {
+          "variant": "wasm",
+          "pid": 7636,
+          "threadId": 0,
+          "loadMs": 1.2498000000000502
+        }
+      ],
+      "processes": [
+        {
+          "pid": 7636,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 3323.0899,
+          "maxRssKiB": 251152,
+          "userCpuMs": 3750,
+          "systemCpuMs": 1015
+        }
+      ]
+    },
+    {
+      "id": "articles-w0-r3-fast-escape-html",
+      "variant": "fast-escape-html",
+      "scenario": "articles",
+      "workerCount": 0,
+      "round": 3,
+      "pages": 1000,
+      "output": {
+        "sha256": "3dadc8b33be340a3e95afbebb69e956573e6a6df9499bad952935d1817978c3c",
+        "files": 1000,
+        "htmlFiles": 1000,
+        "bytes": 10632245
+      },
+      "wallMs": 3379.372099999993,
+      "maxRssMiB": 243.9296875,
+      "userCpuMs": 3703,
+      "systemCpuMs": 953,
+      "adapters": [
+        {
+          "variant": "fast-escape-html",
+          "pid": 7664,
+          "threadId": 0,
+          "loadMs": 0.9766999999997097
+        }
+      ],
+      "processes": [
+        {
+          "pid": 7664,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 3307.7979,
+          "maxRssKiB": 249784,
+          "userCpuMs": 3703,
+          "systemCpuMs": 953
+        }
+      ]
+    },
+    {
+      "id": "articles-w0-r3-html-escaper",
+      "variant": "html-escaper",
+      "scenario": "articles",
+      "workerCount": 0,
+      "round": 3,
+      "pages": 1000,
+      "output": {
+        "sha256": "3dadc8b33be340a3e95afbebb69e956573e6a6df9499bad952935d1817978c3c",
+        "files": 1000,
+        "htmlFiles": 1000,
+        "bytes": 10632245
+      },
+      "wallMs": 3403.4208999999973,
+      "maxRssMiB": 244.59375,
+      "userCpuMs": 3796,
+      "systemCpuMs": 859,
+      "adapters": [
+        {
+          "variant": "html-escaper",
+          "pid": 2584,
+          "threadId": 0,
+          "loadMs": 0.8131000000003041
+        }
+      ],
+      "processes": [
+        {
+          "pid": 2584,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 3334.4259,
+          "maxRssKiB": 250464,
+          "userCpuMs": 3796,
+          "systemCpuMs": 859
+        }
+      ]
+    },
+    {
+      "id": "articles-w0-r3-native",
+      "variant": "native",
+      "scenario": "articles",
+      "workerCount": 0,
+      "round": 3,
+      "pages": 1000,
+      "output": {
+        "sha256": "3dadc8b33be340a3e95afbebb69e956573e6a6df9499bad952935d1817978c3c",
+        "files": 1000,
+        "htmlFiles": 1000,
+        "bytes": 10632245
+      },
+      "wallMs": 3364.6812999999966,
+      "maxRssMiB": 244.85546875,
+      "userCpuMs": 3859,
+      "systemCpuMs": 843,
+      "adapters": [
+        {
+          "variant": "native",
+          "pid": 5480,
+          "threadId": 0,
+          "loadMs": 2.5322000000001026
+        }
+      ],
+      "processes": [
+        {
+          "pid": 5480,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 3292.0058,
+          "maxRssKiB": 250732,
+          "userCpuMs": 3859,
+          "systemCpuMs": 843
+        }
+      ]
+    },
+    {
+      "id": "articles-w0-r3-wasm",
+      "variant": "wasm",
+      "scenario": "articles",
+      "workerCount": 0,
+      "round": 3,
+      "pages": 1000,
+      "output": {
+        "sha256": "3dadc8b33be340a3e95afbebb69e956573e6a6df9499bad952935d1817978c3c",
+        "files": 1000,
+        "htmlFiles": 1000,
+        "bytes": 10632245
+      },
+      "wallMs": 3484.207799999989,
+      "maxRssMiB": 244.62109375,
+      "userCpuMs": 3859,
+      "systemCpuMs": 1156,
+      "adapters": [
+        {
+          "variant": "wasm",
+          "pid": 8088,
+          "threadId": 0,
+          "loadMs": 1.2939000000001215
+        }
+      ],
+      "processes": [
+        {
+          "pid": 8088,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 3416.4698,
+          "maxRssKiB": 250492,
+          "userCpuMs": 3859,
+          "systemCpuMs": 1156
+        }
+      ]
+    },
+    {
+      "id": "articles-w0-r3-escape-html",
+      "variant": "escape-html",
+      "scenario": "articles",
+      "workerCount": 0,
+      "round": 3,
+      "pages": 1000,
+      "output": {
+        "sha256": "3dadc8b33be340a3e95afbebb69e956573e6a6df9499bad952935d1817978c3c",
+        "files": 1000,
+        "htmlFiles": 1000,
+        "bytes": 10632245
+      },
+      "wallMs": 3365.332799999989,
+      "maxRssMiB": 245.42578125,
+      "userCpuMs": 3718,
+      "systemCpuMs": 1046,
+      "adapters": [
+        {
+          "variant": "escape-html",
+          "pid": 3204,
+          "threadId": 0,
+          "loadMs": 0.7752000000000407
+        }
+      ],
+      "processes": [
+        {
+          "pid": 3204,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 3296.2931,
+          "maxRssKiB": 251316,
+          "userCpuMs": 3718,
+          "systemCpuMs": 1046
+        }
+      ]
+    },
+    {
+      "id": "articles-w0-r4-html-escaper",
+      "variant": "html-escaper",
+      "scenario": "articles",
+      "workerCount": 0,
+      "round": 4,
+      "pages": 1000,
+      "output": {
+        "sha256": "3dadc8b33be340a3e95afbebb69e956573e6a6df9499bad952935d1817978c3c",
+        "files": 1000,
+        "htmlFiles": 1000,
+        "bytes": 10632245
+      },
+      "wallMs": 3372.060599999997,
+      "maxRssMiB": 244.984375,
+      "userCpuMs": 3750,
+      "systemCpuMs": 953,
+      "adapters": [
+        {
+          "variant": "html-escaper",
+          "pid": 1800,
+          "threadId": 0,
+          "loadMs": 0.8251000000000204
+        }
+      ],
+      "processes": [
+        {
+          "pid": 1800,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 3301.2639,
+          "maxRssKiB": 250864,
+          "userCpuMs": 3750,
+          "systemCpuMs": 953
+        }
+      ]
+    },
+    {
+      "id": "articles-w0-r4-native",
+      "variant": "native",
+      "scenario": "articles",
+      "workerCount": 0,
+      "round": 4,
+      "pages": 1000,
+      "output": {
+        "sha256": "3dadc8b33be340a3e95afbebb69e956573e6a6df9499bad952935d1817978c3c",
+        "files": 1000,
+        "htmlFiles": 1000,
+        "bytes": 10632245
+      },
+      "wallMs": 3408.0690999999933,
+      "maxRssMiB": 244.07421875,
+      "userCpuMs": 3640,
+      "systemCpuMs": 968,
+      "adapters": [
+        {
+          "variant": "native",
+          "pid": 4332,
+          "threadId": 0,
+          "loadMs": 2.391399999999976
+        }
+      ],
+      "processes": [
+        {
+          "pid": 4332,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 3339.9951,
+          "maxRssKiB": 249932,
+          "userCpuMs": 3640,
+          "systemCpuMs": 968
+        }
+      ]
+    },
+    {
+      "id": "articles-w0-r4-wasm",
+      "variant": "wasm",
+      "scenario": "articles",
+      "workerCount": 0,
+      "round": 4,
+      "pages": 1000,
+      "output": {
+        "sha256": "3dadc8b33be340a3e95afbebb69e956573e6a6df9499bad952935d1817978c3c",
+        "files": 1000,
+        "htmlFiles": 1000,
+        "bytes": 10632245
+      },
+      "wallMs": 3412.7698999999993,
+      "maxRssMiB": 245.1015625,
+      "userCpuMs": 3890,
+      "systemCpuMs": 828,
+      "adapters": [
+        {
+          "variant": "wasm",
+          "pid": 6060,
+          "threadId": 0,
+          "loadMs": 1.2253999999998086
+        }
+      ],
+      "processes": [
+        {
+          "pid": 6060,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 3343.29,
+          "maxRssKiB": 250984,
+          "userCpuMs": 3890,
+          "systemCpuMs": 828
+        }
+      ]
+    },
+    {
+      "id": "articles-w0-r4-escape-html",
+      "variant": "escape-html",
+      "scenario": "articles",
+      "workerCount": 0,
+      "round": 4,
+      "pages": 1000,
+      "output": {
+        "sha256": "3dadc8b33be340a3e95afbebb69e956573e6a6df9499bad952935d1817978c3c",
+        "files": 1000,
+        "htmlFiles": 1000,
+        "bytes": 10632245
+      },
+      "wallMs": 3408.9407999999967,
+      "maxRssMiB": 244.39453125,
+      "userCpuMs": 3640,
+      "systemCpuMs": 1140,
+      "adapters": [
+        {
+          "variant": "escape-html",
+          "pid": 6968,
+          "threadId": 0,
+          "loadMs": 0.7529000000004089
+        }
+      ],
+      "processes": [
+        {
+          "pid": 6968,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 3339.6697,
+          "maxRssKiB": 250260,
+          "userCpuMs": 3640,
+          "systemCpuMs": 1140
+        }
+      ]
+    },
+    {
+      "id": "articles-w0-r4-fast-escape-html",
+      "variant": "fast-escape-html",
+      "scenario": "articles",
+      "workerCount": 0,
+      "round": 4,
+      "pages": 1000,
+      "output": {
+        "sha256": "3dadc8b33be340a3e95afbebb69e956573e6a6df9499bad952935d1817978c3c",
+        "files": 1000,
+        "htmlFiles": 1000,
+        "bytes": 10632245
+      },
+      "wallMs": 3404.1627000000008,
+      "maxRssMiB": 244.3125,
+      "userCpuMs": 3671,
+      "systemCpuMs": 1093,
+      "adapters": [
+        {
+          "variant": "fast-escape-html",
+          "pid": 7600,
+          "threadId": 0,
+          "loadMs": 0.9349999999999454
+        }
+      ],
+      "processes": [
+        {
+          "pid": 7600,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 3336.9128,
+          "maxRssKiB": 250176,
+          "userCpuMs": 3671,
+          "systemCpuMs": 1093
+        }
+      ]
+    },
+    {
+      "id": "articles-w2-r0-native",
+      "variant": "native",
+      "scenario": "articles",
+      "workerCount": 2,
+      "round": 0,
+      "pages": 1000,
+      "output": {
+        "sha256": "3dadc8b33be340a3e95afbebb69e956573e6a6df9499bad952935d1817978c3c",
+        "files": 1000,
+        "htmlFiles": 1000,
+        "bytes": 10632245
+      },
+      "wallMs": 3689.419299999994,
+      "maxRssMiB": 349.3515625,
+      "userCpuMs": 4890,
+      "systemCpuMs": 1453,
+      "adapters": [
+        {
+          "variant": "native",
+          "pid": 3040,
+          "threadId": 1,
+          "loadMs": 5.814499999999953
+        },
+        {
+          "variant": "native",
+          "pid": 3040,
+          "threadId": 2,
+          "loadMs": 5.062199999999848
+        }
+      ],
+      "processes": [
+        {
+          "pid": 3040,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 3621.1762000000003,
+          "maxRssKiB": 357736,
+          "userCpuMs": 4890,
+          "systemCpuMs": 1453
+        }
+      ]
+    },
+    {
+      "id": "articles-w2-r0-wasm",
+      "variant": "wasm",
+      "scenario": "articles",
+      "workerCount": 2,
+      "round": 0,
+      "pages": 1000,
+      "output": {
+        "sha256": "3dadc8b33be340a3e95afbebb69e956573e6a6df9499bad952935d1817978c3c",
+        "files": 1000,
+        "htmlFiles": 1000,
+        "bytes": 10632245
+      },
+      "wallMs": 3611.2051999999967,
+      "maxRssMiB": 349.8515625,
+      "userCpuMs": 4609,
+      "systemCpuMs": 1265,
+      "adapters": [
+        {
+          "variant": "wasm",
+          "pid": 6988,
+          "threadId": 1,
+          "loadMs": 5.715500000000247
+        },
+        {
+          "variant": "wasm",
+          "pid": 6988,
+          "threadId": 2,
+          "loadMs": 5.848299999999654
+        }
+      ],
+      "processes": [
+        {
+          "pid": 6988,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 3541.6967999999997,
+          "maxRssKiB": 358248,
+          "userCpuMs": 4609,
+          "systemCpuMs": 1265
+        }
+      ]
+    },
+    {
+      "id": "articles-w2-r0-escape-html",
+      "variant": "escape-html",
+      "scenario": "articles",
+      "workerCount": 2,
+      "round": 0,
+      "pages": 1000,
+      "output": {
+        "sha256": "3dadc8b33be340a3e95afbebb69e956573e6a6df9499bad952935d1817978c3c",
+        "files": 1000,
+        "htmlFiles": 1000,
+        "bytes": 10632245
+      },
+      "wallMs": 3588.559699999998,
+      "maxRssMiB": 348.01953125,
+      "userCpuMs": 4781,
+      "systemCpuMs": 1437,
+      "adapters": [
+        {
+          "variant": "escape-html",
+          "pid": 6848,
+          "threadId": 1,
+          "loadMs": 1.7883999999999105
+        },
+        {
+          "variant": "escape-html",
+          "pid": 6848,
+          "threadId": 2,
+          "loadMs": 1.8186000000000604
+        }
+      ],
+      "processes": [
+        {
+          "pid": 6848,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 3520.3433,
+          "maxRssKiB": 356372,
+          "userCpuMs": 4781,
+          "systemCpuMs": 1437
+        }
+      ]
+    },
+    {
+      "id": "articles-w2-r0-fast-escape-html",
+      "variant": "fast-escape-html",
+      "scenario": "articles",
+      "workerCount": 2,
+      "round": 0,
+      "pages": 1000,
+      "output": {
+        "sha256": "3dadc8b33be340a3e95afbebb69e956573e6a6df9499bad952935d1817978c3c",
+        "files": 1000,
+        "htmlFiles": 1000,
+        "bytes": 10632245
+      },
+      "wallMs": 3601.995200000005,
+      "maxRssMiB": 347.625,
+      "userCpuMs": 4812,
+      "systemCpuMs": 1312,
+      "adapters": [
+        {
+          "variant": "fast-escape-html",
+          "pid": 3960,
+          "threadId": 1,
+          "loadMs": 1.9765999999999622
+        },
+        {
+          "variant": "fast-escape-html",
+          "pid": 3960,
+          "threadId": 2,
+          "loadMs": 1.8830000000002656
+        }
+      ],
+      "processes": [
+        {
+          "pid": 3960,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 3533.6799,
+          "maxRssKiB": 355968,
+          "userCpuMs": 4812,
+          "systemCpuMs": 1312
+        }
+      ]
+    },
+    {
+      "id": "articles-w2-r0-html-escaper",
+      "variant": "html-escaper",
+      "scenario": "articles",
+      "workerCount": 2,
+      "round": 0,
+      "pages": 1000,
+      "output": {
+        "sha256": "3dadc8b33be340a3e95afbebb69e956573e6a6df9499bad952935d1817978c3c",
+        "files": 1000,
+        "htmlFiles": 1000,
+        "bytes": 10632245
+      },
+      "wallMs": 3719.4268999999913,
+      "maxRssMiB": 349.7734375,
+      "userCpuMs": 5078,
+      "systemCpuMs": 1234,
+      "adapters": [
+        {
+          "variant": "html-escaper",
+          "pid": 7440,
+          "threadId": 1,
+          "loadMs": 1.0661000000000058
+        },
+        {
+          "variant": "html-escaper",
+          "pid": 7440,
+          "threadId": 2,
+          "loadMs": 1.2123000000001412
+        }
+      ],
+      "processes": [
+        {
+          "pid": 7440,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 3648.6619,
+          "maxRssKiB": 358168,
+          "userCpuMs": 5078,
+          "systemCpuMs": 1234
+        }
+      ]
+    },
+    {
+      "id": "articles-w2-r1-wasm",
+      "variant": "wasm",
+      "scenario": "articles",
+      "workerCount": 2,
+      "round": 1,
+      "pages": 1000,
+      "output": {
+        "sha256": "3dadc8b33be340a3e95afbebb69e956573e6a6df9499bad952935d1817978c3c",
+        "files": 1000,
+        "htmlFiles": 1000,
+        "bytes": 10632245
+      },
+      "wallMs": 3704.694499999998,
+      "maxRssMiB": 349.73046875,
+      "userCpuMs": 5187,
+      "systemCpuMs": 1187,
+      "adapters": [
+        {
+          "variant": "wasm",
+          "pid": 2852,
+          "threadId": 1,
+          "loadMs": 5.760999999999967
+        },
+        {
+          "variant": "wasm",
+          "pid": 2852,
+          "threadId": 2,
+          "loadMs": 2.5909999999998945
+        }
+      ],
+      "processes": [
+        {
+          "pid": 2852,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 3630.9807,
+          "maxRssKiB": 358124,
+          "userCpuMs": 5187,
+          "systemCpuMs": 1187
+        }
+      ]
+    },
+    {
+      "id": "articles-w2-r1-escape-html",
+      "variant": "escape-html",
+      "scenario": "articles",
+      "workerCount": 2,
+      "round": 1,
+      "pages": 1000,
+      "output": {
+        "sha256": "3dadc8b33be340a3e95afbebb69e956573e6a6df9499bad952935d1817978c3c",
+        "files": 1000,
+        "htmlFiles": 1000,
+        "bytes": 10632245
+      },
+      "wallMs": 3766.7648000000045,
+      "maxRssMiB": 347.7890625,
+      "userCpuMs": 5015,
+      "systemCpuMs": 1562,
+      "adapters": [
+        {
+          "variant": "escape-html",
+          "pid": 7384,
+          "threadId": 1,
+          "loadMs": 1.028899999999794
+        },
+        {
+          "variant": "escape-html",
+          "pid": 7384,
+          "threadId": 2,
+          "loadMs": 1.1763999999998305
+        }
+      ],
+      "processes": [
+        {
+          "pid": 7384,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 3694.9223,
+          "maxRssKiB": 356136,
+          "userCpuMs": 5015,
+          "systemCpuMs": 1562
+        }
+      ]
+    },
+    {
+      "id": "articles-w2-r1-fast-escape-html",
+      "variant": "fast-escape-html",
+      "scenario": "articles",
+      "workerCount": 2,
+      "round": 1,
+      "pages": 1000,
+      "output": {
+        "sha256": "3dadc8b33be340a3e95afbebb69e956573e6a6df9499bad952935d1817978c3c",
+        "files": 1000,
+        "htmlFiles": 1000,
+        "bytes": 10632245
+      },
+      "wallMs": 3652.9435999999987,
+      "maxRssMiB": 348.9140625,
+      "userCpuMs": 4734,
+      "systemCpuMs": 1515,
+      "adapters": [
+        {
+          "variant": "fast-escape-html",
+          "pid": 1936,
+          "threadId": 1,
+          "loadMs": 1.152100000000246
+        },
+        {
+          "variant": "fast-escape-html",
+          "pid": 1936,
+          "threadId": 2,
+          "loadMs": 1.4472000000000662
+        }
+      ],
+      "processes": [
+        {
+          "pid": 1936,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 3576.1051,
+          "maxRssKiB": 357288,
+          "userCpuMs": 4734,
+          "systemCpuMs": 1515
+        }
+      ]
+    },
+    {
+      "id": "articles-w2-r1-html-escaper",
+      "variant": "html-escaper",
+      "scenario": "articles",
+      "workerCount": 2,
+      "round": 1,
+      "pages": 1000,
+      "output": {
+        "sha256": "3dadc8b33be340a3e95afbebb69e956573e6a6df9499bad952935d1817978c3c",
+        "files": 1000,
+        "htmlFiles": 1000,
+        "bytes": 10632245
+      },
+      "wallMs": 3686.5622999999905,
+      "maxRssMiB": 347.47265625,
+      "userCpuMs": 5140,
+      "systemCpuMs": 1421,
+      "adapters": [
+        {
+          "variant": "html-escaper",
+          "pid": 6188,
+          "threadId": 1,
+          "loadMs": 1.6723000000001775
+        },
+        {
+          "variant": "html-escaper",
+          "pid": 6188,
+          "threadId": 2,
+          "loadMs": 1.1044000000001688
+        }
+      ],
+      "processes": [
+        {
+          "pid": 6188,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 3616.2174999999997,
+          "maxRssKiB": 355812,
+          "userCpuMs": 5140,
+          "systemCpuMs": 1421
+        }
+      ]
+    },
+    {
+      "id": "articles-w2-r1-native",
+      "variant": "native",
+      "scenario": "articles",
+      "workerCount": 2,
+      "round": 1,
+      "pages": 1000,
+      "output": {
+        "sha256": "3dadc8b33be340a3e95afbebb69e956573e6a6df9499bad952935d1817978c3c",
+        "files": 1000,
+        "htmlFiles": 1000,
+        "bytes": 10632245
+      },
+      "wallMs": 3675.5536999999895,
+      "maxRssMiB": 348.02734375,
+      "userCpuMs": 5250,
+      "systemCpuMs": 1171,
+      "adapters": [
+        {
+          "variant": "native",
+          "pid": 864,
+          "threadId": 1,
+          "loadMs": 5.055499999999938
+        },
+        {
+          "variant": "native",
+          "pid": 864,
+          "threadId": 2,
+          "loadMs": 4.861399999999776
+        }
+      ],
+      "processes": [
+        {
+          "pid": 864,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 3604.5645000000004,
+          "maxRssKiB": 356380,
+          "userCpuMs": 5250,
+          "systemCpuMs": 1171
+        }
+      ]
+    },
+    {
+      "id": "articles-w2-r2-escape-html",
+      "variant": "escape-html",
+      "scenario": "articles",
+      "workerCount": 2,
+      "round": 2,
+      "pages": 1000,
+      "output": {
+        "sha256": "3dadc8b33be340a3e95afbebb69e956573e6a6df9499bad952935d1817978c3c",
+        "files": 1000,
+        "htmlFiles": 1000,
+        "bytes": 10632245
+      },
+      "wallMs": 3658.8472000000183,
+      "maxRssMiB": 348.375,
+      "userCpuMs": 5234,
+      "systemCpuMs": 1093,
+      "adapters": [
+        {
+          "variant": "escape-html",
+          "pid": 4564,
+          "threadId": 1,
+          "loadMs": 2.1096999999999753
+        },
+        {
+          "variant": "escape-html",
+          "pid": 4564,
+          "threadId": 2,
+          "loadMs": 2.117000000000189
+        }
+      ],
+      "processes": [
+        {
+          "pid": 4564,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 3583.9955999999997,
+          "maxRssKiB": 356736,
+          "userCpuMs": 5234,
+          "systemCpuMs": 1093
+        }
+      ]
+    },
+    {
+      "id": "articles-w2-r2-fast-escape-html",
+      "variant": "fast-escape-html",
+      "scenario": "articles",
+      "workerCount": 2,
+      "round": 2,
+      "pages": 1000,
+      "output": {
+        "sha256": "3dadc8b33be340a3e95afbebb69e956573e6a6df9499bad952935d1817978c3c",
+        "files": 1000,
+        "htmlFiles": 1000,
+        "bytes": 10632245
+      },
+      "wallMs": 3673.592499999999,
+      "maxRssMiB": 349.125,
+      "userCpuMs": 5000,
+      "systemCpuMs": 1328,
+      "adapters": [
+        {
+          "variant": "fast-escape-html",
+          "pid": 7200,
+          "threadId": 1,
+          "loadMs": 1.4504000000001724
+        },
+        {
+          "variant": "fast-escape-html",
+          "pid": 7200,
+          "threadId": 2,
+          "loadMs": 1.495300000000043
+        }
+      ],
+      "processes": [
+        {
+          "pid": 7200,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 3600.6089,
+          "maxRssKiB": 357504,
+          "userCpuMs": 5000,
+          "systemCpuMs": 1328
+        }
+      ]
+    },
+    {
+      "id": "articles-w2-r2-html-escaper",
+      "variant": "html-escaper",
+      "scenario": "articles",
+      "workerCount": 2,
+      "round": 2,
+      "pages": 1000,
+      "output": {
+        "sha256": "3dadc8b33be340a3e95afbebb69e956573e6a6df9499bad952935d1817978c3c",
+        "files": 1000,
+        "htmlFiles": 1000,
+        "bytes": 10632245
+      },
+      "wallMs": 3636.436799999996,
+      "maxRssMiB": 347.84765625,
+      "userCpuMs": 5140,
+      "systemCpuMs": 1250,
+      "adapters": [
+        {
+          "variant": "html-escaper",
+          "pid": 6448,
+          "threadId": 1,
+          "loadMs": 1.608600000000024
+        },
+        {
+          "variant": "html-escaper",
+          "pid": 6448,
+          "threadId": 2,
+          "loadMs": 1.5462999999999738
+        }
+      ],
+      "processes": [
+        {
+          "pid": 6448,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 3568.2992999999997,
+          "maxRssKiB": 356196,
+          "userCpuMs": 5140,
+          "systemCpuMs": 1250
+        }
+      ]
+    },
+    {
+      "id": "articles-w2-r2-native",
+      "variant": "native",
+      "scenario": "articles",
+      "workerCount": 2,
+      "round": 2,
+      "pages": 1000,
+      "output": {
+        "sha256": "3dadc8b33be340a3e95afbebb69e956573e6a6df9499bad952935d1817978c3c",
+        "files": 1000,
+        "htmlFiles": 1000,
+        "bytes": 10632245
+      },
+      "wallMs": 3650.87049999999,
+      "maxRssMiB": 348.38671875,
+      "userCpuMs": 4750,
+      "systemCpuMs": 1453,
+      "adapters": [
+        {
+          "variant": "native",
+          "pid": 2428,
+          "threadId": 1,
+          "loadMs": 3.8901999999998225
+        },
+        {
+          "variant": "native",
+          "pid": 2428,
+          "threadId": 2,
+          "loadMs": 4.144999999999982
+        }
+      ],
+      "processes": [
+        {
+          "pid": 2428,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 3579.4672,
+          "maxRssKiB": 356748,
+          "userCpuMs": 4750,
+          "systemCpuMs": 1453
+        }
+      ]
+    },
+    {
+      "id": "articles-w2-r2-wasm",
+      "variant": "wasm",
+      "scenario": "articles",
+      "workerCount": 2,
+      "round": 2,
+      "pages": 1000,
+      "output": {
+        "sha256": "3dadc8b33be340a3e95afbebb69e956573e6a6df9499bad952935d1817978c3c",
+        "files": 1000,
+        "htmlFiles": 1000,
+        "bytes": 10632245
+      },
+      "wallMs": 3620.0892999999924,
+      "maxRssMiB": 349.67578125,
+      "userCpuMs": 4750,
+      "systemCpuMs": 1421,
+      "adapters": [
+        {
+          "variant": "wasm",
+          "pid": 4444,
+          "threadId": 1,
+          "loadMs": 9.588199999999688
+        },
+        {
+          "variant": "wasm",
+          "pid": 4444,
+          "threadId": 2,
+          "loadMs": 9.516099999999824
+        }
+      ],
+      "processes": [
+        {
+          "pid": 4444,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 3546.9138,
+          "maxRssKiB": 358068,
+          "userCpuMs": 4750,
+          "systemCpuMs": 1421
+        }
+      ]
+    },
+    {
+      "id": "articles-w2-r3-fast-escape-html",
+      "variant": "fast-escape-html",
+      "scenario": "articles",
+      "workerCount": 2,
+      "round": 3,
+      "pages": 1000,
+      "output": {
+        "sha256": "3dadc8b33be340a3e95afbebb69e956573e6a6df9499bad952935d1817978c3c",
+        "files": 1000,
+        "htmlFiles": 1000,
+        "bytes": 10632245
+      },
+      "wallMs": 3680.286400000012,
+      "maxRssMiB": 348.22265625,
+      "userCpuMs": 5265,
+      "systemCpuMs": 1328,
+      "adapters": [
+        {
+          "variant": "fast-escape-html",
+          "pid": 7992,
+          "threadId": 1,
+          "loadMs": 1.2429000000001906
+        },
+        {
+          "variant": "fast-escape-html",
+          "pid": 7992,
+          "threadId": 2,
+          "loadMs": 1.1503999999999905
+        }
+      ],
+      "processes": [
+        {
+          "pid": 7992,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 3610.567,
+          "maxRssKiB": 356580,
+          "userCpuMs": 5265,
+          "systemCpuMs": 1328
+        }
+      ]
+    },
+    {
+      "id": "articles-w2-r3-html-escaper",
+      "variant": "html-escaper",
+      "scenario": "articles",
+      "workerCount": 2,
+      "round": 3,
+      "pages": 1000,
+      "output": {
+        "sha256": "3dadc8b33be340a3e95afbebb69e956573e6a6df9499bad952935d1817978c3c",
+        "files": 1000,
+        "htmlFiles": 1000,
+        "bytes": 10632245
+      },
+      "wallMs": 3579.2891999999993,
+      "maxRssMiB": 348.0078125,
+      "userCpuMs": 4734,
+      "systemCpuMs": 1343,
+      "adapters": [
+        {
+          "variant": "html-escaper",
+          "pid": 6968,
+          "threadId": 1,
+          "loadMs": 1.7150000000001455
+        },
+        {
+          "variant": "html-escaper",
+          "pid": 6968,
+          "threadId": 2,
+          "loadMs": 1.8059000000002925
+        }
+      ],
+      "processes": [
+        {
+          "pid": 6968,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 3506.3899,
+          "maxRssKiB": 356360,
+          "userCpuMs": 4734,
+          "systemCpuMs": 1343
+        }
+      ]
+    },
+    {
+      "id": "articles-w2-r3-native",
+      "variant": "native",
+      "scenario": "articles",
+      "workerCount": 2,
+      "round": 3,
+      "pages": 1000,
+      "output": {
+        "sha256": "3dadc8b33be340a3e95afbebb69e956573e6a6df9499bad952935d1817978c3c",
+        "files": 1000,
+        "htmlFiles": 1000,
+        "bytes": 10632245
+      },
+      "wallMs": 3609.8007999999973,
+      "maxRssMiB": 349.12890625,
+      "userCpuMs": 5015,
+      "systemCpuMs": 1234,
+      "adapters": [
+        {
+          "variant": "native",
+          "pid": 2932,
+          "threadId": 1,
+          "loadMs": 4.330300000000079
+        },
+        {
+          "variant": "native",
+          "pid": 2932,
+          "threadId": 2,
+          "loadMs": 4.374899999999798
+        }
+      ],
+      "processes": [
+        {
+          "pid": 2932,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 3540.5551,
+          "maxRssKiB": 357508,
+          "userCpuMs": 5015,
+          "systemCpuMs": 1234
+        }
+      ]
+    },
+    {
+      "id": "articles-w2-r3-wasm",
+      "variant": "wasm",
+      "scenario": "articles",
+      "workerCount": 2,
+      "round": 3,
+      "pages": 1000,
+      "output": {
+        "sha256": "3dadc8b33be340a3e95afbebb69e956573e6a6df9499bad952935d1817978c3c",
+        "files": 1000,
+        "htmlFiles": 1000,
+        "bytes": 10632245
+      },
+      "wallMs": 3643.044099999999,
+      "maxRssMiB": 349.28515625,
+      "userCpuMs": 5125,
+      "systemCpuMs": 1312,
+      "adapters": [
+        {
+          "variant": "wasm",
+          "pid": 4600,
+          "threadId": 1,
+          "loadMs": 5.408500000000004
+        },
+        {
+          "variant": "wasm",
+          "pid": 4600,
+          "threadId": 2,
+          "loadMs": 6.289800000000014
+        }
+      ],
+      "processes": [
+        {
+          "pid": 4600,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 3570.2086,
+          "maxRssKiB": 357668,
+          "userCpuMs": 5125,
+          "systemCpuMs": 1312
+        }
+      ]
+    },
+    {
+      "id": "articles-w2-r3-escape-html",
+      "variant": "escape-html",
+      "scenario": "articles",
+      "workerCount": 2,
+      "round": 3,
+      "pages": 1000,
+      "output": {
+        "sha256": "3dadc8b33be340a3e95afbebb69e956573e6a6df9499bad952935d1817978c3c",
+        "files": 1000,
+        "htmlFiles": 1000,
+        "bytes": 10632245
+      },
+      "wallMs": 3608.2839000000095,
+      "maxRssMiB": 350.609375,
+      "userCpuMs": 4968,
+      "systemCpuMs": 1406,
+      "adapters": [
+        {
+          "variant": "escape-html",
+          "pid": 3388,
+          "threadId": 1,
+          "loadMs": 1.0630000000001019
+        },
+        {
+          "variant": "escape-html",
+          "pid": 3388,
+          "threadId": 2,
+          "loadMs": 1.267699999999877
+        }
+      ],
+      "processes": [
+        {
+          "pid": 3388,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 3538.4274,
+          "maxRssKiB": 359024,
+          "userCpuMs": 4968,
+          "systemCpuMs": 1406
+        }
+      ]
+    },
+    {
+      "id": "articles-w2-r4-html-escaper",
+      "variant": "html-escaper",
+      "scenario": "articles",
+      "workerCount": 2,
+      "round": 4,
+      "pages": 1000,
+      "output": {
+        "sha256": "3dadc8b33be340a3e95afbebb69e956573e6a6df9499bad952935d1817978c3c",
+        "files": 1000,
+        "htmlFiles": 1000,
+        "bytes": 10632245
+      },
+      "wallMs": 3655.8371000000043,
+      "maxRssMiB": 348.9140625,
+      "userCpuMs": 5109,
+      "systemCpuMs": 1343,
+      "adapters": [
+        {
+          "variant": "html-escaper",
+          "pid": 6356,
+          "threadId": 1,
+          "loadMs": 2.019000000000233
+        },
+        {
+          "variant": "html-escaper",
+          "pid": 6356,
+          "threadId": 2,
+          "loadMs": 2.022200000000339
+        }
+      ],
+      "processes": [
+        {
+          "pid": 6356,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 3586.6455,
+          "maxRssKiB": 357288,
+          "userCpuMs": 5109,
+          "systemCpuMs": 1343
+        }
+      ]
+    },
+    {
+      "id": "articles-w2-r4-native",
+      "variant": "native",
+      "scenario": "articles",
+      "workerCount": 2,
+      "round": 4,
+      "pages": 1000,
+      "output": {
+        "sha256": "3dadc8b33be340a3e95afbebb69e956573e6a6df9499bad952935d1817978c3c",
+        "files": 1000,
+        "htmlFiles": 1000,
+        "bytes": 10632245
+      },
+      "wallMs": 3661.899399999995,
+      "maxRssMiB": 349.3828125,
+      "userCpuMs": 5078,
+      "systemCpuMs": 1343,
+      "adapters": [
+        {
+          "variant": "native",
+          "pid": 2464,
+          "threadId": 1,
+          "loadMs": 4.229100000000017
+        },
+        {
+          "variant": "native",
+          "pid": 2464,
+          "threadId": 2,
+          "loadMs": 4.281399999999849
+        }
+      ],
+      "processes": [
+        {
+          "pid": 2464,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 3590.8563999999997,
+          "maxRssKiB": 357768,
+          "userCpuMs": 5078,
+          "systemCpuMs": 1343
+        }
+      ]
+    },
+    {
+      "id": "articles-w2-r4-wasm",
+      "variant": "wasm",
+      "scenario": "articles",
+      "workerCount": 2,
+      "round": 4,
+      "pages": 1000,
+      "output": {
+        "sha256": "3dadc8b33be340a3e95afbebb69e956573e6a6df9499bad952935d1817978c3c",
+        "files": 1000,
+        "htmlFiles": 1000,
+        "bytes": 10632245
+      },
+      "wallMs": 3651.3992000000144,
+      "maxRssMiB": 349.765625,
+      "userCpuMs": 5140,
+      "systemCpuMs": 1234,
+      "adapters": [
+        {
+          "variant": "wasm",
+          "pid": 2708,
+          "threadId": 1,
+          "loadMs": 10.365899999999783
+        },
+        {
+          "variant": "wasm",
+          "pid": 2708,
+          "threadId": 2,
+          "loadMs": 9.932800000000043
+        }
+      ],
+      "processes": [
+        {
+          "pid": 2708,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 3580.1971999999996,
+          "maxRssKiB": 358160,
+          "userCpuMs": 5140,
+          "systemCpuMs": 1234
+        }
+      ]
+    },
+    {
+      "id": "articles-w2-r4-escape-html",
+      "variant": "escape-html",
+      "scenario": "articles",
+      "workerCount": 2,
+      "round": 4,
+      "pages": 1000,
+      "output": {
+        "sha256": "3dadc8b33be340a3e95afbebb69e956573e6a6df9499bad952935d1817978c3c",
+        "files": 1000,
+        "htmlFiles": 1000,
+        "bytes": 10632245
+      },
+      "wallMs": 3710.614799999981,
+      "maxRssMiB": 348.7109375,
+      "userCpuMs": 5062,
+      "systemCpuMs": 1359,
+      "adapters": [
+        {
+          "variant": "escape-html",
+          "pid": 4496,
+          "threadId": 1,
+          "loadMs": 1.936699999999746
+        },
+        {
+          "variant": "escape-html",
+          "pid": 4496,
+          "threadId": 2,
+          "loadMs": 1.9092999999998028
+        }
+      ],
+      "processes": [
+        {
+          "pid": 4496,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 3637.0899,
+          "maxRssKiB": 357080,
+          "userCpuMs": 5062,
+          "systemCpuMs": 1359
+        }
+      ]
+    },
+    {
+      "id": "articles-w2-r4-fast-escape-html",
+      "variant": "fast-escape-html",
+      "scenario": "articles",
+      "workerCount": 2,
+      "round": 4,
+      "pages": 1000,
+      "output": {
+        "sha256": "3dadc8b33be340a3e95afbebb69e956573e6a6df9499bad952935d1817978c3c",
+        "files": 1000,
+        "htmlFiles": 1000,
+        "bytes": 10632245
+      },
+      "wallMs": 3644.189999999973,
+      "maxRssMiB": 348.49609375,
+      "userCpuMs": 4984,
+      "systemCpuMs": 1421,
+      "adapters": [
+        {
+          "variant": "fast-escape-html",
+          "pid": 2128,
+          "threadId": 1,
+          "loadMs": 2.073899999999867
+        },
+        {
+          "variant": "fast-escape-html",
+          "pid": 2128,
+          "threadId": 2,
+          "loadMs": 2.0911999999998443
+        }
+      ],
+      "processes": [
+        {
+          "pid": 2128,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 3569.8538000000003,
+          "maxRssKiB": 356860,
+          "userCpuMs": 4984,
+          "systemCpuMs": 1421
+        }
+      ]
+    },
+    {
+      "id": "catalog-w0-r0-native",
+      "variant": "native",
+      "scenario": "catalog",
+      "workerCount": 0,
+      "round": 0,
+      "pages": 250,
+      "output": {
+        "sha256": "1bbcebfd5df63482c727d5fda725d53707efd329e10304da2afe8041b7aca8b0",
+        "files": 250,
+        "htmlFiles": 250,
+        "bytes": 6924222
+      },
+      "wallMs": 2668.0887999999977,
+      "maxRssMiB": 232.3203125,
+      "userCpuMs": 3203,
+      "systemCpuMs": 640,
+      "adapters": [
+        {
+          "variant": "native",
+          "pid": 2704,
+          "threadId": 0,
+          "loadMs": 2.564100000000053
+        }
+      ],
+      "processes": [
+        {
+          "pid": 2704,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2591.1662,
+          "maxRssKiB": 237896,
+          "userCpuMs": 3203,
+          "systemCpuMs": 640
+        }
+      ]
+    },
+    {
+      "id": "catalog-w0-r0-wasm",
+      "variant": "wasm",
+      "scenario": "catalog",
+      "workerCount": 0,
+      "round": 0,
+      "pages": 250,
+      "output": {
+        "sha256": "1bbcebfd5df63482c727d5fda725d53707efd329e10304da2afe8041b7aca8b0",
+        "files": 250,
+        "htmlFiles": 250,
+        "bytes": 6924222
+      },
+      "wallMs": 2692.056600000011,
+      "maxRssMiB": 233.14453125,
+      "userCpuMs": 3140,
+      "systemCpuMs": 1000,
+      "adapters": [
+        {
+          "variant": "wasm",
+          "pid": 6492,
+          "threadId": 0,
+          "loadMs": 1.1990000000000691
+        }
+      ],
+      "processes": [
+        {
+          "pid": 6492,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2622.8316,
+          "maxRssKiB": 238740,
+          "userCpuMs": 3140,
+          "systemCpuMs": 1000
+        }
+      ]
+    },
+    {
+      "id": "catalog-w0-r0-escape-html",
+      "variant": "escape-html",
+      "scenario": "catalog",
+      "workerCount": 0,
+      "round": 0,
+      "pages": 250,
+      "output": {
+        "sha256": "1bbcebfd5df63482c727d5fda725d53707efd329e10304da2afe8041b7aca8b0",
+        "files": 250,
+        "htmlFiles": 250,
+        "bytes": 6924222
+      },
+      "wallMs": 2677.179600000003,
+      "maxRssMiB": 233.4765625,
+      "userCpuMs": 3046,
+      "systemCpuMs": 875,
+      "adapters": [
+        {
+          "variant": "escape-html",
+          "pid": 2948,
+          "threadId": 0,
+          "loadMs": 0.8123999999997977
+        }
+      ],
+      "processes": [
+        {
+          "pid": 2948,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2607.4566,
+          "maxRssKiB": 239080,
+          "userCpuMs": 3046,
+          "systemCpuMs": 875
+        }
+      ]
+    },
+    {
+      "id": "catalog-w0-r0-fast-escape-html",
+      "variant": "fast-escape-html",
+      "scenario": "catalog",
+      "workerCount": 0,
+      "round": 0,
+      "pages": 250,
+      "output": {
+        "sha256": "1bbcebfd5df63482c727d5fda725d53707efd329e10304da2afe8041b7aca8b0",
+        "files": 250,
+        "htmlFiles": 250,
+        "bytes": 6924222
+      },
+      "wallMs": 2657.5339000000095,
+      "maxRssMiB": 233.14453125,
+      "userCpuMs": 3109,
+      "systemCpuMs": 640,
+      "adapters": [
+        {
+          "variant": "fast-escape-html",
+          "pid": 7112,
+          "threadId": 0,
+          "loadMs": 0.9103000000000065
+        }
+      ],
+      "processes": [
+        {
+          "pid": 7112,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2589.1735,
+          "maxRssKiB": 238740,
+          "userCpuMs": 3109,
+          "systemCpuMs": 640
+        }
+      ]
+    },
+    {
+      "id": "catalog-w0-r0-html-escaper",
+      "variant": "html-escaper",
+      "scenario": "catalog",
+      "workerCount": 0,
+      "round": 0,
+      "pages": 250,
+      "output": {
+        "sha256": "1bbcebfd5df63482c727d5fda725d53707efd329e10304da2afe8041b7aca8b0",
+        "files": 250,
+        "htmlFiles": 250,
+        "bytes": 6924222
+      },
+      "wallMs": 2660.097999999998,
+      "maxRssMiB": 231.25390625,
+      "userCpuMs": 3312,
+      "systemCpuMs": 625,
+      "adapters": [
+        {
+          "variant": "html-escaper",
+          "pid": 3976,
+          "threadId": 0,
+          "loadMs": 0.8421000000003005
+        }
+      ],
+      "processes": [
+        {
+          "pid": 3976,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2586.2795,
+          "maxRssKiB": 236804,
+          "userCpuMs": 3312,
+          "systemCpuMs": 625
+        }
+      ]
+    },
+    {
+      "id": "catalog-w0-r1-wasm",
+      "variant": "wasm",
+      "scenario": "catalog",
+      "workerCount": 0,
+      "round": 1,
+      "pages": 250,
+      "output": {
+        "sha256": "1bbcebfd5df63482c727d5fda725d53707efd329e10304da2afe8041b7aca8b0",
+        "files": 250,
+        "htmlFiles": 250,
+        "bytes": 6924222
+      },
+      "wallMs": 2676.595499999996,
+      "maxRssMiB": 231.91015625,
+      "userCpuMs": 2843,
+      "systemCpuMs": 906,
+      "adapters": [
+        {
+          "variant": "wasm",
+          "pid": 3528,
+          "threadId": 0,
+          "loadMs": 1.3321000000000822
+        }
+      ],
+      "processes": [
+        {
+          "pid": 3528,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2603.11,
+          "maxRssKiB": 237476,
+          "userCpuMs": 2843,
+          "systemCpuMs": 906
+        }
+      ]
+    },
+    {
+      "id": "catalog-w0-r1-escape-html",
+      "variant": "escape-html",
+      "scenario": "catalog",
+      "workerCount": 0,
+      "round": 1,
+      "pages": 250,
+      "output": {
+        "sha256": "1bbcebfd5df63482c727d5fda725d53707efd329e10304da2afe8041b7aca8b0",
+        "files": 250,
+        "htmlFiles": 250,
+        "bytes": 6924222
+      },
+      "wallMs": 2651.3422999999893,
+      "maxRssMiB": 231.88671875,
+      "userCpuMs": 2828,
+      "systemCpuMs": 765,
+      "adapters": [
+        {
+          "variant": "escape-html",
+          "pid": 4524,
+          "threadId": 0,
+          "loadMs": 0.7818999999999505
+        }
+      ],
+      "processes": [
+        {
+          "pid": 4524,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2580.2673,
+          "maxRssKiB": 237452,
+          "userCpuMs": 2828,
+          "systemCpuMs": 765
+        }
+      ]
+    },
+    {
+      "id": "catalog-w0-r1-fast-escape-html",
+      "variant": "fast-escape-html",
+      "scenario": "catalog",
+      "workerCount": 0,
+      "round": 1,
+      "pages": 250,
+      "output": {
+        "sha256": "1bbcebfd5df63482c727d5fda725d53707efd329e10304da2afe8041b7aca8b0",
+        "files": 250,
+        "htmlFiles": 250,
+        "bytes": 6924222
+      },
+      "wallMs": 2651.7104999999865,
+      "maxRssMiB": 231.8671875,
+      "userCpuMs": 2984,
+      "systemCpuMs": 828,
+      "adapters": [
+        {
+          "variant": "fast-escape-html",
+          "pid": 4564,
+          "threadId": 0,
+          "loadMs": 0.9576000000001841
+        }
+      ],
+      "processes": [
+        {
+          "pid": 4564,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2582.2608999999998,
+          "maxRssKiB": 237432,
+          "userCpuMs": 2984,
+          "systemCpuMs": 828
+        }
+      ]
+    },
+    {
+      "id": "catalog-w0-r1-html-escaper",
+      "variant": "html-escaper",
+      "scenario": "catalog",
+      "workerCount": 0,
+      "round": 1,
+      "pages": 250,
+      "output": {
+        "sha256": "1bbcebfd5df63482c727d5fda725d53707efd329e10304da2afe8041b7aca8b0",
+        "files": 250,
+        "htmlFiles": 250,
+        "bytes": 6924222
+      },
+      "wallMs": 2632.8343999999925,
+      "maxRssMiB": 232.31640625,
+      "userCpuMs": 3015,
+      "systemCpuMs": 687,
+      "adapters": [
+        {
+          "variant": "html-escaper",
+          "pid": 2912,
+          "threadId": 0,
+          "loadMs": 0.8547000000003209
+        }
+      ],
+      "processes": [
+        {
+          "pid": 2912,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2562.395,
+          "maxRssKiB": 237892,
+          "userCpuMs": 3015,
+          "systemCpuMs": 687
+        }
+      ]
+    },
+    {
+      "id": "catalog-w0-r1-native",
+      "variant": "native",
+      "scenario": "catalog",
+      "workerCount": 0,
+      "round": 1,
+      "pages": 250,
+      "output": {
+        "sha256": "1bbcebfd5df63482c727d5fda725d53707efd329e10304da2afe8041b7aca8b0",
+        "files": 250,
+        "htmlFiles": 250,
+        "bytes": 6924222
+      },
+      "wallMs": 2624.875700000004,
+      "maxRssMiB": 230.9609375,
+      "userCpuMs": 3109,
+      "systemCpuMs": 671,
+      "adapters": [
+        {
+          "variant": "native",
+          "pid": 4660,
+          "threadId": 0,
+          "loadMs": 2.3804999999997563
+        }
+      ],
+      "processes": [
+        {
+          "pid": 4660,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2554.6393,
+          "maxRssKiB": 236504,
+          "userCpuMs": 3109,
+          "systemCpuMs": 671
+        }
+      ]
+    },
+    {
+      "id": "catalog-w0-r2-escape-html",
+      "variant": "escape-html",
+      "scenario": "catalog",
+      "workerCount": 0,
+      "round": 2,
+      "pages": 250,
+      "output": {
+        "sha256": "1bbcebfd5df63482c727d5fda725d53707efd329e10304da2afe8041b7aca8b0",
+        "files": 250,
+        "htmlFiles": 250,
+        "bytes": 6924222
+      },
+      "wallMs": 2672.5165999999736,
+      "maxRssMiB": 232.80078125,
+      "userCpuMs": 3093,
+      "systemCpuMs": 812,
+      "adapters": [
+        {
+          "variant": "escape-html",
+          "pid": 1240,
+          "threadId": 0,
+          "loadMs": 0.7699000000002343
+        }
+      ],
+      "processes": [
+        {
+          "pid": 1240,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2599.0719999999997,
+          "maxRssKiB": 238388,
+          "userCpuMs": 3093,
+          "systemCpuMs": 812
+        }
+      ]
+    },
+    {
+      "id": "catalog-w0-r2-fast-escape-html",
+      "variant": "fast-escape-html",
+      "scenario": "catalog",
+      "workerCount": 0,
+      "round": 2,
+      "pages": 250,
+      "output": {
+        "sha256": "1bbcebfd5df63482c727d5fda725d53707efd329e10304da2afe8041b7aca8b0",
+        "files": 250,
+        "htmlFiles": 250,
+        "bytes": 6924222
+      },
+      "wallMs": 2663.8089000000036,
+      "maxRssMiB": 234.109375,
+      "userCpuMs": 2984,
+      "systemCpuMs": 828,
+      "adapters": [
+        {
+          "variant": "fast-escape-html",
+          "pid": 7332,
+          "threadId": 0,
+          "loadMs": 1.0716000000002168
+        }
+      ],
+      "processes": [
+        {
+          "pid": 7332,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2589.9607,
+          "maxRssKiB": 239728,
+          "userCpuMs": 2984,
+          "systemCpuMs": 828
+        }
+      ]
+    },
+    {
+      "id": "catalog-w0-r2-html-escaper",
+      "variant": "html-escaper",
+      "scenario": "catalog",
+      "workerCount": 0,
+      "round": 2,
+      "pages": 250,
+      "output": {
+        "sha256": "1bbcebfd5df63482c727d5fda725d53707efd329e10304da2afe8041b7aca8b0",
+        "files": 250,
+        "htmlFiles": 250,
+        "bytes": 6924222
+      },
+      "wallMs": 2657.219300000026,
+      "maxRssMiB": 231.62890625,
+      "userCpuMs": 2984,
+      "systemCpuMs": 687,
+      "adapters": [
+        {
+          "variant": "html-escaper",
+          "pid": 3668,
+          "threadId": 0,
+          "loadMs": 0.8213999999998123
+        }
+      ],
+      "processes": [
+        {
+          "pid": 3668,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2588.2268,
+          "maxRssKiB": 237188,
+          "userCpuMs": 2984,
+          "systemCpuMs": 687
+        }
+      ]
+    },
+    {
+      "id": "catalog-w0-r2-native",
+      "variant": "native",
+      "scenario": "catalog",
+      "workerCount": 0,
+      "round": 2,
+      "pages": 250,
+      "output": {
+        "sha256": "1bbcebfd5df63482c727d5fda725d53707efd329e10304da2afe8041b7aca8b0",
+        "files": 250,
+        "htmlFiles": 250,
+        "bytes": 6924222
+      },
+      "wallMs": 2627.104099999997,
+      "maxRssMiB": 233.109375,
+      "userCpuMs": 3046,
+      "systemCpuMs": 781,
+      "adapters": [
+        {
+          "variant": "native",
+          "pid": 2028,
+          "threadId": 0,
+          "loadMs": 2.38570000000027
+        }
+      ],
+      "processes": [
+        {
+          "pid": 2028,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2555.5092,
+          "maxRssKiB": 238704,
+          "userCpuMs": 3046,
+          "systemCpuMs": 781
+        }
+      ]
+    },
+    {
+      "id": "catalog-w0-r2-wasm",
+      "variant": "wasm",
+      "scenario": "catalog",
+      "workerCount": 0,
+      "round": 2,
+      "pages": 250,
+      "output": {
+        "sha256": "1bbcebfd5df63482c727d5fda725d53707efd329e10304da2afe8041b7aca8b0",
+        "files": 250,
+        "htmlFiles": 250,
+        "bytes": 6924222
+      },
+      "wallMs": 2684.2523999999976,
+      "maxRssMiB": 232.03125,
+      "userCpuMs": 3343,
+      "systemCpuMs": 671,
+      "adapters": [
+        {
+          "variant": "wasm",
+          "pid": 7544,
+          "threadId": 0,
+          "loadMs": 1.2266999999997097
+        }
+      ],
+      "processes": [
+        {
+          "pid": 7544,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2609.0876,
+          "maxRssKiB": 237600,
+          "userCpuMs": 3343,
+          "systemCpuMs": 671
+        }
+      ]
+    },
+    {
+      "id": "catalog-w0-r3-fast-escape-html",
+      "variant": "fast-escape-html",
+      "scenario": "catalog",
+      "workerCount": 0,
+      "round": 3,
+      "pages": 250,
+      "output": {
+        "sha256": "1bbcebfd5df63482c727d5fda725d53707efd329e10304da2afe8041b7aca8b0",
+        "files": 250,
+        "htmlFiles": 250,
+        "bytes": 6924222
+      },
+      "wallMs": 2636.5064999999886,
+      "maxRssMiB": 231.8515625,
+      "userCpuMs": 3234,
+      "systemCpuMs": 843,
+      "adapters": [
+        {
+          "variant": "fast-escape-html",
+          "pid": 3984,
+          "threadId": 0,
+          "loadMs": 0.9245999999998276
+        }
+      ],
+      "processes": [
+        {
+          "pid": 3984,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2565.2300999999998,
+          "maxRssKiB": 237416,
+          "userCpuMs": 3234,
+          "systemCpuMs": 843
+        }
+      ]
+    },
+    {
+      "id": "catalog-w0-r3-html-escaper",
+      "variant": "html-escaper",
+      "scenario": "catalog",
+      "workerCount": 0,
+      "round": 3,
+      "pages": 250,
+      "output": {
+        "sha256": "1bbcebfd5df63482c727d5fda725d53707efd329e10304da2afe8041b7aca8b0",
+        "files": 250,
+        "htmlFiles": 250,
+        "bytes": 6924222
+      },
+      "wallMs": 2620.5725000000093,
+      "maxRssMiB": 231.65625,
+      "userCpuMs": 3281,
+      "systemCpuMs": 625,
+      "adapters": [
+        {
+          "variant": "html-escaper",
+          "pid": 3772,
+          "threadId": 0,
+          "loadMs": 0.8225999999999658
+        }
+      ],
+      "processes": [
+        {
+          "pid": 3772,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2550.087,
+          "maxRssKiB": 237216,
+          "userCpuMs": 3281,
+          "systemCpuMs": 625
+        }
+      ]
+    },
+    {
+      "id": "catalog-w0-r3-native",
+      "variant": "native",
+      "scenario": "catalog",
+      "workerCount": 0,
+      "round": 3,
+      "pages": 250,
+      "output": {
+        "sha256": "1bbcebfd5df63482c727d5fda725d53707efd329e10304da2afe8041b7aca8b0",
+        "files": 250,
+        "htmlFiles": 250,
+        "bytes": 6924222
+      },
+      "wallMs": 2628.4729000000225,
+      "maxRssMiB": 232.63671875,
+      "userCpuMs": 2703,
+      "systemCpuMs": 859,
+      "adapters": [
+        {
+          "variant": "native",
+          "pid": 1244,
+          "threadId": 0,
+          "loadMs": 2.5176000000001295
+        }
+      ],
+      "processes": [
+        {
+          "pid": 1244,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2555.3356999999996,
+          "maxRssKiB": 238220,
+          "userCpuMs": 2703,
+          "systemCpuMs": 859
+        }
+      ]
+    },
+    {
+      "id": "catalog-w0-r3-wasm",
+      "variant": "wasm",
+      "scenario": "catalog",
+      "workerCount": 0,
+      "round": 3,
+      "pages": 250,
+      "output": {
+        "sha256": "1bbcebfd5df63482c727d5fda725d53707efd329e10304da2afe8041b7aca8b0",
+        "files": 250,
+        "htmlFiles": 250,
+        "bytes": 6924222
+      },
+      "wallMs": 2680.801199999987,
+      "maxRssMiB": 232.2734375,
+      "userCpuMs": 2875,
+      "systemCpuMs": 812,
+      "adapters": [
+        {
+          "variant": "wasm",
+          "pid": 7372,
+          "threadId": 0,
+          "loadMs": 1.2022999999999229
+        }
+      ],
+      "processes": [
+        {
+          "pid": 7372,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2608.4962,
+          "maxRssKiB": 237848,
+          "userCpuMs": 2875,
+          "systemCpuMs": 812
+        }
+      ]
+    },
+    {
+      "id": "catalog-w0-r3-escape-html",
+      "variant": "escape-html",
+      "scenario": "catalog",
+      "workerCount": 0,
+      "round": 3,
+      "pages": 250,
+      "output": {
+        "sha256": "1bbcebfd5df63482c727d5fda725d53707efd329e10304da2afe8041b7aca8b0",
+        "files": 250,
+        "htmlFiles": 250,
+        "bytes": 6924222
+      },
+      "wallMs": 2677.6809000000358,
+      "maxRssMiB": 231.9296875,
+      "userCpuMs": 2984,
+      "systemCpuMs": 718,
+      "adapters": [
+        {
+          "variant": "escape-html",
+          "pid": 1260,
+          "threadId": 0,
+          "loadMs": 0.7908999999999651
+        }
+      ],
+      "processes": [
+        {
+          "pid": 1260,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2601.6324999999997,
+          "maxRssKiB": 237496,
+          "userCpuMs": 2984,
+          "systemCpuMs": 718
+        }
+      ]
+    },
+    {
+      "id": "catalog-w0-r4-html-escaper",
+      "variant": "html-escaper",
+      "scenario": "catalog",
+      "workerCount": 0,
+      "round": 4,
+      "pages": 250,
+      "output": {
+        "sha256": "1bbcebfd5df63482c727d5fda725d53707efd329e10304da2afe8041b7aca8b0",
+        "files": 250,
+        "htmlFiles": 250,
+        "bytes": 6924222
+      },
+      "wallMs": 2692.5541000000085,
+      "maxRssMiB": 233.19921875,
+      "userCpuMs": 3125,
+      "systemCpuMs": 921,
+      "adapters": [
+        {
+          "variant": "html-escaper",
+          "pid": 4456,
+          "threadId": 0,
+          "loadMs": 0.824500000000171
+        }
+      ],
+      "processes": [
+        {
+          "pid": 4456,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2618.9256,
+          "maxRssKiB": 238796,
+          "userCpuMs": 3125,
+          "systemCpuMs": 921
+        }
+      ]
+    },
+    {
+      "id": "catalog-w0-r4-native",
+      "variant": "native",
+      "scenario": "catalog",
+      "workerCount": 0,
+      "round": 4,
+      "pages": 250,
+      "output": {
+        "sha256": "1bbcebfd5df63482c727d5fda725d53707efd329e10304da2afe8041b7aca8b0",
+        "files": 250,
+        "htmlFiles": 250,
+        "bytes": 6924222
+      },
+      "wallMs": 2667.747299999988,
+      "maxRssMiB": 231.2109375,
+      "userCpuMs": 3000,
+      "systemCpuMs": 812,
+      "adapters": [
+        {
+          "variant": "native",
+          "pid": 7212,
+          "threadId": 0,
+          "loadMs": 2.5396999999998116
+        }
+      ],
+      "processes": [
+        {
+          "pid": 7212,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2596.8136,
+          "maxRssKiB": 236760,
+          "userCpuMs": 3000,
+          "systemCpuMs": 812
+        }
+      ]
+    },
+    {
+      "id": "catalog-w0-r4-wasm",
+      "variant": "wasm",
+      "scenario": "catalog",
+      "workerCount": 0,
+      "round": 4,
+      "pages": 250,
+      "output": {
+        "sha256": "1bbcebfd5df63482c727d5fda725d53707efd329e10304da2afe8041b7aca8b0",
+        "files": 250,
+        "htmlFiles": 250,
+        "bytes": 6924222
+      },
+      "wallMs": 2629.8174,
+      "maxRssMiB": 232.26171875,
+      "userCpuMs": 2984,
+      "systemCpuMs": 906,
+      "adapters": [
+        {
+          "variant": "wasm",
+          "pid": 4748,
+          "threadId": 0,
+          "loadMs": 1.3239000000003216
+        }
+      ],
+      "processes": [
+        {
+          "pid": 4748,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2559.2507,
+          "maxRssKiB": 237836,
+          "userCpuMs": 2984,
+          "systemCpuMs": 906
+        }
+      ]
+    },
+    {
+      "id": "catalog-w0-r4-escape-html",
+      "variant": "escape-html",
+      "scenario": "catalog",
+      "workerCount": 0,
+      "round": 4,
+      "pages": 250,
+      "output": {
+        "sha256": "1bbcebfd5df63482c727d5fda725d53707efd329e10304da2afe8041b7aca8b0",
+        "files": 250,
+        "htmlFiles": 250,
+        "bytes": 6924222
+      },
+      "wallMs": 2666.0513999999966,
+      "maxRssMiB": 231.83203125,
+      "userCpuMs": 2968,
+      "systemCpuMs": 890,
+      "adapters": [
+        {
+          "variant": "escape-html",
+          "pid": 1808,
+          "threadId": 0,
+          "loadMs": 0.8088999999999942
+        }
+      ],
+      "processes": [
+        {
+          "pid": 1808,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2594.2079,
+          "maxRssKiB": 237396,
+          "userCpuMs": 2968,
+          "systemCpuMs": 890
+        }
+      ]
+    },
+    {
+      "id": "catalog-w0-r4-fast-escape-html",
+      "variant": "fast-escape-html",
+      "scenario": "catalog",
+      "workerCount": 0,
+      "round": 4,
+      "pages": 250,
+      "output": {
+        "sha256": "1bbcebfd5df63482c727d5fda725d53707efd329e10304da2afe8041b7aca8b0",
+        "files": 250,
+        "htmlFiles": 250,
+        "bytes": 6924222
+      },
+      "wallMs": 2617.8096999999834,
+      "maxRssMiB": 231.6171875,
+      "userCpuMs": 3171,
+      "systemCpuMs": 671,
+      "adapters": [
+        {
+          "variant": "fast-escape-html",
+          "pid": 7908,
+          "threadId": 0,
+          "loadMs": 0.8904999999999745
+        }
+      ],
+      "processes": [
+        {
+          "pid": 7908,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2544.9049999999997,
+          "maxRssKiB": 237176,
+          "userCpuMs": 3171,
+          "systemCpuMs": 671
+        }
+      ]
+    },
+    {
+      "id": "catalog-w2-r0-native",
+      "variant": "native",
+      "scenario": "catalog",
+      "workerCount": 2,
+      "round": 0,
+      "pages": 250,
+      "output": {
+        "sha256": "1bbcebfd5df63482c727d5fda725d53707efd329e10304da2afe8041b7aca8b0",
+        "files": 250,
+        "htmlFiles": 250,
+        "bytes": 6924222
+      },
+      "wallMs": 2983.8041000000085,
+      "maxRssMiB": 308.87890625,
+      "userCpuMs": 3781,
+      "systemCpuMs": 984,
+      "adapters": [
+        {
+          "variant": "native",
+          "pid": 4680,
+          "threadId": 1,
+          "loadMs": 4.152599999999893
+        },
+        {
+          "variant": "native",
+          "pid": 4680,
+          "threadId": 2,
+          "loadMs": 4.1250999999997475
+        }
+      ],
+      "processes": [
+        {
+          "pid": 4680,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2907.8276,
+          "maxRssKiB": 316292,
+          "userCpuMs": 3781,
+          "systemCpuMs": 984
+        }
+      ]
+    },
+    {
+      "id": "catalog-w2-r0-wasm",
+      "variant": "wasm",
+      "scenario": "catalog",
+      "workerCount": 2,
+      "round": 0,
+      "pages": 250,
+      "output": {
+        "sha256": "1bbcebfd5df63482c727d5fda725d53707efd329e10304da2afe8041b7aca8b0",
+        "files": 250,
+        "htmlFiles": 250,
+        "bytes": 6924222
+      },
+      "wallMs": 3002.358200000017,
+      "maxRssMiB": 308.1484375,
+      "userCpuMs": 4265,
+      "systemCpuMs": 1062,
+      "adapters": [
+        {
+          "variant": "wasm",
+          "pid": 1576,
+          "threadId": 1,
+          "loadMs": 9.605399999999918
+        },
+        {
+          "variant": "wasm",
+          "pid": 1576,
+          "threadId": 2,
+          "loadMs": 9.181099999999788
+        }
+      ],
+      "processes": [
+        {
+          "pid": 1576,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2925.6419,
+          "maxRssKiB": 315544,
+          "userCpuMs": 4265,
+          "systemCpuMs": 1062
+        }
+      ]
+    },
+    {
+      "id": "catalog-w2-r0-escape-html",
+      "variant": "escape-html",
+      "scenario": "catalog",
+      "workerCount": 2,
+      "round": 0,
+      "pages": 250,
+      "output": {
+        "sha256": "1bbcebfd5df63482c727d5fda725d53707efd329e10304da2afe8041b7aca8b0",
+        "files": 250,
+        "htmlFiles": 250,
+        "bytes": 6924222
+      },
+      "wallMs": 3005.4713999999803,
+      "maxRssMiB": 309.3203125,
+      "userCpuMs": 3890,
+      "systemCpuMs": 1031,
+      "adapters": [
+        {
+          "variant": "escape-html",
+          "pid": 8044,
+          "threadId": 1,
+          "loadMs": 1.119499999999789
+        },
+        {
+          "variant": "escape-html",
+          "pid": 8044,
+          "threadId": 2,
+          "loadMs": 1.05600000000004
+        }
+      ],
+      "processes": [
+        {
+          "pid": 8044,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2930.0117,
+          "maxRssKiB": 316744,
+          "userCpuMs": 3890,
+          "systemCpuMs": 1031
+        }
+      ]
+    },
+    {
+      "id": "catalog-w2-r0-fast-escape-html",
+      "variant": "fast-escape-html",
+      "scenario": "catalog",
+      "workerCount": 2,
+      "round": 0,
+      "pages": 250,
+      "output": {
+        "sha256": "1bbcebfd5df63482c727d5fda725d53707efd329e10304da2afe8041b7aca8b0",
+        "files": 250,
+        "htmlFiles": 250,
+        "bytes": 6924222
+      },
+      "wallMs": 2938.7302999999956,
+      "maxRssMiB": 307.5546875,
+      "userCpuMs": 3968,
+      "systemCpuMs": 1093,
+      "adapters": [
+        {
+          "variant": "fast-escape-html",
+          "pid": 760,
+          "threadId": 1,
+          "loadMs": 1.915299999999661
+        },
+        {
+          "variant": "fast-escape-html",
+          "pid": 760,
+          "threadId": 2,
+          "loadMs": 1.8998999999998887
+        }
+      ],
+      "processes": [
+        {
+          "pid": 760,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2866.3339,
+          "maxRssKiB": 314936,
+          "userCpuMs": 3968,
+          "systemCpuMs": 1093
+        }
+      ]
+    },
+    {
+      "id": "catalog-w2-r0-html-escaper",
+      "variant": "html-escaper",
+      "scenario": "catalog",
+      "workerCount": 2,
+      "round": 0,
+      "pages": 250,
+      "output": {
+        "sha256": "1bbcebfd5df63482c727d5fda725d53707efd329e10304da2afe8041b7aca8b0",
+        "files": 250,
+        "htmlFiles": 250,
+        "bytes": 6924222
+      },
+      "wallMs": 2938.669200000004,
+      "maxRssMiB": 314.01953125,
+      "userCpuMs": 4187,
+      "systemCpuMs": 953,
+      "adapters": [
+        {
+          "variant": "html-escaper",
+          "pid": 7444,
+          "threadId": 1,
+          "loadMs": 1.9140000000002146
+        },
+        {
+          "variant": "html-escaper",
+          "pid": 7444,
+          "threadId": 2,
+          "loadMs": 1.904399999999896
+        }
+      ],
+      "processes": [
+        {
+          "pid": 7444,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2864.6744,
+          "maxRssKiB": 321556,
+          "userCpuMs": 4187,
+          "systemCpuMs": 953
+        }
+      ]
+    },
+    {
+      "id": "catalog-w2-r1-wasm",
+      "variant": "wasm",
+      "scenario": "catalog",
+      "workerCount": 2,
+      "round": 1,
+      "pages": 250,
+      "output": {
+        "sha256": "1bbcebfd5df63482c727d5fda725d53707efd329e10304da2afe8041b7aca8b0",
+        "files": 250,
+        "htmlFiles": 250,
+        "bytes": 6924222
+      },
+      "wallMs": 2955.8881999999867,
+      "maxRssMiB": 308.35546875,
+      "userCpuMs": 4203,
+      "systemCpuMs": 906,
+      "adapters": [
+        {
+          "variant": "wasm",
+          "pid": 1232,
+          "threadId": 1,
+          "loadMs": 5.627300000000105
+        },
+        {
+          "variant": "wasm",
+          "pid": 1232,
+          "threadId": 2,
+          "loadMs": 6.036599999999908
+        }
+      ],
+      "processes": [
+        {
+          "pid": 1232,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2884.55,
+          "maxRssKiB": 315756,
+          "userCpuMs": 4203,
+          "systemCpuMs": 906
+        }
+      ]
+    },
+    {
+      "id": "catalog-w2-r1-escape-html",
+      "variant": "escape-html",
+      "scenario": "catalog",
+      "workerCount": 2,
+      "round": 1,
+      "pages": 250,
+      "output": {
+        "sha256": "1bbcebfd5df63482c727d5fda725d53707efd329e10304da2afe8041b7aca8b0",
+        "files": 250,
+        "htmlFiles": 250,
+        "bytes": 6924222
+      },
+      "wallMs": 2963.9277,
+      "maxRssMiB": 309.46484375,
+      "userCpuMs": 3828,
+      "systemCpuMs": 968,
+      "adapters": [
+        {
+          "variant": "escape-html",
+          "pid": 2216,
+          "threadId": 1,
+          "loadMs": 1.3620999999998276
+        },
+        {
+          "variant": "escape-html",
+          "pid": 2216,
+          "threadId": 2,
+          "loadMs": 1.4490000000000691
+        }
+      ],
+      "processes": [
+        {
+          "pid": 2216,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2891.7252,
+          "maxRssKiB": 316892,
+          "userCpuMs": 3828,
+          "systemCpuMs": 968
+        }
+      ]
+    },
+    {
+      "id": "catalog-w2-r1-fast-escape-html",
+      "variant": "fast-escape-html",
+      "scenario": "catalog",
+      "workerCount": 2,
+      "round": 1,
+      "pages": 250,
+      "output": {
+        "sha256": "1bbcebfd5df63482c727d5fda725d53707efd329e10304da2afe8041b7aca8b0",
+        "files": 250,
+        "htmlFiles": 250,
+        "bytes": 6924222
+      },
+      "wallMs": 2968.4459999999963,
+      "maxRssMiB": 307.73828125,
+      "userCpuMs": 3765,
+      "systemCpuMs": 1031,
+      "adapters": [
+        {
+          "variant": "fast-escape-html",
+          "pid": 3960,
+          "threadId": 1,
+          "loadMs": 1.8598000000001775
+        },
+        {
+          "variant": "fast-escape-html",
+          "pid": 3960,
+          "threadId": 2,
+          "loadMs": 1.5644999999999527
+        }
+      ],
+      "processes": [
+        {
+          "pid": 3960,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2895.3088,
+          "maxRssKiB": 315124,
+          "userCpuMs": 3765,
+          "systemCpuMs": 1031
+        }
+      ]
+    },
+    {
+      "id": "catalog-w2-r1-html-escaper",
+      "variant": "html-escaper",
+      "scenario": "catalog",
+      "workerCount": 2,
+      "round": 1,
+      "pages": 250,
+      "output": {
+        "sha256": "1bbcebfd5df63482c727d5fda725d53707efd329e10304da2afe8041b7aca8b0",
+        "files": 250,
+        "htmlFiles": 250,
+        "bytes": 6924222
+      },
+      "wallMs": 2888.187200000044,
+      "maxRssMiB": 307.03515625,
+      "userCpuMs": 4109,
+      "systemCpuMs": 921,
+      "adapters": [
+        {
+          "variant": "html-escaper",
+          "pid": 8088,
+          "threadId": 1,
+          "loadMs": 1.4828999999999724
+        },
+        {
+          "variant": "html-escaper",
+          "pid": 8088,
+          "threadId": 2,
+          "loadMs": 1.7798999999999978
+        }
+      ],
+      "processes": [
+        {
+          "pid": 8088,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2816.1899000000003,
+          "maxRssKiB": 314404,
+          "userCpuMs": 4109,
+          "systemCpuMs": 921
+        }
+      ]
+    },
+    {
+      "id": "catalog-w2-r1-native",
+      "variant": "native",
+      "scenario": "catalog",
+      "workerCount": 2,
+      "round": 1,
+      "pages": 250,
+      "output": {
+        "sha256": "1bbcebfd5df63482c727d5fda725d53707efd329e10304da2afe8041b7aca8b0",
+        "files": 250,
+        "htmlFiles": 250,
+        "bytes": 6924222
+      },
+      "wallMs": 2923.9446999999927,
+      "maxRssMiB": 306.97265625,
+      "userCpuMs": 4000,
+      "systemCpuMs": 984,
+      "adapters": [
+        {
+          "variant": "native",
+          "pid": 5108,
+          "threadId": 1,
+          "loadMs": 4.162199999999757
+        },
+        {
+          "variant": "native",
+          "pid": 5108,
+          "threadId": 2,
+          "loadMs": 3.9924000000000888
+        }
+      ],
+      "processes": [
+        {
+          "pid": 5108,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2854.6637,
+          "maxRssKiB": 314340,
+          "userCpuMs": 4000,
+          "systemCpuMs": 984
+        }
+      ]
+    },
+    {
+      "id": "catalog-w2-r2-escape-html",
+      "variant": "escape-html",
+      "scenario": "catalog",
+      "workerCount": 2,
+      "round": 2,
+      "pages": 250,
+      "output": {
+        "sha256": "1bbcebfd5df63482c727d5fda725d53707efd329e10304da2afe8041b7aca8b0",
+        "files": 250,
+        "htmlFiles": 250,
+        "bytes": 6924222
+      },
+      "wallMs": 2892.222699999984,
+      "maxRssMiB": 309.03515625,
+      "userCpuMs": 3796,
+      "systemCpuMs": 1046,
+      "adapters": [
+        {
+          "variant": "escape-html",
+          "pid": 3368,
+          "threadId": 1,
+          "loadMs": 1.1129000000000815
+        },
+        {
+          "variant": "escape-html",
+          "pid": 3368,
+          "threadId": 2,
+          "loadMs": 1.406800000000203
+        }
+      ],
+      "processes": [
+        {
+          "pid": 3368,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2819.697,
+          "maxRssKiB": 316452,
+          "userCpuMs": 3796,
+          "systemCpuMs": 1046
+        }
+      ]
+    },
+    {
+      "id": "catalog-w2-r2-fast-escape-html",
+      "variant": "fast-escape-html",
+      "scenario": "catalog",
+      "workerCount": 2,
+      "round": 2,
+      "pages": 250,
+      "output": {
+        "sha256": "1bbcebfd5df63482c727d5fda725d53707efd329e10304da2afe8041b7aca8b0",
+        "files": 250,
+        "htmlFiles": 250,
+        "bytes": 6924222
+      },
+      "wallMs": 2916.7740999999805,
+      "maxRssMiB": 308.67578125,
+      "userCpuMs": 4109,
+      "systemCpuMs": 828,
+      "adapters": [
+        {
+          "variant": "fast-escape-html",
+          "pid": 7268,
+          "threadId": 1,
+          "loadMs": 1.1226000000001477
+        },
+        {
+          "variant": "fast-escape-html",
+          "pid": 7268,
+          "threadId": 2,
+          "loadMs": 1.2815999999997985
+        }
+      ],
+      "processes": [
+        {
+          "pid": 7268,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2836.8716,
+          "maxRssKiB": 316084,
+          "userCpuMs": 4109,
+          "systemCpuMs": 828
+        }
+      ]
+    },
+    {
+      "id": "catalog-w2-r2-html-escaper",
+      "variant": "html-escaper",
+      "scenario": "catalog",
+      "workerCount": 2,
+      "round": 2,
+      "pages": 250,
+      "output": {
+        "sha256": "1bbcebfd5df63482c727d5fda725d53707efd329e10304da2afe8041b7aca8b0",
+        "files": 250,
+        "htmlFiles": 250,
+        "bytes": 6924222
+      },
+      "wallMs": 2892.5111000000034,
+      "maxRssMiB": 305.56640625,
+      "userCpuMs": 3859,
+      "systemCpuMs": 1125,
+      "adapters": [
+        {
+          "variant": "html-escaper",
+          "pid": 1012,
+          "threadId": 1,
+          "loadMs": 1.3364999999998872
+        },
+        {
+          "variant": "html-escaper",
+          "pid": 1012,
+          "threadId": 2,
+          "loadMs": 1.0426000000002205
+        }
+      ],
+      "processes": [
+        {
+          "pid": 1012,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2821.1175000000003,
+          "maxRssKiB": 312900,
+          "userCpuMs": 3859,
+          "systemCpuMs": 1125
+        }
+      ]
+    },
+    {
+      "id": "catalog-w2-r2-native",
+      "variant": "native",
+      "scenario": "catalog",
+      "workerCount": 2,
+      "round": 2,
+      "pages": 250,
+      "output": {
+        "sha256": "1bbcebfd5df63482c727d5fda725d53707efd329e10304da2afe8041b7aca8b0",
+        "files": 250,
+        "htmlFiles": 250,
+        "bytes": 6924222
+      },
+      "wallMs": 2921.5006000000285,
+      "maxRssMiB": 306.9140625,
+      "userCpuMs": 4062,
+      "systemCpuMs": 921,
+      "adapters": [
+        {
+          "variant": "native",
+          "pid": 6080,
+          "threadId": 1,
+          "loadMs": 3.612799999999879
+        },
+        {
+          "variant": "native",
+          "pid": 6080,
+          "threadId": 2,
+          "loadMs": 4.144000000000233
+        }
+      ],
+      "processes": [
+        {
+          "pid": 6080,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2848.873,
+          "maxRssKiB": 314280,
+          "userCpuMs": 4062,
+          "systemCpuMs": 921
+        }
+      ]
+    },
+    {
+      "id": "catalog-w2-r2-wasm",
+      "variant": "wasm",
+      "scenario": "catalog",
+      "workerCount": 2,
+      "round": 2,
+      "pages": 250,
+      "output": {
+        "sha256": "1bbcebfd5df63482c727d5fda725d53707efd329e10304da2afe8041b7aca8b0",
+        "files": 250,
+        "htmlFiles": 250,
+        "bytes": 6924222
+      },
+      "wallMs": 2958.1149999999907,
+      "maxRssMiB": 309.1953125,
+      "userCpuMs": 4031,
+      "systemCpuMs": 1187,
+      "adapters": [
+        {
+          "variant": "wasm",
+          "pid": 6908,
+          "threadId": 1,
+          "loadMs": 9.13650000000007
+        },
+        {
+          "variant": "wasm",
+          "pid": 6908,
+          "threadId": 2,
+          "loadMs": 9.541000000000167
+        }
+      ],
+      "processes": [
+        {
+          "pid": 6908,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2886.3102999999996,
+          "maxRssKiB": 316616,
+          "userCpuMs": 4031,
+          "systemCpuMs": 1187
+        }
+      ]
+    },
+    {
+      "id": "catalog-w2-r3-fast-escape-html",
+      "variant": "fast-escape-html",
+      "scenario": "catalog",
+      "workerCount": 2,
+      "round": 3,
+      "pages": 250,
+      "output": {
+        "sha256": "1bbcebfd5df63482c727d5fda725d53707efd329e10304da2afe8041b7aca8b0",
+        "files": 250,
+        "htmlFiles": 250,
+        "bytes": 6924222
+      },
+      "wallMs": 2904.9006999999983,
+      "maxRssMiB": 307.9140625,
+      "userCpuMs": 4078,
+      "systemCpuMs": 921,
+      "adapters": [
+        {
+          "variant": "fast-escape-html",
+          "pid": 3648,
+          "threadId": 1,
+          "loadMs": 1.1361000000001695
+        },
+        {
+          "variant": "fast-escape-html",
+          "pid": 3648,
+          "threadId": 2,
+          "loadMs": 1.2454999999999927
+        }
+      ],
+      "processes": [
+        {
+          "pid": 3648,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2833.8653,
+          "maxRssKiB": 315304,
+          "userCpuMs": 4078,
+          "systemCpuMs": 921
+        }
+      ]
+    },
+    {
+      "id": "catalog-w2-r3-html-escaper",
+      "variant": "html-escaper",
+      "scenario": "catalog",
+      "workerCount": 2,
+      "round": 3,
+      "pages": 250,
+      "output": {
+        "sha256": "1bbcebfd5df63482c727d5fda725d53707efd329e10304da2afe8041b7aca8b0",
+        "files": 250,
+        "htmlFiles": 250,
+        "bytes": 6924222
+      },
+      "wallMs": 2952.3373999999603,
+      "maxRssMiB": 309.4921875,
+      "userCpuMs": 4062,
+      "systemCpuMs": 968,
+      "adapters": [
+        {
+          "variant": "html-escaper",
+          "pid": 3772,
+          "threadId": 1,
+          "loadMs": 1.6687999999999192
+        },
+        {
+          "variant": "html-escaper",
+          "pid": 3772,
+          "threadId": 2,
+          "loadMs": 1.6158999999997832
+        }
+      ],
+      "processes": [
+        {
+          "pid": 3772,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2878.8203000000003,
+          "maxRssKiB": 316920,
+          "userCpuMs": 4062,
+          "systemCpuMs": 968
+        }
+      ]
+    },
+    {
+      "id": "catalog-w2-r3-native",
+      "variant": "native",
+      "scenario": "catalog",
+      "workerCount": 2,
+      "round": 3,
+      "pages": 250,
+      "output": {
+        "sha256": "1bbcebfd5df63482c727d5fda725d53707efd329e10304da2afe8041b7aca8b0",
+        "files": 250,
+        "htmlFiles": 250,
+        "bytes": 6924222
+      },
+      "wallMs": 2978.933799999999,
+      "maxRssMiB": 308.484375,
+      "userCpuMs": 4078,
+      "systemCpuMs": 1000,
+      "adapters": [
+        {
+          "variant": "native",
+          "pid": 3828,
+          "threadId": 1,
+          "loadMs": 4.317300000000159
+        },
+        {
+          "variant": "native",
+          "pid": 3828,
+          "threadId": 2,
+          "loadMs": 4.195600000000013
+        }
+      ],
+      "processes": [
+        {
+          "pid": 3828,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2907.4491,
+          "maxRssKiB": 315888,
+          "userCpuMs": 4078,
+          "systemCpuMs": 1000
+        }
+      ]
+    },
+    {
+      "id": "catalog-w2-r3-wasm",
+      "variant": "wasm",
+      "scenario": "catalog",
+      "workerCount": 2,
+      "round": 3,
+      "pages": 250,
+      "output": {
+        "sha256": "1bbcebfd5df63482c727d5fda725d53707efd329e10304da2afe8041b7aca8b0",
+        "files": 250,
+        "htmlFiles": 250,
+        "bytes": 6924222
+      },
+      "wallMs": 3000.7993000000133,
+      "maxRssMiB": 306.546875,
+      "userCpuMs": 4359,
+      "systemCpuMs": 1109,
+      "adapters": [
+        {
+          "variant": "wasm",
+          "pid": 4956,
+          "threadId": 1,
+          "loadMs": 5.872299999999996
+        },
+        {
+          "variant": "wasm",
+          "pid": 4956,
+          "threadId": 2,
+          "loadMs": 6.022699999999986
+        }
+      ],
+      "processes": [
+        {
+          "pid": 4956,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2925.3819999999996,
+          "maxRssKiB": 313904,
+          "userCpuMs": 4359,
+          "systemCpuMs": 1109
+        }
+      ]
+    },
+    {
+      "id": "catalog-w2-r3-escape-html",
+      "variant": "escape-html",
+      "scenario": "catalog",
+      "workerCount": 2,
+      "round": 3,
+      "pages": 250,
+      "output": {
+        "sha256": "1bbcebfd5df63482c727d5fda725d53707efd329e10304da2afe8041b7aca8b0",
+        "files": 250,
+        "htmlFiles": 250,
+        "bytes": 6924222
+      },
+      "wallMs": 2988.8441999999923,
+      "maxRssMiB": 309.4140625,
+      "userCpuMs": 3859,
+      "systemCpuMs": 1109,
+      "adapters": [
+        {
+          "variant": "escape-html",
+          "pid": 6428,
+          "threadId": 1,
+          "loadMs": 1.432299999999941
+        },
+        {
+          "variant": "escape-html",
+          "pid": 6428,
+          "threadId": 2,
+          "loadMs": 1.057800000000043
+        }
+      ],
+      "processes": [
+        {
+          "pid": 6428,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2915.6468,
+          "maxRssKiB": 316840,
+          "userCpuMs": 3859,
+          "systemCpuMs": 1109
+        }
+      ]
+    },
+    {
+      "id": "catalog-w2-r4-html-escaper",
+      "variant": "html-escaper",
+      "scenario": "catalog",
+      "workerCount": 2,
+      "round": 4,
+      "pages": 250,
+      "output": {
+        "sha256": "1bbcebfd5df63482c727d5fda725d53707efd329e10304da2afe8041b7aca8b0",
+        "files": 250,
+        "htmlFiles": 250,
+        "bytes": 6924222
+      },
+      "wallMs": 2959.642300000007,
+      "maxRssMiB": 306.79296875,
+      "userCpuMs": 3765,
+      "systemCpuMs": 1031,
+      "adapters": [
+        {
+          "variant": "html-escaper",
+          "pid": 1264,
+          "threadId": 1,
+          "loadMs": 1.8350000000000364
+        },
+        {
+          "variant": "html-escaper",
+          "pid": 1264,
+          "threadId": 2,
+          "loadMs": 1.7833000000000538
+        }
+      ],
+      "processes": [
+        {
+          "pid": 1264,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2888.4800999999998,
+          "maxRssKiB": 314156,
+          "userCpuMs": 3765,
+          "systemCpuMs": 1031
+        }
+      ]
+    },
+    {
+      "id": "catalog-w2-r4-native",
+      "variant": "native",
+      "scenario": "catalog",
+      "workerCount": 2,
+      "round": 4,
+      "pages": 250,
+      "output": {
+        "sha256": "1bbcebfd5df63482c727d5fda725d53707efd329e10304da2afe8041b7aca8b0",
+        "files": 250,
+        "htmlFiles": 250,
+        "bytes": 6924222
+      },
+      "wallMs": 2955.3625000000466,
+      "maxRssMiB": 308.328125,
+      "userCpuMs": 3671,
+      "systemCpuMs": 1250,
+      "adapters": [
+        {
+          "variant": "native",
+          "pid": 2340,
+          "threadId": 1,
+          "loadMs": 5.839999999999691
+        },
+        {
+          "variant": "native",
+          "pid": 2340,
+          "threadId": 2,
+          "loadMs": 5.165400000000318
+        }
+      ],
+      "processes": [
+        {
+          "pid": 2340,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2881.404,
+          "maxRssKiB": 315728,
+          "userCpuMs": 3671,
+          "systemCpuMs": 1250
+        }
+      ]
+    },
+    {
+      "id": "catalog-w2-r4-wasm",
+      "variant": "wasm",
+      "scenario": "catalog",
+      "workerCount": 2,
+      "round": 4,
+      "pages": 250,
+      "output": {
+        "sha256": "1bbcebfd5df63482c727d5fda725d53707efd329e10304da2afe8041b7aca8b0",
+        "files": 250,
+        "htmlFiles": 250,
+        "bytes": 6924222
+      },
+      "wallMs": 2959.6957000000402,
+      "maxRssMiB": 308.41015625,
+      "userCpuMs": 4125,
+      "systemCpuMs": 984,
+      "adapters": [
+        {
+          "variant": "wasm",
+          "pid": 3328,
+          "threadId": 1,
+          "loadMs": 1.7363000000000284
+        },
+        {
+          "variant": "wasm",
+          "pid": 3328,
+          "threadId": 2,
+          "loadMs": 12.309699999999793
+        }
+      ],
+      "processes": [
+        {
+          "pid": 3328,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2887.1197,
+          "maxRssKiB": 315812,
+          "userCpuMs": 4125,
+          "systemCpuMs": 984
+        }
+      ]
+    },
+    {
+      "id": "catalog-w2-r4-escape-html",
+      "variant": "escape-html",
+      "scenario": "catalog",
+      "workerCount": 2,
+      "round": 4,
+      "pages": 250,
+      "output": {
+        "sha256": "1bbcebfd5df63482c727d5fda725d53707efd329e10304da2afe8041b7aca8b0",
+        "files": 250,
+        "htmlFiles": 250,
+        "bytes": 6924222
+      },
+      "wallMs": 2874.9376000000047,
+      "maxRssMiB": 309.0078125,
+      "userCpuMs": 3796,
+      "systemCpuMs": 1015,
+      "adapters": [
+        {
+          "variant": "escape-html",
+          "pid": 3880,
+          "threadId": 1,
+          "loadMs": 1.5023000000001048
+        },
+        {
+          "variant": "escape-html",
+          "pid": 3880,
+          "threadId": 2,
+          "loadMs": 1.4807000000000698
+        }
+      ],
+      "processes": [
+        {
+          "pid": 3880,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2805.0775999999996,
+          "maxRssKiB": 316424,
+          "userCpuMs": 3796,
+          "systemCpuMs": 1015
+        }
+      ]
+    },
+    {
+      "id": "catalog-w2-r4-fast-escape-html",
+      "variant": "fast-escape-html",
+      "scenario": "catalog",
+      "workerCount": 2,
+      "round": 4,
+      "pages": 250,
+      "output": {
+        "sha256": "1bbcebfd5df63482c727d5fda725d53707efd329e10304da2afe8041b7aca8b0",
+        "files": 250,
+        "htmlFiles": 250,
+        "bytes": 6924222
+      },
+      "wallMs": 2883.8775000000023,
+      "maxRssMiB": 307.56640625,
+      "userCpuMs": 4078,
+      "systemCpuMs": 906,
+      "adapters": [
+        {
+          "variant": "fast-escape-html",
+          "pid": 5112,
+          "threadId": 1,
+          "loadMs": 1.4590000000002874
+        },
+        {
+          "variant": "fast-escape-html",
+          "pid": 5112,
+          "threadId": 2,
+          "loadMs": 1.1351999999997133
+        }
+      ],
+      "processes": [
+        {
+          "pid": 5112,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2813.1874,
+          "maxRssKiB": 314948,
+          "userCpuMs": 4078,
+          "systemCpuMs": 906
+        }
+      ]
+    },
+    {
+      "id": "props-w0-r0-native",
+      "variant": "native",
+      "scenario": "props",
+      "workerCount": 0,
+      "round": 0,
+      "pages": 64,
+      "output": {
+        "sha256": "17e02dfef2a0622113f67af4af7706478571a605a041ea14baf17ab09f347ccc",
+        "files": 64,
+        "htmlFiles": 64,
+        "bytes": 34604557
+      },
+      "wallMs": 2748.0198999999557,
+      "maxRssMiB": 270.4296875,
+      "userCpuMs": 3171,
+      "systemCpuMs": 906,
+      "adapters": [
+        {
+          "variant": "native",
+          "pid": 3172,
+          "threadId": 0,
+          "loadMs": 2.3524999999999636
+        }
+      ],
+      "processes": [
+        {
+          "pid": 3172,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2675.6992,
+          "maxRssKiB": 276920,
+          "userCpuMs": 3171,
+          "systemCpuMs": 906
+        }
+      ]
+    },
+    {
+      "id": "props-w0-r0-wasm",
+      "variant": "wasm",
+      "scenario": "props",
+      "workerCount": 0,
+      "round": 0,
+      "pages": 64,
+      "output": {
+        "sha256": "17e02dfef2a0622113f67af4af7706478571a605a041ea14baf17ab09f347ccc",
+        "files": 64,
+        "htmlFiles": 64,
+        "bytes": 34604557
+      },
+      "wallMs": 2824.4256999999634,
+      "maxRssMiB": 270.01171875,
+      "userCpuMs": 3156,
+      "systemCpuMs": 781,
+      "adapters": [
+        {
+          "variant": "wasm",
+          "pid": 3620,
+          "threadId": 0,
+          "loadMs": 1.249199999999746
+        }
+      ],
+      "processes": [
+        {
+          "pid": 3620,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2755.0711,
+          "maxRssKiB": 276492,
+          "userCpuMs": 3156,
+          "systemCpuMs": 781
+        }
+      ]
+    },
+    {
+      "id": "props-w0-r0-escape-html",
+      "variant": "escape-html",
+      "scenario": "props",
+      "workerCount": 0,
+      "round": 0,
+      "pages": 64,
+      "output": {
+        "sha256": "17e02dfef2a0622113f67af4af7706478571a605a041ea14baf17ab09f347ccc",
+        "files": 64,
+        "htmlFiles": 64,
+        "bytes": 34604557
+      },
+      "wallMs": 2796.6155000000144,
+      "maxRssMiB": 254.64453125,
+      "userCpuMs": 2875,
+      "systemCpuMs": 906,
+      "adapters": [
+        {
+          "variant": "escape-html",
+          "pid": 6908,
+          "threadId": 0,
+          "loadMs": 0.7770000000000437
+        }
+      ],
+      "processes": [
+        {
+          "pid": 6908,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2724.8203000000003,
+          "maxRssKiB": 260756,
+          "userCpuMs": 2875,
+          "systemCpuMs": 906
+        }
+      ]
+    },
+    {
+      "id": "props-w0-r0-fast-escape-html",
+      "variant": "fast-escape-html",
+      "scenario": "props",
+      "workerCount": 0,
+      "round": 0,
+      "pages": 64,
+      "output": {
+        "sha256": "17e02dfef2a0622113f67af4af7706478571a605a041ea14baf17ab09f347ccc",
+        "files": 64,
+        "htmlFiles": 64,
+        "bytes": 34604557
+      },
+      "wallMs": 2867.1244999999763,
+      "maxRssMiB": 254.24609375,
+      "userCpuMs": 2921,
+      "systemCpuMs": 1046,
+      "adapters": [
+        {
+          "variant": "fast-escape-html",
+          "pid": 7112,
+          "threadId": 0,
+          "loadMs": 0.9062999999996464
+        }
+      ],
+      "processes": [
+        {
+          "pid": 7112,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2792.8988,
+          "maxRssKiB": 260348,
+          "userCpuMs": 2921,
+          "systemCpuMs": 1046
+        }
+      ]
+    },
+    {
+      "id": "props-w0-r0-html-escaper",
+      "variant": "html-escaper",
+      "scenario": "props",
+      "workerCount": 0,
+      "round": 0,
+      "pages": 64,
+      "output": {
+        "sha256": "17e02dfef2a0622113f67af4af7706478571a605a041ea14baf17ab09f347ccc",
+        "files": 64,
+        "htmlFiles": 64,
+        "bytes": 34604557
+      },
+      "wallMs": 2924.970799999952,
+      "maxRssMiB": 271.64453125,
+      "userCpuMs": 3281,
+      "systemCpuMs": 890,
+      "adapters": [
+        {
+          "variant": "html-escaper",
+          "pid": 6700,
+          "threadId": 0,
+          "loadMs": 0.818000000000211
+        }
+      ],
+      "processes": [
+        {
+          "pid": 6700,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2850.0888,
+          "maxRssKiB": 278164,
+          "userCpuMs": 3281,
+          "systemCpuMs": 890
+        }
+      ]
+    },
+    {
+      "id": "props-w0-r1-wasm",
+      "variant": "wasm",
+      "scenario": "props",
+      "workerCount": 0,
+      "round": 1,
+      "pages": 64,
+      "output": {
+        "sha256": "17e02dfef2a0622113f67af4af7706478571a605a041ea14baf17ab09f347ccc",
+        "files": 64,
+        "htmlFiles": 64,
+        "bytes": 34604557
+      },
+      "wallMs": 2862.2938999999897,
+      "maxRssMiB": 268.32421875,
+      "userCpuMs": 3406,
+      "systemCpuMs": 718,
+      "adapters": [
+        {
+          "variant": "wasm",
+          "pid": 2736,
+          "threadId": 0,
+          "loadMs": 1.2536000000000058
+        }
+      ],
+      "processes": [
+        {
+          "pid": 2736,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2789.4208,
+          "maxRssKiB": 274764,
+          "userCpuMs": 3406,
+          "systemCpuMs": 718
+        }
+      ]
+    },
+    {
+      "id": "props-w0-r1-escape-html",
+      "variant": "escape-html",
+      "scenario": "props",
+      "workerCount": 0,
+      "round": 1,
+      "pages": 64,
+      "output": {
+        "sha256": "17e02dfef2a0622113f67af4af7706478571a605a041ea14baf17ab09f347ccc",
+        "files": 64,
+        "htmlFiles": 64,
+        "bytes": 34604557
+      },
+      "wallMs": 2844.541599999997,
+      "maxRssMiB": 253.62109375,
+      "userCpuMs": 3093,
+      "systemCpuMs": 734,
+      "adapters": [
+        {
+          "variant": "escape-html",
+          "pid": 3040,
+          "threadId": 0,
+          "loadMs": 0.7627999999999702
+        }
+      ],
+      "processes": [
+        {
+          "pid": 3040,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2770.7741,
+          "maxRssKiB": 259708,
+          "userCpuMs": 3093,
+          "systemCpuMs": 734
+        }
+      ]
+    },
+    {
+      "id": "props-w0-r1-fast-escape-html",
+      "variant": "fast-escape-html",
+      "scenario": "props",
+      "workerCount": 0,
+      "round": 1,
+      "pages": 64,
+      "output": {
+        "sha256": "17e02dfef2a0622113f67af4af7706478571a605a041ea14baf17ab09f347ccc",
+        "files": 64,
+        "htmlFiles": 64,
+        "bytes": 34604557
+      },
+      "wallMs": 2852.872399999993,
+      "maxRssMiB": 252.34375,
+      "userCpuMs": 3125,
+      "systemCpuMs": 890,
+      "adapters": [
+        {
+          "variant": "fast-escape-html",
+          "pid": 5264,
+          "threadId": 0,
+          "loadMs": 0.9883999999997286
+        }
+      ],
+      "processes": [
+        {
+          "pid": 5264,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2779.9657,
+          "maxRssKiB": 258400,
+          "userCpuMs": 3125,
+          "systemCpuMs": 890
+        }
+      ]
+    },
+    {
+      "id": "props-w0-r1-html-escaper",
+      "variant": "html-escaper",
+      "scenario": "props",
+      "workerCount": 0,
+      "round": 1,
+      "pages": 64,
+      "output": {
+        "sha256": "17e02dfef2a0622113f67af4af7706478571a605a041ea14baf17ab09f347ccc",
+        "files": 64,
+        "htmlFiles": 64,
+        "bytes": 34604557
+      },
+      "wallMs": 3001.1839000000036,
+      "maxRssMiB": 272.6015625,
+      "userCpuMs": 3218,
+      "systemCpuMs": 1000,
+      "adapters": [
+        {
+          "variant": "html-escaper",
+          "pid": 6888,
+          "threadId": 0,
+          "loadMs": 0.875
+        }
+      ],
+      "processes": [
+        {
+          "pid": 6888,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2924.6104,
+          "maxRssKiB": 279144,
+          "userCpuMs": 3218,
+          "systemCpuMs": 1000
+        }
+      ]
+    },
+    {
+      "id": "props-w0-r1-native",
+      "variant": "native",
+      "scenario": "props",
+      "workerCount": 0,
+      "round": 1,
+      "pages": 64,
+      "output": {
+        "sha256": "17e02dfef2a0622113f67af4af7706478571a605a041ea14baf17ab09f347ccc",
+        "files": 64,
+        "htmlFiles": 64,
+        "bytes": 34604557
+      },
+      "wallMs": 2818.3351999999722,
+      "maxRssMiB": 270.0546875,
+      "userCpuMs": 2890,
+      "systemCpuMs": 828,
+      "adapters": [
+        {
+          "variant": "native",
+          "pid": 3504,
+          "threadId": 0,
+          "loadMs": 2.4987999999998465
+        }
+      ],
+      "processes": [
+        {
+          "pid": 3504,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2743.5737,
+          "maxRssKiB": 276536,
+          "userCpuMs": 2890,
+          "systemCpuMs": 828
+        }
+      ]
+    },
+    {
+      "id": "props-w0-r2-escape-html",
+      "variant": "escape-html",
+      "scenario": "props",
+      "workerCount": 0,
+      "round": 2,
+      "pages": 64,
+      "output": {
+        "sha256": "17e02dfef2a0622113f67af4af7706478571a605a041ea14baf17ab09f347ccc",
+        "files": 64,
+        "htmlFiles": 64,
+        "bytes": 34604557
+      },
+      "wallMs": 2983.0869999999995,
+      "maxRssMiB": 253.625,
+      "userCpuMs": 3140,
+      "systemCpuMs": 1015,
+      "adapters": [
+        {
+          "variant": "escape-html",
+          "pid": 5104,
+          "threadId": 0,
+          "loadMs": 0.8057999999996355
+        }
+      ],
+      "processes": [
+        {
+          "pid": 5104,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2900.4167,
+          "maxRssKiB": 259712,
+          "userCpuMs": 3140,
+          "systemCpuMs": 1015
+        }
+      ]
+    },
+    {
+      "id": "props-w0-r2-fast-escape-html",
+      "variant": "fast-escape-html",
+      "scenario": "props",
+      "workerCount": 0,
+      "round": 2,
+      "pages": 64,
+      "output": {
+        "sha256": "17e02dfef2a0622113f67af4af7706478571a605a041ea14baf17ab09f347ccc",
+        "files": 64,
+        "htmlFiles": 64,
+        "bytes": 34604557
+      },
+      "wallMs": 2840.5094999999856,
+      "maxRssMiB": 253.45703125,
+      "userCpuMs": 3125,
+      "systemCpuMs": 843,
+      "adapters": [
+        {
+          "variant": "fast-escape-html",
+          "pid": 5244,
+          "threadId": 0,
+          "loadMs": 0.9003999999999905
+        }
+      ],
+      "processes": [
+        {
+          "pid": 5244,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2770.0204,
+          "maxRssKiB": 259540,
+          "userCpuMs": 3125,
+          "systemCpuMs": 843
+        }
+      ]
+    },
+    {
+      "id": "props-w0-r2-html-escaper",
+      "variant": "html-escaper",
+      "scenario": "props",
+      "workerCount": 0,
+      "round": 2,
+      "pages": 64,
+      "output": {
+        "sha256": "17e02dfef2a0622113f67af4af7706478571a605a041ea14baf17ab09f347ccc",
+        "files": 64,
+        "htmlFiles": 64,
+        "bytes": 34604557
+      },
+      "wallMs": 2879.2395999999717,
+      "maxRssMiB": 272.65625,
+      "userCpuMs": 2828,
+      "systemCpuMs": 1156,
+      "adapters": [
+        {
+          "variant": "html-escaper",
+          "pid": 8080,
+          "threadId": 0,
+          "loadMs": 0.8984000000000378
+        }
+      ],
+      "processes": [
+        {
+          "pid": 8080,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2806.4871000000003,
+          "maxRssKiB": 279200,
+          "userCpuMs": 2828,
+          "systemCpuMs": 1156
+        }
+      ]
+    },
+    {
+      "id": "props-w0-r2-native",
+      "variant": "native",
+      "scenario": "props",
+      "workerCount": 0,
+      "round": 2,
+      "pages": 64,
+      "output": {
+        "sha256": "17e02dfef2a0622113f67af4af7706478571a605a041ea14baf17ab09f347ccc",
+        "files": 64,
+        "htmlFiles": 64,
+        "bytes": 34604557
+      },
+      "wallMs": 2804.3741000000155,
+      "maxRssMiB": 270.18359375,
+      "userCpuMs": 3250,
+      "systemCpuMs": 687,
+      "adapters": [
+        {
+          "variant": "native",
+          "pid": 4880,
+          "threadId": 0,
+          "loadMs": 2.547599999999875
+        }
+      ],
+      "processes": [
+        {
+          "pid": 4880,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2733.5651000000003,
+          "maxRssKiB": 276668,
+          "userCpuMs": 3250,
+          "systemCpuMs": 687
+        }
+      ]
+    },
+    {
+      "id": "props-w0-r2-wasm",
+      "variant": "wasm",
+      "scenario": "props",
+      "workerCount": 0,
+      "round": 2,
+      "pages": 64,
+      "output": {
+        "sha256": "17e02dfef2a0622113f67af4af7706478571a605a041ea14baf17ab09f347ccc",
+        "files": 64,
+        "htmlFiles": 64,
+        "bytes": 34604557
+      },
+      "wallMs": 2854.3910000000033,
+      "maxRssMiB": 268.63671875,
+      "userCpuMs": 3578,
+      "systemCpuMs": 671,
+      "adapters": [
+        {
+          "variant": "wasm",
+          "pid": 4752,
+          "threadId": 0,
+          "loadMs": 1.3959999999997308
+        }
+      ],
+      "processes": [
+        {
+          "pid": 4752,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2784.7444,
+          "maxRssKiB": 275084,
+          "userCpuMs": 3578,
+          "systemCpuMs": 671
+        }
+      ]
+    },
+    {
+      "id": "props-w0-r3-fast-escape-html",
+      "variant": "fast-escape-html",
+      "scenario": "props",
+      "workerCount": 0,
+      "round": 3,
+      "pages": 64,
+      "output": {
+        "sha256": "17e02dfef2a0622113f67af4af7706478571a605a041ea14baf17ab09f347ccc",
+        "files": 64,
+        "htmlFiles": 64,
+        "bytes": 34604557
+      },
+      "wallMs": 2802.8359000000055,
+      "maxRssMiB": 254.859375,
+      "userCpuMs": 3343,
+      "systemCpuMs": 906,
+      "adapters": [
+        {
+          "variant": "fast-escape-html",
+          "pid": 2992,
+          "threadId": 0,
+          "loadMs": 0.9063999999998487
+        }
+      ],
+      "processes": [
+        {
+          "pid": 2992,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2731.8043000000002,
+          "maxRssKiB": 260976,
+          "userCpuMs": 3343,
+          "systemCpuMs": 906
+        }
+      ]
+    },
+    {
+      "id": "props-w0-r3-html-escaper",
+      "variant": "html-escaper",
+      "scenario": "props",
+      "workerCount": 0,
+      "round": 3,
+      "pages": 64,
+      "output": {
+        "sha256": "17e02dfef2a0622113f67af4af7706478571a605a041ea14baf17ab09f347ccc",
+        "files": 64,
+        "htmlFiles": 64,
+        "bytes": 34604557
+      },
+      "wallMs": 2869.980099999986,
+      "maxRssMiB": 273.58984375,
+      "userCpuMs": 3328,
+      "systemCpuMs": 765,
+      "adapters": [
+        {
+          "variant": "html-escaper",
+          "pid": 4292,
+          "threadId": 0,
+          "loadMs": 0.8069000000000415
+        }
+      ],
+      "processes": [
+        {
+          "pid": 4292,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2796.8668,
+          "maxRssKiB": 280156,
+          "userCpuMs": 3328,
+          "systemCpuMs": 765
+        }
+      ]
+    },
+    {
+      "id": "props-w0-r3-native",
+      "variant": "native",
+      "scenario": "props",
+      "workerCount": 0,
+      "round": 3,
+      "pages": 64,
+      "output": {
+        "sha256": "17e02dfef2a0622113f67af4af7706478571a605a041ea14baf17ab09f347ccc",
+        "files": 64,
+        "htmlFiles": 64,
+        "bytes": 34604557
+      },
+      "wallMs": 2758.363699999987,
+      "maxRssMiB": 269.8125,
+      "userCpuMs": 3000,
+      "systemCpuMs": 968,
+      "adapters": [
+        {
+          "variant": "native",
+          "pid": 5580,
+          "threadId": 0,
+          "loadMs": 2.3562000000001717
+        }
+      ],
+      "processes": [
+        {
+          "pid": 5580,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2687.8857,
+          "maxRssKiB": 276288,
+          "userCpuMs": 3000,
+          "systemCpuMs": 968
+        }
+      ]
+    },
+    {
+      "id": "props-w0-r3-wasm",
+      "variant": "wasm",
+      "scenario": "props",
+      "workerCount": 0,
+      "round": 3,
+      "pages": 64,
+      "output": {
+        "sha256": "17e02dfef2a0622113f67af4af7706478571a605a041ea14baf17ab09f347ccc",
+        "files": 64,
+        "htmlFiles": 64,
+        "bytes": 34604557
+      },
+      "wallMs": 2883.5366000000504,
+      "maxRssMiB": 269.24609375,
+      "userCpuMs": 3140,
+      "systemCpuMs": 734,
+      "adapters": [
+        {
+          "variant": "wasm",
+          "pid": 6048,
+          "threadId": 0,
+          "loadMs": 1.2083999999999833
+        }
+      ],
+      "processes": [
+        {
+          "pid": 6048,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2812.636,
+          "maxRssKiB": 275708,
+          "userCpuMs": 3140,
+          "systemCpuMs": 734
+        }
+      ]
+    },
+    {
+      "id": "props-w0-r3-escape-html",
+      "variant": "escape-html",
+      "scenario": "props",
+      "workerCount": 0,
+      "round": 3,
+      "pages": 64,
+      "output": {
+        "sha256": "17e02dfef2a0622113f67af4af7706478571a605a041ea14baf17ab09f347ccc",
+        "files": 64,
+        "htmlFiles": 64,
+        "bytes": 34604557
+      },
+      "wallMs": 2848.1908000000403,
+      "maxRssMiB": 255.0546875,
+      "userCpuMs": 3156,
+      "systemCpuMs": 875,
+      "adapters": [
+        {
+          "variant": "escape-html",
+          "pid": 7176,
+          "threadId": 0,
+          "loadMs": 0.7737000000001899
+        }
+      ],
+      "processes": [
+        {
+          "pid": 7176,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2775.7657,
+          "maxRssKiB": 261176,
+          "userCpuMs": 3156,
+          "systemCpuMs": 875
+        }
+      ]
+    },
+    {
+      "id": "props-w0-r4-html-escaper",
+      "variant": "html-escaper",
+      "scenario": "props",
+      "workerCount": 0,
+      "round": 4,
+      "pages": 64,
+      "output": {
+        "sha256": "17e02dfef2a0622113f67af4af7706478571a605a041ea14baf17ab09f347ccc",
+        "files": 64,
+        "htmlFiles": 64,
+        "bytes": 34604557
+      },
+      "wallMs": 2926.724499999953,
+      "maxRssMiB": 271.76953125,
+      "userCpuMs": 3218,
+      "systemCpuMs": 718,
+      "adapters": [
+        {
+          "variant": "html-escaper",
+          "pid": 8088,
+          "threadId": 0,
+          "loadMs": 0.9068999999999505
+        }
+      ],
+      "processes": [
+        {
+          "pid": 8088,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2851.5438,
+          "maxRssKiB": 278292,
+          "userCpuMs": 3218,
+          "systemCpuMs": 718
+        }
+      ]
+    },
+    {
+      "id": "props-w0-r4-native",
+      "variant": "native",
+      "scenario": "props",
+      "workerCount": 0,
+      "round": 4,
+      "pages": 64,
+      "output": {
+        "sha256": "17e02dfef2a0622113f67af4af7706478571a605a041ea14baf17ab09f347ccc",
+        "files": 64,
+        "htmlFiles": 64,
+        "bytes": 34604557
+      },
+      "wallMs": 2850.646999999997,
+      "maxRssMiB": 270.17578125,
+      "userCpuMs": 3062,
+      "systemCpuMs": 859,
+      "adapters": [
+        {
+          "variant": "native",
+          "pid": 7560,
+          "threadId": 0,
+          "loadMs": 2.400100000000293
+        }
+      ],
+      "processes": [
+        {
+          "pid": 7560,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2775.6246,
+          "maxRssKiB": 276660,
+          "userCpuMs": 3062,
+          "systemCpuMs": 859
+        }
+      ]
+    },
+    {
+      "id": "props-w0-r4-wasm",
+      "variant": "wasm",
+      "scenario": "props",
+      "workerCount": 0,
+      "round": 4,
+      "pages": 64,
+      "output": {
+        "sha256": "17e02dfef2a0622113f67af4af7706478571a605a041ea14baf17ab09f347ccc",
+        "files": 64,
+        "htmlFiles": 64,
+        "bytes": 34604557
+      },
+      "wallMs": 2908.575199999963,
+      "maxRssMiB": 269.921875,
+      "userCpuMs": 3046,
+      "systemCpuMs": 812,
+      "adapters": [
+        {
+          "variant": "wasm",
+          "pid": 4808,
+          "threadId": 0,
+          "loadMs": 1.2788000000000466
+        }
+      ],
+      "processes": [
+        {
+          "pid": 4808,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2831.1886000000004,
+          "maxRssKiB": 276400,
+          "userCpuMs": 3046,
+          "systemCpuMs": 812
+        }
+      ]
+    },
+    {
+      "id": "props-w0-r4-escape-html",
+      "variant": "escape-html",
+      "scenario": "props",
+      "workerCount": 0,
+      "round": 4,
+      "pages": 64,
+      "output": {
+        "sha256": "17e02dfef2a0622113f67af4af7706478571a605a041ea14baf17ab09f347ccc",
+        "files": 64,
+        "htmlFiles": 64,
+        "bytes": 34604557
+      },
+      "wallMs": 2841.785300000047,
+      "maxRssMiB": 253.6171875,
+      "userCpuMs": 2875,
+      "systemCpuMs": 1000,
+      "adapters": [
+        {
+          "variant": "escape-html",
+          "pid": 1704,
+          "threadId": 0,
+          "loadMs": 0.7601999999997133
+        }
+      ],
+      "processes": [
+        {
+          "pid": 1704,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2768.1478,
+          "maxRssKiB": 259704,
+          "userCpuMs": 2875,
+          "systemCpuMs": 1000
+        }
+      ]
+    },
+    {
+      "id": "props-w0-r4-fast-escape-html",
+      "variant": "fast-escape-html",
+      "scenario": "props",
+      "workerCount": 0,
+      "round": 4,
+      "pages": 64,
+      "output": {
+        "sha256": "17e02dfef2a0622113f67af4af7706478571a605a041ea14baf17ab09f347ccc",
+        "files": 64,
+        "htmlFiles": 64,
+        "bytes": 34604557
+      },
+      "wallMs": 2818.838999999978,
+      "maxRssMiB": 253.1328125,
+      "userCpuMs": 3078,
+      "systemCpuMs": 750,
+      "adapters": [
+        {
+          "variant": "fast-escape-html",
+          "pid": 5276,
+          "threadId": 0,
+          "loadMs": 0.9140999999999622
+        }
+      ],
+      "processes": [
+        {
+          "pid": 5276,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2748.5962,
+          "maxRssKiB": 259208,
+          "userCpuMs": 3078,
+          "systemCpuMs": 750
+        }
+      ]
+    },
+    {
+      "id": "props-w2-r0-native",
+      "variant": "native",
+      "scenario": "props",
+      "workerCount": 2,
+      "round": 0,
+      "pages": 64,
+      "output": {
+        "sha256": "17e02dfef2a0622113f67af4af7706478571a605a041ea14baf17ab09f347ccc",
+        "files": 64,
+        "htmlFiles": 64,
+        "bytes": 34604557
+      },
+      "wallMs": 2992.064400000032,
+      "maxRssMiB": 416.64453125,
+      "userCpuMs": 3984,
+      "systemCpuMs": 1078,
+      "adapters": [
+        {
+          "variant": "native",
+          "pid": 2972,
+          "threadId": 1,
+          "loadMs": 3.9549000000001797
+        },
+        {
+          "variant": "native",
+          "pid": 2972,
+          "threadId": 2,
+          "loadMs": 4.021200000000135
+        }
+      ],
+      "processes": [
+        {
+          "pid": 2972,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2920.5886,
+          "maxRssKiB": 426644,
+          "userCpuMs": 3984,
+          "systemCpuMs": 1078
+        }
+      ]
+    },
+    {
+      "id": "props-w2-r0-wasm",
+      "variant": "wasm",
+      "scenario": "props",
+      "workerCount": 2,
+      "round": 0,
+      "pages": 64,
+      "output": {
+        "sha256": "17e02dfef2a0622113f67af4af7706478571a605a041ea14baf17ab09f347ccc",
+        "files": 64,
+        "htmlFiles": 64,
+        "bytes": 34604557
+      },
+      "wallMs": 3069.6049999999814,
+      "maxRssMiB": 424.43359375,
+      "userCpuMs": 4125,
+      "systemCpuMs": 1046,
+      "adapters": [
+        {
+          "variant": "wasm",
+          "pid": 4612,
+          "threadId": 1,
+          "loadMs": 9.968899999999849
+        },
+        {
+          "variant": "wasm",
+          "pid": 4612,
+          "threadId": 2,
+          "loadMs": 9.384900000000016
+        }
+      ],
+      "processes": [
+        {
+          "pid": 4612,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2998.4161000000004,
+          "maxRssKiB": 434620,
+          "userCpuMs": 4125,
+          "systemCpuMs": 1046
+        }
+      ]
+    },
+    {
+      "id": "props-w2-r0-escape-html",
+      "variant": "escape-html",
+      "scenario": "props",
+      "workerCount": 2,
+      "round": 0,
+      "pages": 64,
+      "output": {
+        "sha256": "17e02dfef2a0622113f67af4af7706478571a605a041ea14baf17ab09f347ccc",
+        "files": 64,
+        "htmlFiles": 64,
+        "bytes": 34604557
+      },
+      "wallMs": 3066.3396000000066,
+      "maxRssMiB": 401.96484375,
+      "userCpuMs": 3937,
+      "systemCpuMs": 1296,
+      "adapters": [
+        {
+          "variant": "escape-html",
+          "pid": 2492,
+          "threadId": 1,
+          "loadMs": 2.0034999999998035
+        },
+        {
+          "variant": "escape-html",
+          "pid": 2492,
+          "threadId": 2,
+          "loadMs": 2.0484999999998763
+        }
+      ],
+      "processes": [
+        {
+          "pid": 2492,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2993.4225,
+          "maxRssKiB": 411612,
+          "userCpuMs": 3937,
+          "systemCpuMs": 1296
+        }
+      ]
+    },
+    {
+      "id": "props-w2-r0-fast-escape-html",
+      "variant": "fast-escape-html",
+      "scenario": "props",
+      "workerCount": 2,
+      "round": 0,
+      "pages": 64,
+      "output": {
+        "sha256": "17e02dfef2a0622113f67af4af7706478571a605a041ea14baf17ab09f347ccc",
+        "files": 64,
+        "htmlFiles": 64,
+        "bytes": 34604557
+      },
+      "wallMs": 3069.7987999999896,
+      "maxRssMiB": 404.01953125,
+      "userCpuMs": 4156,
+      "systemCpuMs": 1156,
+      "adapters": [
+        {
+          "variant": "fast-escape-html",
+          "pid": 4400,
+          "threadId": 1,
+          "loadMs": 1.6358000000000175
+        },
+        {
+          "variant": "fast-escape-html",
+          "pid": 4400,
+          "threadId": 2,
+          "loadMs": 1.6846999999997934
+        }
+      ],
+      "processes": [
+        {
+          "pid": 4400,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2998.5736,
+          "maxRssKiB": 413716,
+          "userCpuMs": 4156,
+          "systemCpuMs": 1156
+        }
+      ]
+    },
+    {
+      "id": "props-w2-r0-html-escaper",
+      "variant": "html-escaper",
+      "scenario": "props",
+      "workerCount": 2,
+      "round": 0,
+      "pages": 64,
+      "output": {
+        "sha256": "17e02dfef2a0622113f67af4af7706478571a605a041ea14baf17ab09f347ccc",
+        "files": 64,
+        "htmlFiles": 64,
+        "bytes": 34604557
+      },
+      "wallMs": 3041.6275000000023,
+      "maxRssMiB": 415.85546875,
+      "userCpuMs": 4109,
+      "systemCpuMs": 1109,
+      "adapters": [
+        {
+          "variant": "html-escaper",
+          "pid": 5872,
+          "threadId": 1,
+          "loadMs": 1.487699999999677
+        },
+        {
+          "variant": "html-escaper",
+          "pid": 5872,
+          "threadId": 2,
+          "loadMs": 1.5252000000000407
+        }
+      ],
+      "processes": [
+        {
+          "pid": 5872,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2968.9687000000004,
+          "maxRssKiB": 425836,
+          "userCpuMs": 4109,
+          "systemCpuMs": 1109
+        }
+      ]
+    },
+    {
+      "id": "props-w2-r1-wasm",
+      "variant": "wasm",
+      "scenario": "props",
+      "workerCount": 2,
+      "round": 1,
+      "pages": 64,
+      "output": {
+        "sha256": "17e02dfef2a0622113f67af4af7706478571a605a041ea14baf17ab09f347ccc",
+        "files": 64,
+        "htmlFiles": 64,
+        "bytes": 34604557
+      },
+      "wallMs": 3064.529899999965,
+      "maxRssMiB": 426.00390625,
+      "userCpuMs": 3828,
+      "systemCpuMs": 1359,
+      "adapters": [
+        {
+          "variant": "wasm",
+          "pid": 5460,
+          "threadId": 1,
+          "loadMs": 9.196699999999964
+        },
+        {
+          "variant": "wasm",
+          "pid": 5460,
+          "threadId": 2,
+          "loadMs": 9.514599999999973
+        }
+      ],
+      "processes": [
+        {
+          "pid": 5460,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2992.7377,
+          "maxRssKiB": 436228,
+          "userCpuMs": 3828,
+          "systemCpuMs": 1359
+        }
+      ]
+    },
+    {
+      "id": "props-w2-r1-escape-html",
+      "variant": "escape-html",
+      "scenario": "props",
+      "workerCount": 2,
+      "round": 1,
+      "pages": 64,
+      "output": {
+        "sha256": "17e02dfef2a0622113f67af4af7706478571a605a041ea14baf17ab09f347ccc",
+        "files": 64,
+        "htmlFiles": 64,
+        "bytes": 34604557
+      },
+      "wallMs": 3008.502299999993,
+      "maxRssMiB": 404.50390625,
+      "userCpuMs": 4093,
+      "systemCpuMs": 1062,
+      "adapters": [
+        {
+          "variant": "escape-html",
+          "pid": 3112,
+          "threadId": 1,
+          "loadMs": 1.841200000000299
+        },
+        {
+          "variant": "escape-html",
+          "pid": 3112,
+          "threadId": 2,
+          "loadMs": 1.8506000000002132
+        }
+      ],
+      "processes": [
+        {
+          "pid": 3112,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2935.7039000000004,
+          "maxRssKiB": 414212,
+          "userCpuMs": 4093,
+          "systemCpuMs": 1062
+        }
+      ]
+    },
+    {
+      "id": "props-w2-r1-fast-escape-html",
+      "variant": "fast-escape-html",
+      "scenario": "props",
+      "workerCount": 2,
+      "round": 1,
+      "pages": 64,
+      "output": {
+        "sha256": "17e02dfef2a0622113f67af4af7706478571a605a041ea14baf17ab09f347ccc",
+        "files": 64,
+        "htmlFiles": 64,
+        "bytes": 34604557
+      },
+      "wallMs": 3042.1363999999594,
+      "maxRssMiB": 395.66015625,
+      "userCpuMs": 3921,
+      "systemCpuMs": 1234,
+      "adapters": [
+        {
+          "variant": "fast-escape-html",
+          "pid": 7524,
+          "threadId": 1,
+          "loadMs": 1.1621000000000095
+        },
+        {
+          "variant": "fast-escape-html",
+          "pid": 7524,
+          "threadId": 2,
+          "loadMs": 1.3049000000000888
+        }
+      ],
+      "processes": [
+        {
+          "pid": 7524,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2964.9568,
+          "maxRssKiB": 405156,
+          "userCpuMs": 3921,
+          "systemCpuMs": 1234
+        }
+      ]
+    },
+    {
+      "id": "props-w2-r1-html-escaper",
+      "variant": "html-escaper",
+      "scenario": "props",
+      "workerCount": 2,
+      "round": 1,
+      "pages": 64,
+      "output": {
+        "sha256": "17e02dfef2a0622113f67af4af7706478571a605a041ea14baf17ab09f347ccc",
+        "files": 64,
+        "htmlFiles": 64,
+        "bytes": 34604557
+      },
+      "wallMs": 3099.9212999999872,
+      "maxRssMiB": 415.7109375,
+      "userCpuMs": 4359,
+      "systemCpuMs": 1015,
+      "adapters": [
+        {
+          "variant": "html-escaper",
+          "pid": 3672,
+          "threadId": 1,
+          "loadMs": 2.030999999999949
+        },
+        {
+          "variant": "html-escaper",
+          "pid": 3672,
+          "threadId": 2,
+          "loadMs": 1.9429000000000087
+        }
+      ],
+      "processes": [
+        {
+          "pid": 3672,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 3027.6661999999997,
+          "maxRssKiB": 425688,
+          "userCpuMs": 4359,
+          "systemCpuMs": 1015
+        }
+      ]
+    },
+    {
+      "id": "props-w2-r1-native",
+      "variant": "native",
+      "scenario": "props",
+      "workerCount": 2,
+      "round": 1,
+      "pages": 64,
+      "output": {
+        "sha256": "17e02dfef2a0622113f67af4af7706478571a605a041ea14baf17ab09f347ccc",
+        "files": 64,
+        "htmlFiles": 64,
+        "bytes": 34604557
+      },
+      "wallMs": 3050.9380000000237,
+      "maxRssMiB": 417.25390625,
+      "userCpuMs": 4140,
+      "systemCpuMs": 1187,
+      "adapters": [
+        {
+          "variant": "native",
+          "pid": 5232,
+          "threadId": 1,
+          "loadMs": 4.265100000000075
+        },
+        {
+          "variant": "native",
+          "pid": 5232,
+          "threadId": 2,
+          "loadMs": 4.617999999999938
+        }
+      ],
+      "processes": [
+        {
+          "pid": 5232,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2980.2462,
+          "maxRssKiB": 427268,
+          "userCpuMs": 4140,
+          "systemCpuMs": 1187
+        }
+      ]
+    },
+    {
+      "id": "props-w2-r2-escape-html",
+      "variant": "escape-html",
+      "scenario": "props",
+      "workerCount": 2,
+      "round": 2,
+      "pages": 64,
+      "output": {
+        "sha256": "17e02dfef2a0622113f67af4af7706478571a605a041ea14baf17ab09f347ccc",
+        "files": 64,
+        "htmlFiles": 64,
+        "bytes": 34604557
+      },
+      "wallMs": 3034.156799999997,
+      "maxRssMiB": 405.91796875,
+      "userCpuMs": 4078,
+      "systemCpuMs": 1156,
+      "adapters": [
+        {
+          "variant": "escape-html",
+          "pid": 7316,
+          "threadId": 1,
+          "loadMs": 1.9481999999998152
+        },
+        {
+          "variant": "escape-html",
+          "pid": 7316,
+          "threadId": 2,
+          "loadMs": 1.948099999999613
+        }
+      ],
+      "processes": [
+        {
+          "pid": 7316,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2962.726,
+          "maxRssKiB": 415660,
+          "userCpuMs": 4078,
+          "systemCpuMs": 1156
+        }
+      ]
+    },
+    {
+      "id": "props-w2-r2-fast-escape-html",
+      "variant": "fast-escape-html",
+      "scenario": "props",
+      "workerCount": 2,
+      "round": 2,
+      "pages": 64,
+      "output": {
+        "sha256": "17e02dfef2a0622113f67af4af7706478571a605a041ea14baf17ab09f347ccc",
+        "files": 64,
+        "htmlFiles": 64,
+        "bytes": 34604557
+      },
+      "wallMs": 3063.3048999999883,
+      "maxRssMiB": 403.8828125,
+      "userCpuMs": 3796,
+      "systemCpuMs": 1265,
+      "adapters": [
+        {
+          "variant": "fast-escape-html",
+          "pid": 3296,
+          "threadId": 1,
+          "loadMs": 1.6793000000002394
+        },
+        {
+          "variant": "fast-escape-html",
+          "pid": 3296,
+          "threadId": 2,
+          "loadMs": 1.673699999999826
+        }
+      ],
+      "processes": [
+        {
+          "pid": 3296,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2988.9678,
+          "maxRssKiB": 413576,
+          "userCpuMs": 3796,
+          "systemCpuMs": 1265
+        }
+      ]
+    },
+    {
+      "id": "props-w2-r2-html-escaper",
+      "variant": "html-escaper",
+      "scenario": "props",
+      "workerCount": 2,
+      "round": 2,
+      "pages": 64,
+      "output": {
+        "sha256": "17e02dfef2a0622113f67af4af7706478571a605a041ea14baf17ab09f347ccc",
+        "files": 64,
+        "htmlFiles": 64,
+        "bytes": 34604557
+      },
+      "wallMs": 3118.161599999992,
+      "maxRssMiB": 415.84765625,
+      "userCpuMs": 4234,
+      "systemCpuMs": 1140,
+      "adapters": [
+        {
+          "variant": "html-escaper",
+          "pid": 5084,
+          "threadId": 1,
+          "loadMs": 1.074999999999818
+        },
+        {
+          "variant": "html-escaper",
+          "pid": 5084,
+          "threadId": 2,
+          "loadMs": 1.207600000000184
+        }
+      ],
+      "processes": [
+        {
+          "pid": 5084,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 3045.7763999999997,
+          "maxRssKiB": 425828,
+          "userCpuMs": 4234,
+          "systemCpuMs": 1140
+        }
+      ]
+    },
+    {
+      "id": "props-w2-r2-native",
+      "variant": "native",
+      "scenario": "props",
+      "workerCount": 2,
+      "round": 2,
+      "pages": 64,
+      "output": {
+        "sha256": "17e02dfef2a0622113f67af4af7706478571a605a041ea14baf17ab09f347ccc",
+        "files": 64,
+        "htmlFiles": 64,
+        "bytes": 34604557
+      },
+      "wallMs": 3039.0526000000536,
+      "maxRssMiB": 397.70703125,
+      "userCpuMs": 3750,
+      "systemCpuMs": 1250,
+      "adapters": [
+        {
+          "variant": "native",
+          "pid": 1672,
+          "threadId": 1,
+          "loadMs": 4.098200000000361
+        },
+        {
+          "variant": "native",
+          "pid": 1672,
+          "threadId": 2,
+          "loadMs": 3.990900000000238
+        }
+      ],
+      "processes": [
+        {
+          "pid": 1672,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2966.5297,
+          "maxRssKiB": 407252,
+          "userCpuMs": 3750,
+          "systemCpuMs": 1250
+        }
+      ]
+    },
+    {
+      "id": "props-w2-r2-wasm",
+      "variant": "wasm",
+      "scenario": "props",
+      "workerCount": 2,
+      "round": 2,
+      "pages": 64,
+      "output": {
+        "sha256": "17e02dfef2a0622113f67af4af7706478571a605a041ea14baf17ab09f347ccc",
+        "files": 64,
+        "htmlFiles": 64,
+        "bytes": 34604557
+      },
+      "wallMs": 3060.7577000000165,
+      "maxRssMiB": 425.57421875,
+      "userCpuMs": 4078,
+      "systemCpuMs": 1078,
+      "adapters": [
+        {
+          "variant": "wasm",
+          "pid": 2076,
+          "threadId": 1,
+          "loadMs": 5.1862999999998465
+        },
+        {
+          "variant": "wasm",
+          "pid": 2076,
+          "threadId": 2,
+          "loadMs": 5.958599999999933
+        }
+      ],
+      "processes": [
+        {
+          "pid": 2076,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2986.9731,
+          "maxRssKiB": 435788,
+          "userCpuMs": 4078,
+          "systemCpuMs": 1078
+        }
+      ]
+    },
+    {
+      "id": "props-w2-r3-fast-escape-html",
+      "variant": "fast-escape-html",
+      "scenario": "props",
+      "workerCount": 2,
+      "round": 3,
+      "pages": 64,
+      "output": {
+        "sha256": "17e02dfef2a0622113f67af4af7706478571a605a041ea14baf17ab09f347ccc",
+        "files": 64,
+        "htmlFiles": 64,
+        "bytes": 34604557
+      },
+      "wallMs": 3016.2973999999813,
+      "maxRssMiB": 399.9765625,
+      "userCpuMs": 4031,
+      "systemCpuMs": 1078,
+      "adapters": [
+        {
+          "variant": "fast-escape-html",
+          "pid": 4732,
+          "threadId": 1,
+          "loadMs": 1.129399999999805
+        },
+        {
+          "variant": "fast-escape-html",
+          "pid": 4732,
+          "threadId": 2,
+          "loadMs": 1.2541000000001077
+        }
+      ],
+      "processes": [
+        {
+          "pid": 4732,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2945.0341000000003,
+          "maxRssKiB": 409576,
+          "userCpuMs": 4031,
+          "systemCpuMs": 1078
+        }
+      ]
+    },
+    {
+      "id": "props-w2-r3-html-escaper",
+      "variant": "html-escaper",
+      "scenario": "props",
+      "workerCount": 2,
+      "round": 3,
+      "pages": 64,
+      "output": {
+        "sha256": "17e02dfef2a0622113f67af4af7706478571a605a041ea14baf17ab09f347ccc",
+        "files": 64,
+        "htmlFiles": 64,
+        "bytes": 34604557
+      },
+      "wallMs": 3029.32640000002,
+      "maxRssMiB": 414.890625,
+      "userCpuMs": 3609,
+      "systemCpuMs": 1390,
+      "adapters": [
+        {
+          "variant": "html-escaper",
+          "pid": 2912,
+          "threadId": 1,
+          "loadMs": 1.378700000000208
+        },
+        {
+          "variant": "html-escaper",
+          "pid": 2912,
+          "threadId": 2,
+          "loadMs": 1.2887000000000626
+        }
+      ],
+      "processes": [
+        {
+          "pid": 2912,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2959.4365,
+          "maxRssKiB": 424848,
+          "userCpuMs": 3609,
+          "systemCpuMs": 1390
+        }
+      ]
+    },
+    {
+      "id": "props-w2-r3-native",
+      "variant": "native",
+      "scenario": "props",
+      "workerCount": 2,
+      "round": 3,
+      "pages": 64,
+      "output": {
+        "sha256": "17e02dfef2a0622113f67af4af7706478571a605a041ea14baf17ab09f347ccc",
+        "files": 64,
+        "htmlFiles": 64,
+        "bytes": 34604557
+      },
+      "wallMs": 2987.467500000028,
+      "maxRssMiB": 397.359375,
+      "userCpuMs": 3734,
+      "systemCpuMs": 1140,
+      "adapters": [
+        {
+          "variant": "native",
+          "pid": 4196,
+          "threadId": 1,
+          "loadMs": 3.9171000000001186
+        },
+        {
+          "variant": "native",
+          "pid": 4196,
+          "threadId": 2,
+          "loadMs": 4.053699999999935
+        }
+      ],
+      "processes": [
+        {
+          "pid": 4196,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2916.4210000000003,
+          "maxRssKiB": 406896,
+          "userCpuMs": 3734,
+          "systemCpuMs": 1140
+        }
+      ]
+    },
+    {
+      "id": "props-w2-r3-wasm",
+      "variant": "wasm",
+      "scenario": "props",
+      "workerCount": 2,
+      "round": 3,
+      "pages": 64,
+      "output": {
+        "sha256": "17e02dfef2a0622113f67af4af7706478571a605a041ea14baf17ab09f347ccc",
+        "files": 64,
+        "htmlFiles": 64,
+        "bytes": 34604557
+      },
+      "wallMs": 3076.7255000000005,
+      "maxRssMiB": 393.42578125,
+      "userCpuMs": 4156,
+      "systemCpuMs": 1046,
+      "adapters": [
+        {
+          "variant": "wasm",
+          "pid": 7844,
+          "threadId": 1,
+          "loadMs": 5.713200000000143
+        },
+        {
+          "variant": "wasm",
+          "pid": 7844,
+          "threadId": 2,
+          "loadMs": 5.679899999999634
+        }
+      ],
+      "processes": [
+        {
+          "pid": 7844,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 3003.7331000000004,
+          "maxRssKiB": 402868,
+          "userCpuMs": 4156,
+          "systemCpuMs": 1046
+        }
+      ]
+    },
+    {
+      "id": "props-w2-r3-escape-html",
+      "variant": "escape-html",
+      "scenario": "props",
+      "workerCount": 2,
+      "round": 3,
+      "pages": 64,
+      "output": {
+        "sha256": "17e02dfef2a0622113f67af4af7706478571a605a041ea14baf17ab09f347ccc",
+        "files": 64,
+        "htmlFiles": 64,
+        "bytes": 34604557
+      },
+      "wallMs": 2993.3265000000247,
+      "maxRssMiB": 403.92578125,
+      "userCpuMs": 4109,
+      "systemCpuMs": 1015,
+      "adapters": [
+        {
+          "variant": "escape-html",
+          "pid": 5880,
+          "threadId": 1,
+          "loadMs": 1.7685999999998785
+        },
+        {
+          "variant": "escape-html",
+          "pid": 5880,
+          "threadId": 2,
+          "loadMs": 1.7105000000001382
+        }
+      ],
+      "processes": [
+        {
+          "pid": 5880,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2919.5941000000003,
+          "maxRssKiB": 413620,
+          "userCpuMs": 4109,
+          "systemCpuMs": 1015
+        }
+      ]
+    },
+    {
+      "id": "props-w2-r4-html-escaper",
+      "variant": "html-escaper",
+      "scenario": "props",
+      "workerCount": 2,
+      "round": 4,
+      "pages": 64,
+      "output": {
+        "sha256": "17e02dfef2a0622113f67af4af7706478571a605a041ea14baf17ab09f347ccc",
+        "files": 64,
+        "htmlFiles": 64,
+        "bytes": 34604557
+      },
+      "wallMs": 3077.4937999999966,
+      "maxRssMiB": 424.328125,
+      "userCpuMs": 4109,
+      "systemCpuMs": 1031,
+      "adapters": [
+        {
+          "variant": "html-escaper",
+          "pid": 2324,
+          "threadId": 1,
+          "loadMs": 1.5453999999999724
+        },
+        {
+          "variant": "html-escaper",
+          "pid": 2324,
+          "threadId": 2,
+          "loadMs": 1.5536000000001877
+        }
+      ],
+      "processes": [
+        {
+          "pid": 2324,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 3003.9588999999996,
+          "maxRssKiB": 434512,
+          "userCpuMs": 4109,
+          "systemCpuMs": 1031
+        }
+      ]
+    },
+    {
+      "id": "props-w2-r4-native",
+      "variant": "native",
+      "scenario": "props",
+      "workerCount": 2,
+      "round": 4,
+      "pages": 64,
+      "output": {
+        "sha256": "17e02dfef2a0622113f67af4af7706478571a605a041ea14baf17ab09f347ccc",
+        "files": 64,
+        "htmlFiles": 64,
+        "bytes": 34604557
+      },
+      "wallMs": 2976.1042000000016,
+      "maxRssMiB": 397.84765625,
+      "userCpuMs": 3968,
+      "systemCpuMs": 1000,
+      "adapters": [
+        {
+          "variant": "native",
+          "pid": 7556,
+          "threadId": 1,
+          "loadMs": 4.033500000000004
+        },
+        {
+          "variant": "native",
+          "pid": 7556,
+          "threadId": 2,
+          "loadMs": 3.7244000000000597
+        }
+      ],
+      "processes": [
+        {
+          "pid": 7556,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2906.1192,
+          "maxRssKiB": 407396,
+          "userCpuMs": 3968,
+          "systemCpuMs": 1000
+        }
+      ]
+    },
+    {
+      "id": "props-w2-r4-wasm",
+      "variant": "wasm",
+      "scenario": "props",
+      "workerCount": 2,
+      "round": 4,
+      "pages": 64,
+      "output": {
+        "sha256": "17e02dfef2a0622113f67af4af7706478571a605a041ea14baf17ab09f347ccc",
+        "files": 64,
+        "htmlFiles": 64,
+        "bytes": 34604557
+      },
+      "wallMs": 3111.293799999985,
+      "maxRssMiB": 406.16015625,
+      "userCpuMs": 3875,
+      "systemCpuMs": 1281,
+      "adapters": [
+        {
+          "variant": "wasm",
+          "pid": 5160,
+          "threadId": 1,
+          "loadMs": 8.921299999999974
+        },
+        {
+          "variant": "wasm",
+          "pid": 5160,
+          "threadId": 2,
+          "loadMs": 9.377200000000357
+        }
+      ],
+      "processes": [
+        {
+          "pid": 5160,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 3038.2117999999996,
+          "maxRssKiB": 415908,
+          "userCpuMs": 3875,
+          "systemCpuMs": 1281
+        }
+      ]
+    },
+    {
+      "id": "props-w2-r4-escape-html",
+      "variant": "escape-html",
+      "scenario": "props",
+      "workerCount": 2,
+      "round": 4,
+      "pages": 64,
+      "output": {
+        "sha256": "17e02dfef2a0622113f67af4af7706478571a605a041ea14baf17ab09f347ccc",
+        "files": 64,
+        "htmlFiles": 64,
+        "bytes": 34604557
+      },
+      "wallMs": 3005.807700000005,
+      "maxRssMiB": 404.8046875,
+      "userCpuMs": 3890,
+      "systemCpuMs": 1265,
+      "adapters": [
+        {
+          "variant": "escape-html",
+          "pid": 7732,
+          "threadId": 1,
+          "loadMs": 1.800499999999829
+        },
+        {
+          "variant": "escape-html",
+          "pid": 7732,
+          "threadId": 2,
+          "loadMs": 1.8572000000003754
+        }
+      ],
+      "processes": [
+        {
+          "pid": 7732,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2934.8466,
+          "maxRssKiB": 414520,
+          "userCpuMs": 3890,
+          "systemCpuMs": 1265
+        }
+      ]
+    },
+    {
+      "id": "props-w2-r4-fast-escape-html",
+      "variant": "fast-escape-html",
+      "scenario": "props",
+      "workerCount": 2,
+      "round": 4,
+      "pages": 64,
+      "output": {
+        "sha256": "17e02dfef2a0622113f67af4af7706478571a605a041ea14baf17ab09f347ccc",
+        "files": 64,
+        "htmlFiles": 64,
+        "bytes": 34604557
+      },
+      "wallMs": 3069.2896000000183,
+      "maxRssMiB": 400.93359375,
+      "userCpuMs": 3906,
+      "systemCpuMs": 1250,
+      "adapters": [
+        {
+          "variant": "fast-escape-html",
+          "pid": 7192,
+          "threadId": 1,
+          "loadMs": 2.220600000000104
+        },
+        {
+          "variant": "fast-escape-html",
+          "pid": 7192,
+          "threadId": 2,
+          "loadMs": 2.241099999999733
+        }
+      ],
+      "processes": [
+        {
+          "pid": 7192,
+          "threadId": 0,
+          "isMainThread": true,
+          "elapsedMs": 2998.0924999999997,
+          "maxRssKiB": 410556,
+          "userCpuMs": 3906,
+          "systemCpuMs": 1250
+        }
+      ]
+    }
+  ],
+  "completedAt": "2026-11-10T14:13:09.060Z",
+  "summary": [
+    {
+      "scenario": "articles",
+      "workerCount": 0,
+      "variants": [
+        {
+          "variant": "native",
+          "medianMs": 3404.055499999995,
+          "minMs": 3364.6812999999966,
+          "maxMs": 3423.1531999999997,
+          "medianRssMiB": 244.7890625,
+          "maxRssMiB": 244.9140625,
+          "medianLoadMs": 2.4403000000002066
+        },
+        {
+          "variant": "wasm",
+          "medianMs": 3412.7698999999993,
+          "minMs": 3390.436099999999,
+          "maxMs": 3484.207799999989,
+          "medianRssMiB": 244.62109375,
+          "maxRssMiB": 245.265625,
+          "medianLoadMs": 1.233900000000176
+        },
+        {
+          "variant": "escape-html",
+          "medianMs": 3408.9407999999967,
+          "minMs": 3365.332799999989,
+          "maxMs": 3429.3505000000005,
+          "medianRssMiB": 244.39453125,
+          "maxRssMiB": 245.42578125,
+          "medianLoadMs": 0.7752000000000407
+        },
+        {
+          "variant": "fast-escape-html",
+          "medianMs": 3409.331099999996,
+          "minMs": 3379.372099999993,
+          "maxMs": 3655.0734999999986,
+          "medianRssMiB": 244.53515625,
+          "maxRssMiB": 245.68359375,
+          "medianLoadMs": 0.9528000000000247
+        },
+        {
+          "variant": "html-escaper",
+          "medianMs": 3403.4208999999973,
+          "minMs": 3372.060599999997,
+          "maxMs": 3933.4252000000015,
+          "medianRssMiB": 244.59375,
+          "maxRssMiB": 244.984375,
+          "medianLoadMs": 0.8265999999998712
+        }
+      ]
+    },
+    {
+      "scenario": "articles",
+      "workerCount": 2,
+      "variants": [
+        {
+          "variant": "native",
+          "medianMs": 3661.899399999995,
+          "minMs": 3609.8007999999973,
+          "maxMs": 3689.419299999994,
+          "medianRssMiB": 349.12890625,
+          "maxRssMiB": 349.3828125,
+          "medianLoadMs": 4.3525999999999385
+        },
+        {
+          "variant": "wasm",
+          "medianMs": 3643.044099999999,
+          "minMs": 3611.2051999999967,
+          "maxMs": 3704.694499999998,
+          "medianRssMiB": 349.73046875,
+          "maxRssMiB": 349.8515625,
+          "medianLoadMs": 6.069049999999834
+        },
+        {
+          "variant": "escape-html",
+          "medianMs": 3658.8472000000183,
+          "minMs": 3588.559699999998,
+          "maxMs": 3766.7648000000045,
+          "medianRssMiB": 348.375,
+          "maxRssMiB": 350.609375,
+          "medianLoadMs": 1.8034999999999854
+        },
+        {
+          "variant": "fast-escape-html",
+          "medianMs": 3652.9435999999987,
+          "minMs": 3601.995200000005,
+          "maxMs": 3680.286400000012,
+          "medianRssMiB": 348.49609375,
+          "maxRssMiB": 349.125,
+          "medianLoadMs": 1.4728500000001077
+        },
+        {
+          "variant": "html-escaper",
+          "medianMs": 3655.8371000000043,
+          "minMs": 3579.2891999999993,
+          "maxMs": 3719.4268999999913,
+          "medianRssMiB": 348.0078125,
+          "maxRssMiB": 349.7734375,
+          "medianLoadMs": 1.6404500000001008
+        }
+      ]
+    },
+    {
+      "scenario": "catalog",
+      "workerCount": 0,
+      "variants": [
+        {
+          "variant": "native",
+          "medianMs": 2628.4729000000225,
+          "minMs": 2624.875700000004,
+          "maxMs": 2668.0887999999977,
+          "medianRssMiB": 232.3203125,
+          "maxRssMiB": 233.109375,
+          "medianLoadMs": 2.5176000000001295
+        },
+        {
+          "variant": "wasm",
+          "medianMs": 2680.801199999987,
+          "minMs": 2629.8174,
+          "maxMs": 2692.056600000011,
+          "medianRssMiB": 232.26171875,
+          "maxRssMiB": 233.14453125,
+          "medianLoadMs": 1.2266999999997097
+        },
+        {
+          "variant": "escape-html",
+          "medianMs": 2672.5165999999736,
+          "minMs": 2651.3422999999893,
+          "maxMs": 2677.6809000000358,
+          "medianRssMiB": 231.9296875,
+          "maxRssMiB": 233.4765625,
+          "medianLoadMs": 0.7908999999999651
+        },
+        {
+          "variant": "fast-escape-html",
+          "medianMs": 2651.7104999999865,
+          "minMs": 2617.8096999999834,
+          "maxMs": 2663.8089000000036,
+          "medianRssMiB": 231.8671875,
+          "maxRssMiB": 234.109375,
+          "medianLoadMs": 0.9245999999998276
+        },
+        {
+          "variant": "html-escaper",
+          "medianMs": 2657.219300000026,
+          "minMs": 2620.5725000000093,
+          "maxMs": 2692.5541000000085,
+          "medianRssMiB": 231.65625,
+          "maxRssMiB": 233.19921875,
+          "medianLoadMs": 0.824500000000171
+        }
+      ]
+    },
+    {
+      "scenario": "catalog",
+      "workerCount": 2,
+      "variants": [
+        {
+          "variant": "native",
+          "medianMs": 2955.3625000000466,
+          "minMs": 2921.5006000000285,
+          "maxMs": 2983.8041000000085,
+          "medianRssMiB": 308.328125,
+          "maxRssMiB": 308.87890625,
+          "medianLoadMs": 4.157399999999825
+        },
+        {
+          "variant": "wasm",
+          "medianMs": 2959.6957000000402,
+          "minMs": 2955.8881999999867,
+          "maxMs": 3002.358200000017,
+          "medianRssMiB": 308.35546875,
+          "maxRssMiB": 309.1953125,
+          "medianLoadMs": 7.586549999999988
+        },
+        {
+          "variant": "escape-html",
+          "medianMs": 2963.9277,
+          "minMs": 2874.9376000000047,
+          "maxMs": 3005.4713999999803,
+          "medianRssMiB": 309.3203125,
+          "maxRssMiB": 309.46484375,
+          "medianLoadMs": 1.3844500000000153
+        },
+        {
+          "variant": "fast-escape-html",
+          "medianMs": 2916.7740999999805,
+          "minMs": 2883.8775000000023,
+          "maxMs": 2968.4459999999963,
+          "medianRssMiB": 307.73828125,
+          "maxRssMiB": 308.67578125,
+          "medianLoadMs": 1.370300000000043
+        },
+        {
+          "variant": "html-escaper",
+          "medianMs": 2938.669200000004,
+          "minMs": 2888.187200000044,
+          "maxMs": 2959.642300000007,
+          "medianRssMiB": 307.03515625,
+          "maxRssMiB": 314.01953125,
+          "medianLoadMs": 1.7243499999999585
+        }
+      ]
+    },
+    {
+      "scenario": "props",
+      "workerCount": 0,
+      "variants": [
+        {
+          "variant": "native",
+          "medianMs": 2804.3741000000155,
+          "minMs": 2748.0198999999557,
+          "maxMs": 2850.646999999997,
+          "medianRssMiB": 270.17578125,
+          "maxRssMiB": 270.4296875,
+          "medianLoadMs": 2.400100000000293
+        },
+        {
+          "variant": "wasm",
+          "medianMs": 2862.2938999999897,
+          "minMs": 2824.4256999999634,
+          "maxMs": 2908.575199999963,
+          "medianRssMiB": 269.24609375,
+          "maxRssMiB": 270.01171875,
+          "medianLoadMs": 1.2536000000000058
+        },
+        {
+          "variant": "escape-html",
+          "medianMs": 2844.541599999997,
+          "minMs": 2796.6155000000144,
+          "maxMs": 2983.0869999999995,
+          "medianRssMiB": 253.625,
+          "maxRssMiB": 255.0546875,
+          "medianLoadMs": 0.7737000000001899
+        },
+        {
+          "variant": "fast-escape-html",
+          "medianMs": 2840.5094999999856,
+          "minMs": 2802.8359000000055,
+          "maxMs": 2867.1244999999763,
+          "medianRssMiB": 253.45703125,
+          "maxRssMiB": 254.859375,
+          "medianLoadMs": 0.9063999999998487
+        },
+        {
+          "variant": "html-escaper",
+          "medianMs": 2924.970799999952,
+          "minMs": 2869.980099999986,
+          "maxMs": 3001.1839000000036,
+          "medianRssMiB": 272.6015625,
+          "maxRssMiB": 273.58984375,
+          "medianLoadMs": 0.875
+        }
+      ]
+    },
+    {
+      "scenario": "props",
+      "workerCount": 2,
+      "variants": [
+        {
+          "variant": "native",
+          "medianMs": 2992.064400000032,
+          "minMs": 2976.1042000000016,
+          "maxMs": 3050.9380000000237,
+          "medianRssMiB": 397.84765625,
+          "maxRssMiB": 417.25390625,
+          "medianLoadMs": 4.0273500000000695
+        },
+        {
+          "variant": "wasm",
+          "medianMs": 3069.6049999999814,
+          "minMs": 3060.7577000000165,
+          "maxMs": 3111.293799999985,
+          "medianRssMiB": 424.43359375,
+          "maxRssMiB": 426.00390625,
+          "medianLoadMs": 9.058999999999969
+        },
+        {
+          "variant": "escape-html",
+          "medianMs": 3008.502299999993,
+          "minMs": 2993.3265000000247,
+          "maxMs": 3066.3396000000066,
+          "medianRssMiB": 404.50390625,
+          "maxRssMiB": 405.91796875,
+          "medianLoadMs": 1.8539000000002943
+        },
+        {
+          "variant": "fast-escape-html",
+          "medianMs": 3063.3048999999883,
+          "minMs": 3016.2973999999813,
+          "maxMs": 3069.7987999999896,
+          "medianRssMiB": 400.93359375,
+          "maxRssMiB": 404.01953125,
+          "medianLoadMs": 1.6547499999999218
+        },
+        {
+          "variant": "html-escaper",
+          "medianMs": 3077.4937999999966,
+          "minMs": 3029.32640000002,
+          "maxMs": 3118.161599999992,
+          "medianRssMiB": 415.84765625,
+          "maxRssMiB": 424.328125,
+          "medianLoadMs": 1.5064499999998588
+        }
+      ]
+    }
+  ]
+}

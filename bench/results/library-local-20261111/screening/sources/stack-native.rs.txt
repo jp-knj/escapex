@@ -1,0 +1,71 @@
+use napi::{bindgen_prelude::{Utf16String, TypeName, ValidateNapiValue, FromNapiValue}, sys, check_status, Result, ValueType, Error, Status};
+
+enum Storage {
+    Inline { units: [core::mem::MaybeUninit<u16>; 257], length: usize },
+    Heap(Utf16String),
+}
+pub struct InputUtf16(Storage);
+impl core::ops::Deref for InputUtf16 {
+    type Target = [u16];
+    fn deref(&self) -> &[u16] {
+        match &self.0 {
+            Storage::Inline { units, length } => unsafe { core::slice::from_raw_parts(units.as_ptr().cast(), *length) },
+            Storage::Heap(value) => value,
+        }
+    }
+}
+impl TypeName for InputUtf16 {
+    fn type_name() -> &'static str { Utf16String::type_name() }
+    fn value_type() -> ValueType { ValueType::String }
+}
+impl ValidateNapiValue for InputUtf16 {}
+impl FromNapiValue for InputUtf16 {
+    unsafe fn from_napi_value(env: sys::napi_env, value: sys::napi_value) -> Result<Self> {
+        let mut length = 0;
+        check_status!(unsafe { sys::napi_get_value_string_utf16(env, value, core::ptr::null_mut(), 0, &mut length) }, "Cannot measure UTF-16 input")?;
+        if length <= 256 {
+            let mut units = [core::mem::MaybeUninit::<u16>::uninit(); 257];
+            let mut written = 0;
+            check_status!(unsafe { sys::napi_get_value_string_utf16(env, value, units.as_mut_ptr().cast(), length + 1, &mut written) }, "Cannot copy UTF-16 input")?;
+            if written != length { return Err(Error::new(Status::GenericFailure, "Incomplete UTF-16 input")); }
+            return Ok(Self(Storage::Inline { units, length }));
+        }
+        let capacity = length.checked_add(1).ok_or_else(|| Error::new(Status::InvalidArg, "UTF-16 input too long"))?;
+        let mut buffer = Vec::<u16>::with_capacity(capacity);
+        let mut written = 0;
+        check_status!(unsafe { sys::napi_get_value_string_utf16(env, value, buffer.as_mut_ptr(), capacity, &mut written) }, "Cannot copy UTF-16 input")?;
+        if written != length { return Err(Error::new(Status::GenericFailure, "Incomplete UTF-16 input")); }
+        // Node-API initialized exactly written code units and a terminator.
+        // Publish only the input, after checking both status and length.
+        unsafe { buffer.set_len(written); }
+        Ok(Self(Storage::Heap(buffer.into())))
+    }
+}
+
+use napi_derive::napi;
+
+use crate::{escape::Mode, native_escape, unescape};
+
+#[napi]
+pub fn escape_html(value: InputUtf16) -> Utf16String {
+    native_escape::escape(&value, Mode::Html).into()
+}
+
+#[napi]
+pub fn escape_text(value: InputUtf16) -> Utf16String {
+    native_escape::escape(&value, Mode::Text).into()
+}
+
+#[napi]
+pub fn escape_attribute(value: InputUtf16) -> Utf16String {
+    native_escape::escape(&value, Mode::Attribute).into()
+}
+
+#[napi]
+pub fn unescape_html(value: InputUtf16) -> Utf16String {
+    let mut output = Vec::<u16>::with_capacity(value.len());
+    let written = unescape::write(&value, output.spare_capacity_mut());
+    // SAFETY: write initializes exactly this prefix, never exceeding input.len().
+    unsafe { output.set_len(written) };
+    output.into()
+}

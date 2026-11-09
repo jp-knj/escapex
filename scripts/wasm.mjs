@@ -16,7 +16,7 @@ for (const variant of ['scalar', 'simd']) {
 		'-Clink-arg=-zstack-size=65536', '-Clink-arg=--initial-memory=131072',
 		'-Clink-arg=--max-memory=2147483648',
 	].join(' ');
-	run('cargo', ['build', '--manifest-path', 'rust/Cargo.toml', '--release', '--offline', '--locked',
+	run('cargo', ['build', '--manifest-path', 'src/rust/Cargo.toml', '--release', '--offline', '--locked',
 		'--target', 'wasm32-unknown-unknown', '--target-dir', target], { env: { ...process.env, RUSTFLAGS: flags } });
 	const compiled = join(target, 'wasm32-unknown-unknown/release/escape_html_wasm.wasm');
 	const binary = join(root, 'dist', variant === 'simd' ? 'escape_html.wasm' : 'escape_html.scalar.wasm');
