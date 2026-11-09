@@ -16,17 +16,24 @@
     },
     "./escape_html.wasm": "./dist/escape_html.wasm",
     "./escape_html.scalar.wasm": "./dist/escape_html.scalar.wasm",
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./native": {
+      "types": "./dist/native.d.mts",
+      "import": "./dist/native.mjs"
+    }
   },
   "files": [
     "dist/index.mjs",
+    "dist/escape-core.mjs",
     "dist/index.d.mts",
     "dist/wasm.mjs",
     "dist/wasm.d.mts",
     "dist/escape_html.wasm",
     "dist/escape_html.scalar.wasm",
     "LICENSE",
-    "README.md"
+    "README.md",
+    "dist/native.mjs",
+    "dist/native.d.mts"
   ],
   "scripts": {
     "build": "npm run build:js && npm run build:wasm",
@@ -34,15 +41,28 @@
     "build:wasm": "node scripts/wasm.mjs",
     "check": "tsc --noEmit && npm run check:rust",
     "check:rust": "cargo fmt --manifest-path rust/Cargo.toml --check && cargo clippy --manifest-path rust/Cargo.toml --release --target wasm32-unknown-unknown --target-dir target/rust-check --offline --locked -- -D warnings",
-    "test": "npm run build && npm run test:unit && npm run test:package",
+    "test": "npm run build && npm run test:unit && npm run test:package && npm run test:bench",
     "test:unit": "node --test test/escape-html.test.mjs test/wasm.test.mjs",
     "test:package": "node --test test/bundlers.test.mjs",
     "test:browser": "node scripts/test-browser.mjs",
-    "test:rust": "cargo test --manifest-path rust/Cargo.toml --target-dir target/rust-tests --offline --locked",
+    "test:rust": "cargo test --manifest-path rust/Cargo.toml --release --target-dir target/rust-tests --offline --locked -- --nocapture",
     "prepack": "npm run build",
-    "prepublishOnly": "npm run check && npm test"
+    "prepublishOnly": "npm run check && npm test",
+    "build:all": "npm run build && npm run build:native",
+    "build:native": "node scripts/native.mjs",
+    "build:native:scalar": "node scripts/native.mjs --scalar",
+    "check:native": "cargo clippy --manifest-path rust/Cargo.toml --release --features native --locked -- -D warnings",
+    "test:native": "node --test test/native.test.mjs test/native-package.test.mjs",
+    "test:all": "npm run build:all && npm run test:unit && npm run test:package && npm run test:native && npm run test:rust && npm run test:bench",
+    "test:bench": "node --test bench/stats.test.mjs",
+    "bench": "node bench/run.mjs micro",
+    "bench:astro": "node bench/astro/prepare.mjs && node bench/run.mjs astro",
+    "bench:astro:paired": "node bench/astro/prepare.mjs && node bench/run.mjs astro-paired",
+    "bench:search": "node bench/search/run.mjs",
+    "bench:astro:search": "node bench/astro/prepare.mjs && node bench/astro/search.mjs"
   },
   "devDependencies": {
+    "@types/node": "22.19.15",
     "html-escaper": "3.0.3",
     "playwright": "1.58.2",
     "rolldown": "1.3.0",
@@ -50,7 +70,7 @@
     "typescript": "7.0.2",
     "vite": "8.3.6"
   },
-  "description": "HTML escape and unescape in dependency-free ESM and Rust WebAssembly.",
+  "description": "HTML escape and unescape in ESM, Rust WebAssembly and optional native SIMD.",
   "author": "jp-knj",
   "repository": {
     "type": "git",
@@ -73,5 +93,15 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "optionalDependencies": {
+    "@jp-knj/html-escape-darwin-arm64": "0.1.0",
+    "@jp-knj/html-escape-darwin-x64": "0.1.0",
+    "@jp-knj/html-escape-linux-arm64-gnu": "0.1.0",
+    "@jp-knj/html-escape-linux-x64-gnu": "0.1.0",
+    "@jp-knj/html-escape-linux-arm64-musl": "0.1.0",
+    "@jp-knj/html-escape-linux-x64-musl": "0.1.0",
+    "@jp-knj/html-escape-win32-arm64-msvc": "0.1.0",
+    "@jp-knj/html-escape-win32-x64-msvc": "0.1.0"
   }
 }

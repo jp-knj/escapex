@@ -44,9 +44,12 @@ test('packed declarations resolve in Bundler and NodeNext modes', async () => {
 import { escape, unescape, escapeHTML, unescapeHTML, escapeText, escapeAttribute } from '${packageName}';
 import { init, escape as wasmEscape, unescape as wasmUnescape,
   escapeText as wasmText, escapeAttribute as wasmAttribute } from '${packageName}/wasm';
+import { escape as nativeEscape, escapeHTML as nativeHTML, unescape as nativeUnescape,
+  unescapeHTML as nativeUnescapeHTML, escapeText as nativeText, escapeAttribute as nativeAttribute } from '${packageName}/native';
 const ready: Promise<void> = init(new Uint8Array());
 for (const fn of [escape, unescape, escapeHTML, unescapeHTML, escapeText, escapeAttribute,
-  wasmEscape, wasmUnescape, wasmText, wasmAttribute]) {
+  wasmEscape, wasmUnescape, wasmText, wasmAttribute,
+  nativeEscape, nativeHTML, nativeUnescape, nativeUnescapeHTML, nativeText, nativeAttribute]) {
   const result: string = fn('&');
   // @ts-expect-error Only primitive strings are accepted.
   fn(123);
