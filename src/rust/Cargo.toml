@@ -1,0 +1,28 @@
+[package]
+name = "escape-html-wasm"
+version = "0.0.0"
+edition = "2024"
+publish = false
+
+[lib]
+crate-type = ["cdylib"]
+
+[features]
+default = []
+native = ["dep:napi", "dep:napi-derive", "dep:napi-build"]
+# Benchmark-only build with the same Node-API boundary and scalar scanning.
+native-scalar = ["native"]
+
+[dependencies]
+napi = { version = "=3.16.1", default-features = false, features = ["napi4", "dyn-symbols"], optional = true }
+napi-derive = { version = "=3.7.0", default-features = false, features = ["strict"], optional = true }
+
+[build-dependencies]
+napi-build = { version = "=2.6.0", optional = true }
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+panic = "abort"
+strip = "symbols"
