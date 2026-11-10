@@ -1,3 +1,4 @@
+#[cfg(any(test, target_arch = "wasm32"))]
 use core::mem::MaybeUninit;
 
 #[derive(Clone, Copy, PartialEq, Eq)]
@@ -7,20 +8,21 @@ pub enum Mode {
     Attribute,
 }
 
-fn entity(code: u16, mode: Mode) -> Option<&'static [u16]> {
+pub(crate) const fn entity(code: u16, mode: Mode) -> Option<&'static [u16]> {
     match code {
         38 => Some(&[38, 97, 109, 112, 59]),
         60 => Some(&[38, 108, 116, 59]),
         62 => Some(&[38, 103, 116, 59]),
-        39 if mode != Mode::Text => Some(&[38, 35, 51, 57, 59]),
-        34 if mode != Mode::Text => Some(&[38, 113, 117, 111, 116, 59]),
-        10 if mode == Mode::Attribute => Some(&[38, 35, 49, 48, 59]),
-        13 if mode == Mode::Attribute => Some(&[38, 35, 49, 51, 59]),
+        39 if !matches!(mode, Mode::Text) => Some(&[38, 35, 51, 57, 59]),
+        34 if !matches!(mode, Mode::Text) => Some(&[38, 113, 117, 111, 116, 59]),
+        10 if matches!(mode, Mode::Attribute) => Some(&[38, 35, 49, 48, 59]),
+        13 if matches!(mode, Mode::Attribute) => Some(&[38, 35, 49, 51, 59]),
         _ => None,
     }
 }
 
 /// Returns the first escapable UTF-16 code unit, or input.len().
+#[cfg(any(test, target_arch = "wasm32"))]
 pub fn first(input: &[u16], mode: Mode) -> usize {
     let mut index = 0;
     #[cfg(all(target_arch = "wasm32", target_feature = "simd128"))]
@@ -36,7 +38,7 @@ pub fn first(input: &[u16], mode: Mode) -> usize {
                     u16x8_eq(value, u16x8_splat(62)),
                 ),
             );
-            if mode != Mode::Text {
+            if !matches!(mode, Mode::Text) {
                 matches = v128_or(
                     matches,
                     v128_or(
@@ -45,7 +47,7 @@ pub fn first(input: &[u16], mode: Mode) -> usize {
                     ),
                 );
             }
-            if mode == Mode::Attribute {
+            if matches!(mode, Mode::Attribute) {
                 matches = v128_or(
                     matches,
                     v128_or(
@@ -70,6 +72,7 @@ pub fn first(input: &[u16], mode: Mode) -> usize {
     input.len()
 }
 
+#[cfg(any(test, target_arch = "wasm32"))]
 pub fn escaped_length(input: &[u16], mode: Mode) -> Option<usize> {
     let mut length = input.len();
     let mut index = 0;
@@ -86,6 +89,7 @@ pub fn escaped_length(input: &[u16], mode: Mode) -> Option<usize> {
     Some(length)
 }
 
+#[cfg(any(test, target_arch = "wasm32"))]
 fn copy(output: &mut [MaybeUninit<u16>], input: &[u16]) {
     let target = &mut output[..input.len()];
     // SAFETY: The slices cannot overlap under their borrow contracts. The checked target
@@ -96,6 +100,7 @@ fn copy(output: &mut [MaybeUninit<u16>], input: &[u16]) {
 }
 
 /// Writes to a buffer of at least escaped_length(input) code units.
+#[cfg(any(test, target_arch = "wasm32"))]
 pub fn write<'a>(input: &[u16], output: &'a mut [MaybeUninit<u16>], mode: Mode) -> &'a [u16] {
     let mut written = 0;
     let mut index = 0;
@@ -129,8 +134,8 @@ mod tests {
                 for index in 0..input.len() {
                     input[index] = code;
                     let escapable = matches!(code, 38 | 60 | 62)
-                        || (mode != Mode::Text && matches!(code, 34 | 39))
-                        || (mode == Mode::Attribute && matches!(code, 10 | 13));
+                        || (!matches!(mode, Mode::Text) && matches!(code, 34 | 39))
+                        || (matches!(mode, Mode::Attribute) && matches!(code, 10 | 13));
                     let expected = if escapable { index } else { input.len() };
                     assert_eq!(first(&input, mode), expected);
                     input[index] = 97;
