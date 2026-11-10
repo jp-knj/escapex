@@ -1,3 +1,4 @@
+#[cfg(any(test, target_arch = "wasm32"))]
 use core::mem::MaybeUninit;
 
 #[derive(Clone, Copy, PartialEq, Eq)]
@@ -7,7 +8,7 @@ pub enum Mode {
     Attribute,
 }
 
-fn entity(code: u16, mode: Mode) -> Option<&'static [u16]> {
+pub(crate) fn entity(code: u16, mode: Mode) -> Option<&'static [u16]> {
     match code {
         38 => Some(&[38, 97, 109, 112, 59]),
         60 => Some(&[38, 108, 116, 59]),
@@ -21,6 +22,7 @@ fn entity(code: u16, mode: Mode) -> Option<&'static [u16]> {
 }
 
 /// Returns the first escapable UTF-16 code unit, or input.len().
+#[cfg(any(test, target_arch = "wasm32"))]
 pub fn first(input: &[u16], mode: Mode) -> usize {
     let mut index = 0;
     #[cfg(all(target_arch = "wasm32", target_feature = "simd128"))]
@@ -70,6 +72,7 @@ pub fn first(input: &[u16], mode: Mode) -> usize {
     input.len()
 }
 
+#[cfg(any(test, target_arch = "wasm32"))]
 pub fn escaped_length(input: &[u16], mode: Mode) -> Option<usize> {
     let mut length = input.len();
     let mut index = 0;
@@ -86,6 +89,7 @@ pub fn escaped_length(input: &[u16], mode: Mode) -> Option<usize> {
     Some(length)
 }
 
+#[cfg(any(test, target_arch = "wasm32"))]
 fn copy(output: &mut [MaybeUninit<u16>], input: &[u16]) {
     let target = &mut output[..input.len()];
     // SAFETY: The slices cannot overlap under their borrow contracts. The checked target
@@ -96,6 +100,7 @@ fn copy(output: &mut [MaybeUninit<u16>], input: &[u16]) {
 }
 
 /// Writes to a buffer of at least escaped_length(input) code units.
+#[cfg(any(test, target_arch = "wasm32"))]
 pub fn write<'a>(input: &[u16], output: &'a mut [MaybeUninit<u16>], mode: Mode) -> &'a [u16] {
     let mut written = 0;
     let mut index = 0;
