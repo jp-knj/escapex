@@ -1,0 +1,37 @@
+---
+import Article from '../components/Article.md';
+export function getStaticPaths() {
+	const scenario = process.env.SSG_SCENARIO;
+	const count = Number(process.env.SSG_PAGES);
+	return Array.from({ length: count }, (_, i) => ({ params: { page: `page-${i}` }, props: { i, scenario } }));
+}
+const { i, scenario } = Astro.props;
+const title = `Page ${i}: HTML & "CSS" <guide>`;
+const description = `A static archive of articles & examples, number ${i}.`;
+const items = Array.from({ length: scenario === 'props' ? 1024 : scenario === 'catalog' ? 64 : 0 }, (_, j) => ({
+	id: i * 1024 + j,
+	name: `Item ${j}: 日本語 🌸 & "quotes"`,
+	url: `/products/${j}?page=${i}&sort=name`,
+	description: `A <useful> item for authors' pages & archives. ${j}`,
+}));
+const json = scenario === 'props' ? JSON.stringify(items) : '';
+---
+<!doctype html>
+<html lang="en">
+  <head><meta charset="utf-8" /><title>{title}</title><meta name="description" content={description} /></head>
+  <body>
+    <header><a href="/">Static archive</a><nav>{['Articles', 'Products', 'About'].map(name => <a href={`/${name.toLowerCase()}/`}>{name}</a>)}</nav></header>
+    <main>
+      <h1>{title}</h1>
+      {scenario === 'articles' && <><p>By <span>{`Author ${i % 32}`}</span></p><Article /><Article /><Article /><Article /></>}
+      {scenario === 'catalog' && <section>{items.map(item => <article data-id={item.id}><h2><a href={item.url}>{item.name}</a></h2><p>{item.description}</p><button title={item.name}>View item</button></article>)}</section>}
+      {scenario === 'props' && <><div data-props={json}></div><pre>{json}</pre></>}
+    </main>
+    <footer><a href={`/page-${i + 1}/?from=footer&kind=${scenario}`}>Next page</a></footer>
+  </body>
+</html>
+<style>
+  :global(body) { font-family: system-ui, sans-serif; max-width: 70rem; margin: auto; padding: 2rem; }
+  nav { display: flex; gap: 1rem; } article { padding: 1rem; border-bottom: 1px solid #ddd; }
+  pre { white-space: pre-wrap; overflow-wrap: anywhere; }
+</style>
