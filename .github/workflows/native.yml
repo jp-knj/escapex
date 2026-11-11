@@ -1,0 +1,183 @@
+name: Native
+on:
+  push:
+    branches: [main, 'verify/native-*']
+  pull_request:
+  workflow_call:
+    inputs:
+      benchmarks:
+        type: boolean
+        default: false
+  workflow_dispatch:
+    inputs:
+      benchmarks:
+        description: Benchmark Node 24 (3 isolated rounds, 9 paired rounds)
+        type: boolean
+        default: false
+permissions:
+  contents: read
+jobs:
+  wasm:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: ./.github/actions/setup
+      - run: npm run build:wasm
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: native-test-wasm
+          path: dist/*.wasm
+          if-no-files-found: error
+  native:
+    needs: wasm
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        node: ['22', '24', '26']
+        platform:
+          - { runner: macos-15, id: darwin-arm64 }
+          - { runner: macos-15-intel, id: darwin-x64 }
+          - { runner: ubuntu-22.04-arm, id: linux-arm64-gnu }
+          - { runner: ubuntu-22.04, id: linux-x64-gnu }
+          - { runner: windows-11-arm, id: win32-arm64-msvc }
+          - { runner: windows-2022, id: win32-x64-msvc }
+    runs-on: ${{ matrix.platform.runner }}
+    env:
+      NATIVE_PLATFORM: ${{ matrix.platform.id }}
+      RUN_BENCHMARKS: ${{ matrix.node == '24' && (inputs.benchmarks || startsWith(github.ref, 'refs/heads/verify/native-')) }}
+      RUN_COMPETITORS: ${{ inputs.benchmarks || startsWith(github.ref, 'refs/heads/verify/native-') }}
+      BENCH_VARIANTS: esm,native,escape-html,fast-escape-html,html-escaper
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: ${{ matrix.node }}
+          package-manager-cache: false
+      - name: Install Rust and dependencies
+        shell: bash
+        run: |
+          rustup toolchain install 1.91.1 --profile minimal --component rustfmt,clippy
+          echo 'RUSTUP_TOOLCHAIN=1.91.1' >> "$GITHUB_ENV"
+          npm ci
+          cargo +1.91.1 fetch --manifest-path rust/Cargo.toml --locked
+      - run: npm run build:js
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: native-test-wasm
+          path: dist
+      - run: npm run build:native
+      - run: node scripts/native-environment.mjs
+      - run: npm run check:native
+      # Tests call scalar and each supported instruction set directly, including
+      # SSE2 on AVX2 hosts. These jobs use native hardware, not emulation.
+      - name: Test every supported SIMD implementation
+        shell: bash
+        run: npm run test:rust 2>&1 | tee target/native-rust-tests.log
+      - run: npm run test:native
+      - run: npm run test:unit
+      - run: npm run test:package
+      - run: npm run bench:search
+      - name: Compare the three JavaScript competitors
+        if: env.RUN_COMPETITORS == 'true'
+        shell: bash
+        run: |
+          npm ci --prefix bench/competitors --ignore-scripts
+          BENCH_ROUNDS=3 node bench/competitors/run.mjs
+      - name: Measure ESM, Wasm, scalar and SIMD on this runner
+        if: env.RUN_BENCHMARKS == 'true'
+        shell: bash
+        run: |
+          npm run build:native:scalar
+          npm ci --prefix bench/astro
+          npm run bench
+          npm run bench:astro
+          npm run bench:astro:paired
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        if: always()
+        with:
+          name: evidence-${{ matrix.platform.id }}-node${{ matrix.node }}
+          path: |
+            target/native-environment.json
+            target/native-rust-tests.log
+            target/bench-results/*.json
+          if-no-files-found: warn
+      - name: Pack platform package without publishing
+        if: matrix.node == '24'
+        shell: bash
+        run: npm pack ./npm/${{ matrix.platform.id }} --ignore-scripts
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        if: matrix.node == '24'
+        with:
+          name: native-${{ matrix.platform.id }}
+          path: '*.tgz'
+          if-no-files-found: error
+  musl:
+    needs: wasm
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        node: ['22', '24', '26']
+        platform:
+          - { runner: ubuntu-24.04-arm, id: linux-arm64-musl }
+          - { runner: ubuntu-24.04, id: linux-x64-musl }
+    runs-on: ${{ matrix.platform.runner }}
+    env:
+      NATIVE_PLATFORM: ${{ matrix.platform.id }}
+      RUN_BENCHMARKS: ${{ matrix.node == '24' && (inputs.benchmarks || startsWith(github.ref, 'refs/heads/verify/native-')) }}
+      RUN_COMPETITORS: ${{ inputs.benchmarks || startsWith(github.ref, 'refs/heads/verify/native-') }}
+      BENCH_VARIANTS: esm,native,escape-html,fast-escape-html,html-escaper
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: native-test-wasm
+          path: target/test-wasm
+      - name: Build and test on native musl
+        run: |
+          docker run --rm -v "$PWD:/work" -w /work -e NATIVE_PLATFORM -e RUN_BENCHMARKS -e RUN_COMPETITORS -e BENCH_VARIANTS -e GITHUB_SHA -e GITHUB_RUN_ID -e GITHUB_REPOSITORY -e GITHUB_ACTIONS node:${{ matrix.node }}-alpine3.23 sh -ec '
+            set -o pipefail
+            apk add --no-cache build-base curl python3
+            curl --proto "=https" --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal --default-toolchain 1.91.1
+            export PATH="/root/.cargo/bin:$PATH"
+            export RUSTFLAGS="-C target-feature=-crt-static"
+            npm ci
+            cargo fetch --manifest-path rust/Cargo.toml --locked
+            npm run build:js
+            cp target/test-wasm/*.wasm dist/
+            npm run build:native
+            node scripts/native-environment.mjs
+            npm run test:rust 2>&1 | tee target/native-rust-tests.log
+            npm run test:native
+            npm run test:unit
+            npm run test:package
+            npm run bench:search
+            if [ "$RUN_COMPETITORS" = true ]; then
+              npm ci --prefix bench/competitors --ignore-scripts
+              BENCH_ROUNDS=3 node bench/competitors/run.mjs
+            fi
+            if [ "$RUN_BENCHMARKS" = true ]; then
+              npm run build:native:scalar
+              npm ci --prefix bench/astro
+              npm run bench
+              npm run bench:astro
+              npm run bench:astro:paired
+            fi
+            npm pack ./npm/${{ matrix.platform.id }} --ignore-scripts
+          '
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        if: always()
+        with:
+          name: evidence-${{ matrix.platform.id }}-node${{ matrix.node }}
+          path: |
+            target/native-environment.json
+            target/native-rust-tests.log
+            target/bench-results/*.json
+          if-no-files-found: warn
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        if: matrix.node == '24'
+        with:
+          name: native-${{ matrix.platform.id }}
+          path: '*.tgz'
+          if-no-files-found: error

@@ -22,6 +22,28 @@ export function verifyEscape(escapeHTML, mode = 'html') {
 			for (const pos of [0, Math.floor(length / 2), length]) check(fill.repeat(pos) + '&' + fill.repeat(length - pos));
 		}
 	}
+	// Alternate the short character scanner, long regexp scanner and no-match
+	// exit. Every call must reset lastIndex, regardless of the preceding path.
+	for (let round = 0; round < 3; round++) {
+		for (const length of [15, 16, 17, 23, 24, 25, 31, 32, 33, 127, 128, 129, 255, 256, 257, 254]) {
+			for (const needle of ['&', '<', '>', "'", '"', '\r', '\n']) {
+				for (const position of [0, length >> 1, length - 1]) {
+					check('\ud800'.repeat(position) + needle + '\udfff'.repeat(length - position - 1));
+					check('plain');
+					check('');
+					check('&\ud800');
+				}
+			}
+		}
+	}
+	// Change match spacing within each string to cross adaptive search boundaries.
+	for (const gap of [0, 1, 7, 8, 9, 15, 16, 17, 31, 32, 33, 63, 255]) {
+		for (const tail of [0, 1, 15, 16, 17, 31, 32, 33]) {
+			check(('\ud800'.repeat(gap) + '&<>\'"').repeat(4) + '\udfff'.repeat(tail));
+			check('&' + 'a'.repeat(gap) + '"' + 'b'.repeat(97) + '<&' + 'c'.repeat(tail));
+			check('plain after adaptive scan');
+		}
+	}
 	let seed = 0x12345678;
 	const random = () => { seed ^= seed << 13; seed ^= seed >>> 17; seed ^= seed << 5; return seed >>> 0; };
 	for (let sample = 0; sample < 5000; sample++) {
