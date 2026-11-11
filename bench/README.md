@@ -1,4 +1,7 @@
-# Native benchmarks
+# Benchmarks
+
+The [comparison with other libraries](COMPARISON.md) covers API timings and
+Astro build times, with links to the samples.
 
 The latest [internal function cleanup](results/cleanup-20261111/README.md) shares
 the HTML entity table and removes two forwarding helpers. Its local validation
