@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.1.0
+## 0.0.1
 
 - Typed ESM APIs for HTML text, quoted attributes and one-pass unescaping.
 - JavaScript, WebAssembly and optional napi-rs native implementations preserving
@@ -13,4 +13,4 @@
   performance targets; no universal speedup claim.
 
 Version 0.0.0 is an administrative placeholder for initial OIDC setup and
-contains no library implementation. The functional release starts at 0.1.0.
+contains no library implementation. The functional release starts at 0.0.1.

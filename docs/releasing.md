@@ -1,6 +1,6 @@
 # Releasing html-escape
 
-The first functional version is `0.1.0`. The root README remains `# html-escape`;
+The first functional version is `0.0.1`. The root README remains `# html-escape`;
 the packaged [USAGE.md](../USAGE.md) documents the APIs.
 
 ## Initial npm setup
