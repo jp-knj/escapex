@@ -62,7 +62,7 @@ fn select() -> Escape {
 }
 
 #[inline(always)]
-fn append_match(
+fn append_match<const RESERVED: bool>(
     input: &[u16],
     position: usize,
     last: &mut usize,
@@ -74,7 +74,9 @@ fn append_match(
     // Every unvisited input unit still needs at least one output unit. Reserve
     // that lower bound plus seven spare units for the padded entity store.
     // A single capacity check covers both the clean span and the entity.
-    output.reserve(input.len() - *last + 7);
+    if !RESERVED {
+        output.reserve(input.len() - *last + 7);
+    }
     let written = output.len();
     // SAFETY: position < input.len(), so the reservation covers plain.len() + 8
     // units. The immutable input/table cannot overlap this independently owned
@@ -98,7 +100,7 @@ fn append_match(
 fn scalar_tail(input: &[u16], start: usize, last: &mut usize, output: &mut Vec<u16>, mode: Mode) {
     for index in start..input.len() {
         if entity(input[index], mode).is_some() {
-            append_match(
+            append_match::<false>(
                 input,
                 index,
                 last,
@@ -125,15 +127,33 @@ fn scan<const LANES: usize, const STRIDE: u32>(
     mode: Mode,
     mask: impl Fn(*const u16, Mode) -> u64,
 ) -> Vec<u16> {
+    if mode == Mode::Html {
+        scan_inner::<LANES, STRIDE, true>(input, mode, mask)
+    } else {
+        scan_inner::<LANES, STRIDE, false>(input, mode, mask)
+    }
+}
+
+#[inline(always)]
+fn scan_inner<const LANES: usize, const STRIDE: u32, const BATCH: bool>(
+    input: &[u16],
+    mode: Mode,
+    mask: impl Fn(*const u16, Mode) -> u64,
+) -> Vec<u16> {
     let mut output = Vec::with_capacity(input.len());
     let mut index = 0;
     let mut last = 0;
     while input.len() - index >= LANES {
         // The mask callback may read exactly LANES valid, unaligned code units.
         let mut matches = mask(input[index..].as_ptr(), mode);
+        if BATCH && matches != 0 {
+            // Each lane adds at most five units. Reserve the unchanged suffix,
+            // all growth in this vector, and padding for the final entity store.
+            output.reserve(input.len() - last + 5 * LANES + 7);
+        }
         while matches != 0 {
             let position = index + (matches.trailing_zeros() / STRIDE) as usize;
-            append_match(
+            append_match::<BATCH>(
                 input,
                 position,
                 &mut last,
