@@ -44,20 +44,6 @@ const NATIVE_MIN_LENGTH = 256;
 const HTML = /[&<>'"]/;
 const HTML_SCAN = /[&<>'"]/g;
 const HTML_NATIVE_MIN_LENGTH = 128;
-const HTML_SAMPLE = /[&<>'"]/g;
-
-// Sample only additional native candidates. Existing nearby runs take priority.
-function distributedHTML(value: string): boolean {
-	for (let quarter = 1; quarter <= 3; quarter++) {
-		const start = Math.floor(value.length * quarter / 4);
-		const sample = value.slice(start, start + 128);
-		HTML_SAMPLE.lastIndex = 0;
-		for (let count = 0; count < 4; count++) {
-			if (!HTML_SAMPLE.test(sample)) return false;
-		}
-	}
-	return true;
-}
 const TEXT = /[&<>]/;
 const ATTRIBUTE = /[&<>'"\r\n]/;
 const ENCODED = /&(?:amp|#38|lt|#60|gt|#62|apos|#39|quot|#34);/;
@@ -75,8 +61,6 @@ function escapeLongHTML(value: string): string {
 	let index = match.index;
 	let last = index + 1;
 	let nearby = 1;
-	let widerNearby = 1;
-	let sampled = value.length < 4096;
 	let output = value.slice(0, index) + HTML_ENTITIES[value.charCodeAt(index)];
 	HTML_SCAN.lastIndex = last;
 	while (HTML_SCAN.test(value)) {
@@ -84,17 +68,7 @@ function escapeLongHTML(value: string): string {
 		nearby = index - last < 16 ? nearby + 1 : 1;
 		// Amortize Node-API copies only after a run of nearby matches. Sparse
 		// strings finish in JS; the already-found positions are not searched again.
-		if (nearby >= 8) {
-			if (index === value.length - 1) return output + value.slice(last, index) + HTML_ENTITIES[value.charCodeAt(index)];
-			return binding.escapeHtml(value);
-		}
-		if (!sampled && index < value.length / 4) {
-			widerNearby = index - last < 32 ? widerNearby + 1 : 1;
-			if (widerNearby >= 8) {
-				sampled = true;
-				if (distributedHTML(value)) return binding.escapeHtml(value);
-			}
-		}
+		if (nearby >= 8) return binding.escapeHtml(value);
 		if (last !== index) output += value.slice(last, index);
 		output += HTML_ENTITIES[value.charCodeAt(index)];
 		last = index + 1;
