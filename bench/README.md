@@ -3,6 +3,10 @@
 The [comparison with other libraries](COMPARISON.md) covers API timings and
 Astro build times, with links to the samples.
 
+The [native optimization decision](native-optimization-20261112.md) summarizes
+why the evaluated selection and buffer changes were not adopted, with links to
+the archived measurements and reproduction code.
+
 The latest [internal function cleanup](results/cleanup-20261111/README.md) shares
 the HTML entity table and removes two forwarding helpers. Its local validation
 covers all public APIs and records the candidate rejected during measurement.
