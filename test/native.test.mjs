@@ -11,6 +11,7 @@ import * as esm from '../dist/index.mjs';
 import { nativePlatform } from '../src/native-platform.ts';
 import { verifyEscape, verifyContexts } from './fixtures/wasm-check.mjs';
 import { verifyUnescape } from './fixtures/unescape-check.mjs';
+import { cases as selectionCases } from './fixtures/native-selection-cases.mjs';
 
 test('native: all public functions, complete UTF-16 range, boundaries and large inputs', () => {
 	assert.deepEqual(Object.keys(api), Object.keys(esm));
@@ -36,6 +37,12 @@ test('native: Workers use independent call buffers', async () => {
 		worker.on('error', reject);
 		worker.on('exit', (code) => code === 0 ? resolve() : reject(new Error(`Worker exit ${code}`)));
 	})));
+});
+
+test('native: selection boundaries and distributions preserve every UTF-16 unit', () => {
+	for (const [name, value] of Object.entries(selectionCases)) {
+		assert.equal(api.escapeHTML(value), esm.escapeHTML(value), name);
+	}
 });
 
 test('native: short and no-op paths never cross Node-API and validation precedes scanning', async () => {
