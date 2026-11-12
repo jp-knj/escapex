@@ -3,6 +3,16 @@
 The [comparison with other libraries](COMPARISON.md) covers API timings and
 Astro build times, with links to the samples.
 
+The [Rust buffer evaluation](results/rust-buffers-20261112/README.md) compares
+initial capacity, output reuse, and a follow-up limited to HTML. Allocation
+reductions did not satisfy the regression limit across the required workloads.
+Production code is unchanged; a retained-result lifetime test was added.
+
+The [native-selection evaluation](results/native-selection-20261112/README.md)
+tests a terminal-match fix and distribution sampling against the current public
+API. Both proposals failed the regression limit, so production selection remains
+unchanged. The report includes all 64 cases on eight platforms and local hardware.
+
 The latest [internal function cleanup](results/cleanup-20261111/README.md) shares
 the HTML entity table and removes two forwarding helpers. Its local validation
 covers all public APIs and records the candidate rejected during measurement.

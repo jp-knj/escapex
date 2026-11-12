@@ -11,6 +11,7 @@ import * as esm from '../dist/index.mjs';
 import { nativePlatform } from '../src/native-platform.ts';
 import { verifyEscape, verifyContexts } from './fixtures/wasm-check.mjs';
 import { verifyUnescape } from './fixtures/unescape-check.mjs';
+import { cases as selectionCases } from '../bench/native-selection/cases.mjs';
 
 test('native: all public functions, complete UTF-16 range, boundaries and large inputs', () => {
 	assert.deepEqual(Object.keys(api), Object.keys(esm));
@@ -36,6 +37,12 @@ test('native: Workers use independent call buffers', async () => {
 		worker.on('error', reject);
 		worker.on('exit', (code) => code === 0 ? resolve() : reject(new Error(`Worker exit ${code}`)));
 	})));
+});
+
+test('native: selection boundaries and distributions preserve every UTF-16 unit', () => {
+	for (const [name, values] of Object.entries(selectionCases)) {
+		for (const value of Array.isArray(values) ? values : [values]) assert.equal(api.escapeHTML(value), esm.escapeHTML(value), name);
+	}
 });
 
 test('native: short and no-op paths never cross Node-API and validation precedes scanning', async () => {
@@ -103,5 +110,21 @@ test('native: platform selection covers both architectures and libc variants', (
 	}
 	for (const args of [['darwin', 'ia32'], ['freebsd', 'x64'], ['linux', 'arm64'], ['linux', 'x64', 'other']]) {
 		assert.throws(() => nativePlatform(...args), /Unsupported native/);
+	}
+});
+
+test('native: returned strings survive buffer reuse, collection and capacity changes', () => {
+	const retained = [];
+	const sizes = [256, 8192, 1, 4096, 700000, 255, 128, 16384, 0, 1024];
+	for (let round = 0; round < 3; round++) {
+		for (const size of sizes) {
+			const input = ('&<>\'"\r\n日本語😀\ud800\udfff\0' + round).repeat(Math.ceil(size / 17)).slice(0, size);
+			for (const name of ['escapeHTML', 'escapeText', 'escapeAttribute', 'unescape']) {
+				const value = name === 'unescape' ? '&amp;'.repeat(Math.ceil(size / 5)).slice(0, size) : input;
+				retained.push([api[name](value), esm[name](value)]);
+			}
+			global.gc?.();
+			for (const [actual, expected] of retained) assert.equal(actual, expected);
+		}
 	}
 });
