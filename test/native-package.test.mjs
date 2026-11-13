@@ -13,7 +13,7 @@ const run = (code) => execFileSync(process.execPath, ['--input-type=module', '-e
 
 test('installed usage example renders serialized JSON in a native data attribute', async () => {
 	const guide = await readFile(join(fixture.installed, 'USAGE.md'), 'utf8');
-	const example = [...guide.matchAll(/```js\n([\s\S]*?)```/g)]
+	const example = [...guide.matchAll(/```js\r?\n([\s\S]*?)```/g)]
 		.map(match => match[1]).find(code => code.includes("from 'escapex/native'"));
 	assert(example, 'Native usage example is present');
 	run(example + `\nimport assert from 'node:assert/strict';

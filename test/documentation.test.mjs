@@ -10,7 +10,7 @@ before(async () => { fixture = await preparePackage(); });
 after(async () => { if (fixture) await rm(fixture.consumer, { recursive: true, force: true }); });
 const run = code => execFileSync(process.execPath, ['--input-type=module', '-e', code],
 	{ cwd: fixture.consumer, stdio: 'pipe' });
-const snippets = text => [...text.matchAll(/```js\n([\s\S]*?)```/g)].map(match => match[1]);
+const snippets = text => [...text.matchAll(/```js\r?\n([\s\S]*?)```/g)].map(match => match[1]);
 
 test('installed README example renders HTML text and quoted attributes', async () => {
 	const [example] = snippets(await readFile(join(fixture.installed, 'README.md'), 'utf8'));
