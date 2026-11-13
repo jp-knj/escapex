@@ -3,9 +3,14 @@ import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import { cp, mkdir, readFile, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 import { gzipSync } from 'node:zlib';
 import { targets } from '../scripts/native-targets.mjs';
+
+if (process.platform !== 'win32') {
+ console.log('Windows-only benchmark retry: no timed work on this runner.');
+ process.exit(0);
+}
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const output = join(root, 'target/native-block-verify');
@@ -59,7 +64,7 @@ for (let round = 1; round <= 10; round++) {
    ['html', 'bench/competitors/worker.mjs', ['native']],
    ['contexts', 'bench/native-block-verify/context-worker.mjs', []],
   ]) {
-   const data = JSON.parse(execFileSync(process.execPath, ['--expose-gc', '--import', join(root, 'bench/native-block-verify/select.mjs'), join(root, worker), ...args],
+   const data = JSON.parse(execFileSync(process.execPath, ['--expose-gc', '--import', pathToFileURL(join(root, 'bench/native-block-verify/select.mjs')).href, join(root, worker), ...args],
     { cwd: root, env: { ...process.env, SCAN_API: join(output, variant, 'dist/native.mjs') }, encoding: 'utf8', maxBuffer: 8 * 1024 * 1024 }));
    records.push({ ...data, variant, suite, round });
    console.log(`${round} ${variant} ${suite}: ${data.measurements.length} cases`);
