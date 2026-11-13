@@ -4,14 +4,19 @@
 const ESCAPABLE = /[&<>'"]/g;
 const TEXT = /[&<>]/g;
 const ATTRIBUTE = /[&<>'"\r\n]/g;
+// A literal lets bundlers remove this table when escapeHTML/native is unused.
 // Empty entries classify non-target ASCII; matches reuse the same entity table.
 // Shared with native.ts; not re-exported by the public index.ts entry.
-export const HTML_ENTITIES: string[] = Array(63).fill('');
-HTML_ENTITIES[34] = '&quot;';
-HTML_ENTITIES[38] = '&amp;';
-HTML_ENTITIES[39] = '&#39;';
-HTML_ENTITIES[60] = '&lt;';
-HTML_ENTITIES[62] = '&gt;';
+export const HTML_ENTITIES: string[] = [
+	// 0x00 - 0x0f
+	'', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '',
+	// 0x10 - 0x1f
+	'', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '',
+	// 0x20 - 0x2f
+	'', '', '&quot;', '', '', '', '&amp;', '&#39;', '', '', '', '', '', '', '', '',
+	// 0x30 - 0x3e
+	'', '', '', '', '', '', '', '', '', '', '', '', '&lt;', '', '&gt;',
+];
 
 function entityFor(code: number): string {
 	switch (code) {
