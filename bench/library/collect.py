@@ -127,7 +127,7 @@ assert seen == expected and set(records) == set(targets)
 assert len({tuple(x['name'] for x in r['summary']) for r in records.values()}) == 1
 
 lines = ['# Library-only search evaluation', '', f'Candidate `{commit}`; packed-copy predecessor `{baseline}`.', '',
-    f'[Workflow {run_id}](https://github.com/jp-knj/html-escape/actions/runs/{run_id}) passed all 24 platform/Node correctness combinations. The eight Node 24 targets completed five fresh processes for each of five implementations, with all 25 existing cases: 200 processes and 5,000 timed case samples. The default ESM entry was separately compared with its predecessor in three processes per version: another 48 processes and 1,200 timed case samples. Artifact digests, source hashes and medians were verified; all samples are retained.', '',
+    f'[Workflow {run_id}](https://github.com/jp-knj/escapex/actions/runs/{run_id}) passed all 24 platform/Node correctness combinations. The eight Node 24 targets completed five fresh processes for each of five implementations, with all 25 existing cases: 200 processes and 5,000 timed case samples. The default ESM entry was separately compared with its predecessor in three processes per version: another 48 processes and 1,200 timed case samples. Artifact digests, source hashes and medians were verified; all samples are retained.', '',
     'Only html-escape JavaScript changed: for inputs shorter than 128 UTF-16 units, emit the first known match directly and classify following units with the ASCII entity table. Move the native long-input path into a private function. The long ESM scanner, Rust, native string conversion and CPU dispatch match the predecessor. See the [protocol](../../library/README.md).', '',
     '## Native API change vs the preceding native API', '',
     '| Target | Short | First match at 0, length 31 | Dense 31 | Last match, length 31 | Mixed short |',
@@ -163,6 +163,6 @@ for target in targets:
         cells.append(f'{value:+.2f}% ({name})')
     lines.append('| ' + target + ' | ' + ' | '.join(cells) + ' |')
 lines += ['', 'These measurements time the public escapeHTML API and output consumption, excluding imports. They do not establish a static-site build speedup. Per-target reports link all ranges and raw samples. No universal 5% improvement, absence of regressions, or all-case competitor win is claimed.', '',
-    'The initial candidate in [run 42932077586](https://github.com/jp-knj/html-escape/actions/runs/42932077586) also changed the long ESM scanner. That part was reverted after the local ESM comparison; those native-only timings are not used as final-source validation here.', '']
+    'The initial candidate in [run 42932077586](https://github.com/jp-knj/escapex/actions/runs/42932077586) also changed the long ESM scanner. That part was reverted after the local ESM comparison; those native-only timings are not used as final-source validation here.', '']
 (destination / 'README.md').write_text('\n'.join(lines))
 print('Verified 24 correctness environments and eight API benchmark environments')

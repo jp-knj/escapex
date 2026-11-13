@@ -21,8 +21,8 @@ Raw samples, rejected prototypes, runners and evaluation workflows are retained
 on `archive/native-optimization-evidence-20261112` at commit
 `61fdbf47fa86e8fd50aae5f1b9b068af57468c12`:
 
-- [Native-selection report and 20,480 samples](https://github.com/jp-knj/html-escape/blob/61fdbf47fa86e8fd50aae5f1b9b068af57468c12/bench/results/native-selection-20261112/README.md)
-- [Rust buffer report and 15,520 formal samples](https://github.com/jp-knj/html-escape/blob/61fdbf47fa86e8fd50aae5f1b9b068af57468c12/bench/results/rust-buffers-20261112/README.md)
+- [Native-selection report and 20,480 samples](https://github.com/jp-knj/escapex/blob/61fdbf47fa86e8fd50aae5f1b9b068af57468c12/bench/results/native-selection-20261112/README.md)
+- [Rust buffer report and 15,520 formal samples](https://github.com/jp-knj/escapex/blob/61fdbf47fa86e8fd50aae5f1b9b068af57468c12/bench/results/rust-buffers-20261112/README.md)
 
 These measurements describe the recorded hosts and workloads. Some JS-only
 paths varied despite identical bundles; those results do not establish that a

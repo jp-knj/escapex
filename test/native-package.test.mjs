@@ -11,6 +11,15 @@ before(async () => { fixture = await preparePackage({ native: true }); });
 after(async () => { if (fixture) await rm(fixture.consumer, { recursive: true, force: true }); });
 const run = (code) => execFileSync(process.execPath, ['--input-type=module', '-e', code], { cwd: fixture.consumer, stdio: 'pipe' });
 
+test('installed usage example renders serialized JSON in a native data attribute', async () => {
+	const guide = await readFile(join(fixture.installed, 'USAGE.md'), 'utf8');
+	const example = [...guide.matchAll(/```js\n([\s\S]*?)```/g)]
+		.map(match => match[1]).find(code => code.includes("from 'escapex/native'"));
+	assert(example, 'Native usage example is present');
+	run(example + `\nimport assert from 'node:assert/strict';
+assert.equal(html, '<div data-props="{&quot;title&quot;:&quot;日本語 😀 \\\\&quot;quoted\\\\&quot;&quot;}"></div>');`);
+});
+
 test('npm tarballs: ESM import, all exports and concurrent Workers', () => {
 	run(`
 import assert from 'node:assert/strict';

@@ -25,7 +25,7 @@ const names = [...targets.map(target => metadata.name + '-' + target.id), metada
 assert.deepEqual(manifest.packages.map(pkg => pkg.name), names, 'Expected eight native packages followed by the main package');
 for (const pkg of manifest.packages) {
 	assert.equal(pkg.version, metadata.version);
-	assert.equal(pkg.file, pkg.name.slice(1).replace('/', '-') + '-' + pkg.version + '.tgz');
+	assert.equal(pkg.file, pkg.name.replace(/^@/, '').replace('/', '-') + '-' + pkg.version + '.tgz');
 	const file = join(directory, pkg.file), bytes = readFileSync(file);
 	assert.equal(bytes.length, pkg.size, 'Archive size mismatch: ' + pkg.name);
 	assert.equal(createHash('sha256').update(bytes).digest('hex'), pkg.sha256, 'Archive hash mismatch: ' + pkg.name);
@@ -35,18 +35,20 @@ for (const pkg of manifest.packages) {
 	assert.equal(packed.version, pkg.version);
 	if (pkg.name === metadata.name) assert.deepEqual(packed, metadata, 'Main package differs from the checked-out source');
 }
+assert.equal(readFileSync(join(directory, 'SHA256SUMS'), 'utf8'),
+	manifest.packages.map(pkg => `${pkg.sha256}  ${pkg.file}\n`).join(''), 'SHA256SUMS differs from the manifest');
 if (dryRun) {
 	console.log('Verified ' + names.length + ' archives in publish order; no registry requests or writes');
 	process.exit(0);
 }
 assert.equal(process.env.GITHUB_ACTIONS, 'true', 'Publishing requires GitHub Actions with OIDC');
-assert.equal(process.env.GITHUB_REPOSITORY, 'jp-knj/html-escape');
+assert.equal(process.env.GITHUB_REPOSITORY, 'jp-knj/escapex');
 assert.equal(process.env.GITHUB_REF, 'refs/heads/main', 'Publish from main only');
 assert.equal(process.env.GITHUB_SHA, manifest.commit, 'Candidate source commit mismatch');
 assert.equal(process.env.RELEASE_CANDIDATE_RUN_ID, manifest.runId, 'Candidate run mismatch');
 assert(process.env.ACTIONS_ID_TOKEN_REQUEST_URL && process.env.ACTIONS_ID_TOKEN_REQUEST_TOKEN, 'OIDC is unavailable');
 assert(process.env.GH_TOKEN, 'GitHub Actions read access is required');
-const response = await fetch('https://api.github.com/repos/jp-knj/html-escape/actions/runs/' + manifest.runId, {
+const response = await fetch('https://api.github.com/repos/jp-knj/escapex/actions/runs/' + manifest.runId, {
 	headers: { Authorization: 'Bearer ' + process.env.GH_TOKEN, Accept: 'application/vnd.github+json' },
 });
 assert(response.ok, 'Cannot verify candidate workflow: HTTP ' + response.status);

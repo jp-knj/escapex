@@ -22,18 +22,18 @@ function linuxLibc(): 'gnu' | 'musl' {
 	try { if (readFileSync('/usr/bin/ldd', 'utf8').includes('musl')) return 'musl'; } catch { /* Try the report below. */ }
 	const objects = diagnostic?.sharedObjects;
 	if (objects?.some((path) => /(?:ld-musl-|libc\.musl-)/.test(path))) return 'musl';
-	throw new Error('Cannot identify Linux libc for @jp-knj/html-escape/native (expected glibc or musl)');
+	throw new Error('Cannot identify Linux libc for escapex/native (expected glibc or musl)');
 }
 
 function load(): NativeBinding {
 	const id = nativePlatform(platform, arch, platform === 'linux' ? linuxLibc() : undefined);
 	const require = createRequire(import.meta.url);
 	const local = new URL(`./native/escape_html.${id}.node`, import.meta.url);
-	const packageName = `@jp-knj/html-escape-${id}`;
+	const packageName = `escapex-${id}`;
 	try {
 		return existsSync(local) ? require(fileURLToPath(local)) : require(packageName);
 	} catch (cause) {
-		throw new Error(`Cannot load @jp-knj/html-escape/native for ${id}. Install ${packageName} at the same version with optional dependencies enabled, or run npm run build:native in the source checkout.`, { cause });
+		throw new Error(`Cannot load escapex/native for ${id}. Install ${packageName} at the same version with optional dependencies enabled, or run npm run build:native in the source checkout.`, { cause });
 	}
 }
 

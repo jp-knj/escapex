@@ -46,6 +46,15 @@ jobs:
       - run: npm run release:setup
       - run: npm run release:pack
       - run: npm run release:publish -- --dry-run
+      - name: Install and test the assembled candidate tarballs
+        env:
+          RELEASE_CANDIDATE_DIR: target/release-candidate
+        run: npm run test:candidate
+      - run: npx playwright install --with-deps chromium firefox webkit
+      - name: Verify candidate browser bundles
+        env:
+          RELEASE_CANDIDATE_DIR: target/release-candidate
+        run: npm run test:browser
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: release-candidate
@@ -84,12 +93,12 @@ jobs:
           mkdir "$RUNNER_TEMP/release-consumer"
           cd "$RUNNER_TEMP/release-consumer"
           npm init --yes
-          npm install --ignore-scripts --no-audit --no-fund "@jp-knj/html-escape@$version"
-          node --input-type=module -e "import assert from 'node:assert/strict'; import * as js from '@jp-knj/html-escape'; import * as native from '@jp-knj/html-escape/native'; for (const name of Object.keys(js)) assert.equal(native[name]('&<>'.repeat(4096)), js[name]('&<>'.repeat(4096)))"
+          npm install --ignore-scripts --no-audit --no-fund "escapex@$version"
+          node --input-type=module -e "import assert from 'node:assert/strict'; import * as js from 'escapex'; import * as native from 'escapex/native'; for (const name of Object.keys(js)) assert.equal(native[name]('&<>'.repeat(4096)), js[name]('&<>'.repeat(4096)))"
       - name: Create GitHub Release
         run: |
           version=$(node -p 'JSON.parse(require("fs").readFileSync("package.json")).version')
-          tag="v$version"
+          tag="escapex-v$version"
           if gh release view "$tag" > /dev/null 2>&1; then
             test "$(gh api "repos/$GITHUB_REPOSITORY/git/ref/tags/$tag" --jq .object.sha)" = "$GITHUB_SHA"
           else

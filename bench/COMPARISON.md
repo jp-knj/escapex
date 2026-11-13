@@ -1,5 +1,8 @@
 # Comparison with other libraries
 
+These historical measurements use the former name, html-escape, now escapex.
+The rename does not change the measured code or conditions below.
+
 This page compares html-escape with escape-html 1.0.3, fast-escape-html 1.1.0
 and html-escaper 3.0.3. The measurements come from the commits linked below.
 The 0.0.1 release candidate hasn't been benchmarked against these libraries.

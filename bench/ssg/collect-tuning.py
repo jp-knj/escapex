@@ -131,7 +131,7 @@ def delta(value, reference):
 
 lines = ['# Packed native entity copies', '',
     f'Candidate `{commit}`, predecessor `{before}`.', '',
-    f'[Workflow {run_id}](https://github.com/jp-knj/html-escape/actions/runs/{run_id}): all 24 platform/Node combinations passed native API, npm-package, Worker, ESM/Wasm and Rust checks. NEON, SSE2 and AVX2 were executed on supported hardware.', '',
+    f'[Workflow {run_id}](https://github.com/jp-knj/escapex/actions/runs/{run_id}): all 24 platform/Node combinations passed native API, npm-package, Worker, ESM/Wasm and Rust checks. NEON, SSE2 and AVX2 were executed on supported hardware.', '',
     'The eight Node 24 environments each completed 75 full builds, 75 corpus-replay processes and 15 microbenchmark processes with 25 cases. All static output hashes match within each environment. Source, binary, artifact hashes and every sample were verified; no rounds were discarded.', '',
     '## Long JSON API comparison', '',
     'Change relative to the preceding native implementation. Negative means less time. The actual-props column replays all 384 calls from 64 SSG pages; the microbenchmark column is the existing quoted-JSON fixture.', '',

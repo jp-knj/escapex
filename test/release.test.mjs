@@ -33,7 +33,7 @@ test('publication validates all archive hashes and the source commit before regi
 		mkdirSync(staging);
 		const packages = names.map(name => {
 			writeFileSync(join(staging, 'package.json'), JSON.stringify(name === metadata.name ? metadata : { name, version: metadata.version }));
-			const file = name.slice(1).replace('/', '-') + '-' + metadata.version + '.tgz';
+			const file = name.replace(/^@/, '').replace('/', '-') + '-' + metadata.version + '.tgz';
 			execFileSync('tar', ['-czf', join(directory, file), '-C', directory, 'package/package.json']);
 			const bytes = readFileSync(join(directory, file));
 			return { name, version: metadata.version, file, size: bytes.length,
@@ -41,13 +41,22 @@ test('publication validates all archive hashes and the source commit before regi
 				integrity: 'sha512-' + createHash('sha512').update(bytes).digest('base64') };
 		});
 		const manifest = { version: metadata.version, commit: 'a'.repeat(40), runId: '1', published: false, packages };
-		const save = () => writeFileSync(join(directory, 'manifest.json'), JSON.stringify(manifest));
+		const save = () => {
+			writeFileSync(join(directory, 'manifest.json'), JSON.stringify(manifest));
+			writeFileSync(join(directory, 'SHA256SUMS'), packages.map(pkg => `${pkg.sha256}  ${pkg.file}\n`).join(''));
+		};
 		save();
 		const run = (args, env = process.env) => spawnSync(process.execPath, ['scripts/release-publish.mjs', ...args, directory],
 			{ cwd: root, env, encoding: 'utf8' });
 		let result = run(['--dry-run']);
 		assert.equal(result.status, 0, result.stderr);
 		assert.match(result.stdout, /Verified 9 archives/);
+		assert.equal(packages.at(-1).file, `escapex-${metadata.version}.tgz`);
+		writeFileSync(join(directory, 'SHA256SUMS'), 'invalid checksums\n');
+		result = run(['--dry-run']);
+		assert.notEqual(result.status, 0);
+		assert.match(result.stderr, /SHA256SUMS differs/);
+		save();
 		const hash = packages[0].sha256;
 		packages[0].sha256 = '0'.repeat(64);
 		save();
@@ -56,7 +65,7 @@ test('publication validates all archive hashes and the source commit before regi
 		assert.match(result.stderr, /Archive hash mismatch/);
 		packages[0].sha256 = hash;
 		save();
-		result = run([], { ...process.env, GITHUB_ACTIONS: 'true', GITHUB_REPOSITORY: 'jp-knj/html-escape',
+		result = run([], { ...process.env, GITHUB_ACTIONS: 'true', GITHUB_REPOSITORY: 'jp-knj/escapex',
 			GITHUB_REF: 'refs/heads/main', GITHUB_SHA: 'b'.repeat(40) });
 		assert.notEqual(result.status, 0);
 		assert.match(result.stderr, /Candidate source commit mismatch/);
@@ -76,7 +85,7 @@ test('release assembly rejects missing and wrong-version native artifacts before
 		assert(!existsSync(output));
 
 		const pkg = JSON.parse(readFileSync(join(root, 'npm/darwin-arm64/package.json'), 'utf8'));
-		const filename = `${pkg.name.slice(1).replace('/', '-')}-${pkg.version}.tgz`;
+		const filename = `${pkg.name.replace(/^@/, '').replace('/', '-')}-${pkg.version}.tgz`;
 		pkg.version = '0.0.0';
 		const staging = join(directory, 'package');
 		mkdirSync(staging);

@@ -3,7 +3,7 @@
 ```ts
 import {
   escape, escapeHTML, escapeText, escapeAttribute, unescape, unescapeHTML,
-} from '@jp-knj/html-escape/native';
+} from 'escapex/native';
 
 escape('<a title="example">');
 // '&lt;a title=&quot;example&quot;&gt;'
@@ -127,7 +127,7 @@ after changing a package version or platform restriction.
 | `win32-arm64-msvc` | `aarch64-pc-windows-msvc` | Windows 11 ARM64 |
 | `win32-x64-msvc` | `x86_64-pc-windows-msvc` | Windows Server 2022 x86-64 |
 
-Full package names are `@jp-knj/html-escape-<suffix>`. Every package has matching
+Full package names are `escapex-<suffix>`. Every package has matching
 version, `os`, `cpu`, and (on Linux) `libc` metadata. The glibc CI builds use
 Ubuntu 22.04; compatibility with older glibc systems is not asserted. CI tests
 Node.js 22, 24 and 26 on each row, and archives npm tarballs on Node 24. CI has

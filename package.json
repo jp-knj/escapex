@@ -1,5 +1,5 @@
 {
-  "name": "@jp-knj/html-escape",
+  "name": "escapex",
   "version": "0.0.1",
   "type": "module",
   "license": "MIT",
@@ -45,7 +45,7 @@
     "check:rust": "cargo fmt --manifest-path src/rust/Cargo.toml --check && cargo clippy --manifest-path src/rust/Cargo.toml --release --target wasm32-unknown-unknown --target-dir target/rust-check --offline --locked -- -D warnings",
     "test": "npm run build && npm run test:unit && npm run test:package && npm run test:bench && npm run test:release",
     "test:unit": "node --test test/escape-html.test.mjs test/wasm.test.mjs",
-    "test:package": "node --test test/bundlers.test.mjs",
+    "test:package": "node --test test/bundlers.test.mjs test/documentation.test.mjs",
     "test:browser": "node scripts/test-browser.mjs",
     "test:rust": "cargo test --manifest-path src/rust/Cargo.toml --release --target-dir target/rust-tests --offline --locked -- --nocapture",
     "prepack": "npm run build",
@@ -67,7 +67,8 @@
     "release:bootstrap": "node scripts/release-bootstrap.mjs",
     "release:pack": "node scripts/release-pack.mjs",
     "release:publish": "node scripts/release-publish.mjs",
-    "test:release": "node --test test/release.test.mjs"
+    "test:release": "node --test test/release.test.mjs",
+    "test:candidate": "node --test test/bundlers.test.mjs test/documentation.test.mjs test/native-package.test.mjs"
   },
   "devDependencies": {
     "@types/node": "22.19.15",
@@ -79,22 +80,27 @@
     "typescript": "7.0.2",
     "vite": "8.3.6"
   },
-  "description": "HTML escape and unescape in ESM, Rust WebAssembly and optional native SIMD.",
+  "description": "HTML escaping for templates, SSR and SSG, with typed ESM, WebAssembly and optional native SIMD.",
   "author": "jp-knj",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jp-knj/html-escape.git"
+    "url": "git+https://github.com/jp-knj/escapex.git"
   },
-  "homepage": "https://github.com/jp-knj/html-escape#readme",
+  "homepage": "https://github.com/jp-knj/escapex#readme",
   "bugs": {
-    "url": "https://github.com/jp-knj/html-escape/issues"
+    "url": "https://github.com/jp-knj/escapex/issues"
   },
   "keywords": [
     "html",
     "escape",
     "unescape",
     "entities",
+    "template",
+    "ssr",
+    "ssg",
+    "static-site-generator",
     "wasm",
+    "simd",
     "typescript"
   ],
   "engines": {
@@ -104,13 +110,13 @@
     "access": "public"
   },
   "optionalDependencies": {
-    "@jp-knj/html-escape-darwin-arm64": "0.0.1",
-    "@jp-knj/html-escape-darwin-x64": "0.0.1",
-    "@jp-knj/html-escape-linux-arm64-gnu": "0.0.1",
-    "@jp-knj/html-escape-linux-arm64-musl": "0.0.1",
-    "@jp-knj/html-escape-linux-x64-gnu": "0.0.1",
-    "@jp-knj/html-escape-linux-x64-musl": "0.0.1",
-    "@jp-knj/html-escape-win32-arm64-msvc": "0.0.1",
-    "@jp-knj/html-escape-win32-x64-msvc": "0.0.1"
+    "escapex-darwin-arm64": "0.0.1",
+    "escapex-darwin-x64": "0.0.1",
+    "escapex-linux-arm64-gnu": "0.0.1",
+    "escapex-linux-arm64-musl": "0.0.1",
+    "escapex-linux-x64-gnu": "0.0.1",
+    "escapex-linux-x64-musl": "0.0.1",
+    "escapex-win32-arm64-msvc": "0.0.1",
+    "escapex-win32-x64-msvc": "0.0.1"
   }
 }

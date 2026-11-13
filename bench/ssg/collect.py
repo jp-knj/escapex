@@ -108,7 +108,7 @@ def comparison(r, scenario, workers=0):
 
 lines = ['# Full static-site builds across native environments', '',
          'Source commits: ' + ', '.join(f'`{commit}`' for commit in commits) + '.', '',
-         'Workflow runs: ' + ', '.join(f'[{run}](https://github.com/jp-knj/html-escape/actions/runs/{run})' for run in run_ids) + '.', '',
+         'Workflow runs: ' + ', '.join(f'[{run}](https://github.com/jp-knj/escapex/actions/runs/{run})' for run in run_ids) + '.', '',
          f'Verified {len(records)} environments, {len(records) * 150} timed builds, and {len(records) * 6} independent diagnostic builds. '
          'Each environment uses five fresh processes per library, site, and Worker count. All static outputs match byte-for-byte within each environment; actual escape input profiles match across all collected environments.', '',
          'These are synthetic fixtures with clean Astro build caches and uncontrolled OS filesystem caches. Wall time includes startup, compilation, API initialization, rendering, and HTML writes. Dependency installation and verification are excluded. See the [protocol](../../ssg/README.md).', '',
