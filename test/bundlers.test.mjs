@@ -4,6 +4,7 @@ import { readFile, rm, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { after, before, test } from 'node:test';
 import { pathToFileURL } from 'node:url';
+import { gzipSync } from 'node:zlib';
 import { preparePackage, bundleConsumer, packageName, root } from '../scripts/package-fixture.mjs';
 
 let fixture;
@@ -11,6 +12,27 @@ before(async () => { fixture = await preparePackage(); });
 after(async () => { if (fixture) await rm(fixture.consumer, { recursive: true, force: true }); });
 
 for (const tool of ['rolldown', 'vite']) {
+	// These budgets catch retained escapeHTML initialization in consumers that
+	// only use another function, while allowing minor minifier output changes.
+	for (const [only, input, expected, budgets] of [
+		['escapeText', 'A < B & "quoted"', 'A &lt; B &amp; "quoted"', { rolldown: 355, vite: 395 }],
+		['escapeAttribute', 'one\r\ntwo', 'one&#13;&#10;two', { rolldown: 365, vite: 405 }],
+		['unescapeHTML', '&amp;lt;', '&lt;', { rolldown: 265, vite: 285 }],
+	]) {
+		test(`${tool}: ${only}-only bundle stays within its size budget`, async () => {
+			const { outDir, output } = await bundleConsumer(fixture.consumer, tool, { only });
+			assert.equal(output.length, 1);
+			// Vite retains source-path comments containing the host's temporary directory.
+			const code = output[0].code.replace(/^\/\/ .*\r?\n/gm, '');
+			const bytes = gzipSync(code).byteLength;
+			const maxGzipBytes = budgets[tool];
+			assert(bytes <= maxGzipBytes, `${only}: ${bytes} gzip bytes exceeds ${maxGzipBytes}`);
+			const api = await import(pathToFileURL(join(outDir, 'index.mjs')));
+			assert.deepEqual(Object.keys(api), [only]);
+			assert.equal(api[only](input), expected);
+		});
+	}
+
 	for (const ssr of [false, true]) {
 		test(`${tool}: packed ESM and Wasm in ${ssr ? 'SSR' : 'browser-targeted'} bundle`, async () => {
 			const { outDir, output } = await bundleConsumer(fixture.consumer, tool, { ssr });

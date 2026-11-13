@@ -58,11 +58,11 @@ export async function preparePackage({ native = false } = {}) {
 	return { consumer, installed, pack, nativePackage };
 }
 
-export async function bundleConsumer(consumer, tool, { unused = false, ssr = false } = {}) {
-	const name = `${tool}-${unused ? 'unused' : ssr ? 'ssr' : 'browser'}`;
+export async function bundleConsumer(consumer, tool, { unused = false, ssr = false, only } = {}) {
+	const name = `${tool}-${only ?? (unused ? 'unused' : ssr ? 'ssr' : 'browser')}`;
 	const entry = join(consumer, `${name}.mjs`);
 	const query = tool === 'vite' ? '?url&no-inline' : '';
-	const code = unused ? `import { escape, unescape } from '${packageName}';
+	const code = only ? `export { ${only} } from '${packageName}';` : unused ? `import { escape, unescape } from '${packageName}';
 import { init } from '${packageName}/wasm'; export const marker = 1;` : `
 export * as js from '${packageName}';
 export * as wasm from '${packageName}/wasm';
