@@ -18,24 +18,20 @@ export const HTML_ENTITIES: string[] = [
 	'', '', '', '', '', '', '', '', '', '', '', '', '&lt;', '', '&gt;',
 ];
 
-function entityFor(code: number): string {
-	switch (code) {
-		case 10:
-			return '&#10;';
-		case 13:
-			return '&#13;';
-		case 38:
-			return '&amp;';
-		case 60:
-			return '&lt;';
-		case 62:
-			return '&gt;';
-		case 39:
-			return '&#39;';
-		default:
-			return '&quot;';
-	}
-}
+// Packed literals let single-export bundles retain only their context's table.
+// Empty entries terminate a run; all other UTF-16 units remain unchanged.
+const TEXT_ENTITIES: string[] = [
+	'', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '',
+	'', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '',
+	'', '', '', '', '', '', '&amp;', '', '', '', '', '', '', '', '', '',
+	'', '', '', '', '', '', '', '', '', '', '', '', '&lt;', '', '&gt;',
+];
+const ATTRIBUTE_ENTITIES: string[] = [
+	'', '', '', '', '', '', '', '', '', '', '&#10;', '', '', '&#13;', '', '',
+	'', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '',
+	'', '', '&quot;', '', '', '', '&amp;', '&#39;', '', '', '', '', '', '', '', '',
+	'', '', '', '', '', '', '', '', '', '', '', '', '&lt;', '', '&gt;',
+];
 
 /** Escapes &, <, >, ', and " in a primitive string for HTML text or quoted attributes. */
 export function escapeHTML(value: string): string {
@@ -115,7 +111,8 @@ function escapeMatchedHTML(value: string, firstMatch: number): string {
 
 /** Escapes &, < and > for HTML text nodes. Not for script/style contents. */
 export function escapeText(value: string): string {
-	return encode(value, TEXT, 'escapeText');
+	if (typeof value !== 'string') throw new TypeError('escapeText expects a primitive string');
+	return encode(value, TEXT, TEXT_ENTITIES, 0);
 }
 
 /**
@@ -123,22 +120,29 @@ export function escapeText(value: string): string {
  * plain attribute values. Does not validate URLs, CSS or event handlers.
  */
 export function escapeAttribute(value: string): string {
-	return encode(value, ATTRIBUTE, 'escapeAttribute');
+	if (typeof value !== 'string') throw new TypeError('escapeAttribute expects a primitive string');
+	return encode(value, ATTRIBUTE, ATTRIBUTE_ENTITIES, 3);
 }
 
-function encode(value: string, pattern: RegExp, operation: string): string {
-	if (typeof value !== 'string') throw new TypeError(`${operation} expects a primitive string`);
+function encode(value: string, pattern: RegExp, entities: readonly string[], maxGap: number): string {
 	pattern.lastIndex = 0;
 	if (!pattern.test(value)) return value;
 	let output = '';
 	let last = 0;
 	do {
-		const index = pattern.lastIndex - 1;
+		let index = pattern.lastIndex - 1;
+		// Keep isolated matches in regexp search. A nearby pair justifies
+		// scanning a run; text uses an adjacent pair, attributes allow a gap.
+		const contiguous = last > 0 && index - last <= maxGap;
 		if (last !== index) output += value.slice(last, index);
-		output += entityFor(value.charCodeAt(index));
-		last = index + 1;
+		do {
+			output += entities[value.charCodeAt(index++)];
+		} while (contiguous && index < value.length && entities[value.charCodeAt(index)]);
+		// Resume the regexp at the first unit outside the run, including any
+		// quote or CR/LF that the current context deliberately preserves.
+		pattern.lastIndex = last = index;
 	} while (pattern.test(value));
-	return last === value.length ? output : output + value.slice(last);
+	return output + value.slice(last);
 }
 
 export { escapeHTML as escape };

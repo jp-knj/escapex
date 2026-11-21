@@ -15,7 +15,11 @@ export function verifyEscape(escapeHTML, mode = 'html') {
 	// Force entry into Wasm even for code units which do not themselves need escaping.
 	for (let code = 0; code <= 0xffff; code++) {
 		const lane = code % 8;
-		check('a'.repeat(lane) + String.fromCharCode(code) + 'a'.repeat(15 - lane) + '&');
+		const unit = String.fromCharCode(code);
+		check('a'.repeat(lane) + unit + 'a'.repeat(15 - lane) + '&');
+		// Exercise every unit inside a run and at its exit, including units
+		// beyond the ASCII replacement table and unpaired surrogates.
+		check('&<' + unit + '>');
 	}
 	for (const length of [0, 1, 7, 8, 9, 15, 16, 17, 255, 256, 257, 16383, 16384, 16385, 65535, 65536]) {
 		for (const fill of ['a', '\ud800', '\udfff', '"', '\r', '\n']) {
@@ -37,7 +41,7 @@ export function verifyEscape(escapeHTML, mode = 'html') {
 		}
 	}
 	// Change match spacing within each string to cross adaptive search boundaries.
-	for (const gap of [0, 1, 7, 8, 9, 15, 16, 17, 31, 32, 33, 63, 255]) {
+	for (const gap of [0, 1, 2, 3, 4, 7, 8, 9, 15, 16, 17, 31, 32, 33, 63, 255]) {
 		for (const tail of [0, 1, 15, 16, 17, 31, 32, 33]) {
 			check(('\ud800'.repeat(gap) + '&<>\'"').repeat(4) + '\udfff'.repeat(tail));
 			check('&' + 'a'.repeat(gap) + '"' + 'b'.repeat(97) + '<&' + 'c'.repeat(tail));
