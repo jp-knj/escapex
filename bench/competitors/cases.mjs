@@ -42,3 +42,17 @@ cases['mixed-long'] = [256, 1024, 8192, 16384].flatMap(length => [
  ('e'.repeat(31) + '&').repeat(length / 32),
  '&<>"'.repeat(length / 4),
 ]);
+
+export function casesFor(operation) {
+	if (operation === 'escapeHTML') return cases;
+	const mixed = '\'"\r\n<&日本😀';
+	return { ...cases,
+		'quotes-only': '\'"'.repeat(128),
+		'line-endings': 'one\rtwo\r\nthree\nfour\t'.repeat(64),
+		'mixed-context': [15, 16, 17, 127, 128, 129, 255, 256, 257].flatMap(length => [
+			'a'.repeat(length - 1) + '\r',
+			'\n' + 'b'.repeat(length - 1),
+			mixed.repeat(Math.ceil(length / mixed.length)).slice(0, length),
+		]),
+	};
+}

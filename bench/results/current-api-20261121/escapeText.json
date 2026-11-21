@@ -1,0 +1,3875 @@
+{
+  "kind": "competitors",
+  "operation": "escapeText",
+  "variants": [
+    "esm",
+    "wasm",
+    "native"
+  ],
+  "startedAt": "2026-11-21T13:02:26.937Z",
+  "date": "2026-11-21T13:04:14.469Z",
+  "environment": {
+    "node": "v24.22.2",
+    "v8": "13.6.233.17-node.63",
+    "platform": "darwin",
+    "arch": "arm64",
+    "os": "25.5.0",
+    "cpu": "Apple M2"
+  },
+  "rounds": 3,
+  "versions": {},
+  "sha256": {
+    "package.json": "fbe9659d9bc31a634e152a2b27bf87e39cd9fe93c750bad2bca64fdd3c9b66da",
+    "package-lock.json": "84261cbdbb303781160965c52dc1afe55044d5e26e683e2159afa067e8a052d8",
+    "tsdown.config.mts": "b7ebb1b89bb642e326ff257f99c4fb7e334035d2ddc047a9d32eed6449b9134f",
+    "src/index.ts": "69264b619cde6cba351a289f7be714e1a84d24a8d4ac7bf7fb83f7225e01bc75",
+    "src/escape.ts": "21b0ff5eea6c552cc5def78a56f9dfdf7889ae46459c2479928c9fc41eeda416",
+    "src/unescape.ts": "8b9f99b68cb59bd56e64f8ed6bb8bc0007fd0a1720e143378430be3bb195fbde",
+    "dist/index.mjs": "2158db49a06cec9f8fb441542e88da224d6abbe4ef8629651a5e8855ed2a4195",
+    "dist/escape-core.mjs": "0c7bb782959ece0487506aba333741f7a92508372d586d85750ef5b7abe8f7f6",
+    "bench/implementations.mjs": "1e23b87cfe0498219e21472714520ffcb15e99d21642446bcdbf00663572e6c7",
+    "bench/stats.mjs": "2c77977d24c0a610b0c9f9e737aeb0e3aa5eb37f2e4c168915d54f3ac97ea4a7",
+    "bench/competitors/suite.mjs": "e87814425276faffd72cfea61ef3ec92d20c84b7341d5ee1648a0e83d5b79c94",
+    "bench/competitors/run.mjs": "f8907afb9a3cdd65b34cde71cceb9ba24c76867edd67ea255c783346d0c724c8",
+    "bench/competitors/worker.mjs": "703f0c422941a920610d7d85073b2555a5d7f03340b7ed0f70c2b6c15121da78",
+    "bench/competitors/cases.mjs": "789e9420be681baa759d301cbc4d380f29f87bcfc0b962b96321835912cf6b82",
+    "bench/competitors/package-lock.json": "5b94522c86a370fdd1b6fa9f5a6adcb64034826b13c3e889a633e4969164feb6",
+    "src/rust/Cargo.toml": "da776626f9e1dd22676d391912522eb87da00e72f5b1ea5b20ff53e841295fc5",
+    "src/rust/Cargo.lock": "e9d735a568f2d1cee3a94358de48e5bcfd059be0884f5afe01d90c2ef64bc897",
+    "src/rust/src/escape.rs": "d87f4c9cf809cb91ffd92606b32ff16c2cb636bf1814b2384f298743cf5bd7f9",
+    "src/rust/src/lib.rs": "44cf7850eb67e2f4109fba29c6347a27ad395005bae9fba223dbc05d06035ac2",
+    "src/rust/src/napi_bindings.rs": "dbbfc137cd4a15a0427997e78092983a8f2e41323b01896697d31f990a37590a",
+    "src/rust/src/native_escape.rs": "e8339888bd64b5e9241faba320472a086014a5743723e75d6b9dd5a5b43c0f67",
+    "src/rust/src/unescape.rs": "9db1460466a85b50079316d8c33e6b7abb34966f152c4a9711d1081771ec0181",
+    "src/rust/src/wasm_bindings.rs": "4e511f99421708f209b11b007d253ed722ae1f24b602a47874543925326d18e3",
+    "src/wasm.ts": "7f17e13c9c00b7d2bb05d4280c3f8b6be41610092e0afa330229adf9f093a9a7",
+    "dist/wasm.mjs": "bd57077599a731ffabacfdb71d7b9e45d825f049d0572089a2cdfc689a8c9a51",
+    "dist/escape_html.wasm": "92c5cd1a223149418c78bf87f923c4e4a07e6f06688210449f534aac97541047",
+    "scripts/wasm.mjs": "7a6ad8953721c8643da9a4fa5e278b5ffe756370c1d3e32bc6cec5e2b3df79a2",
+    "src/native.ts": "1e54d791c34d47b4d08508649356e4a2660255c5e1fb9e0c8449d1db90d836a2",
+    "src/native-platform.ts": "80e0856b340940d81d91b964fa60d280a611cccab62a17946cde9caaac00938f",
+    "dist/native.mjs": "81146206aba782630efb81e6df978413fb00538a68cabf098609e5837eea40fc",
+    "scripts/native.mjs": "7710fff0dd19f9f4c185353e150956a28f4f60a16364d47fddf50877ed9768d0",
+    "dist/native/escape_html.darwin-arm64.node": "349426f1642bf3d27c5d52a5d75d7d0569f2019e61831dbdbd5d6ba4714c6ddf"
+  },
+  "method": "Fresh process per variant/round; rotated order (every position once per complete cycle of implementations); at least 100ms warmup and 10000 short calls or 1000 long calls; 300ms measurement; Buffer.byteLength consumes output; synchronous string-to-string API, initialization excluded; inputUnits is the maximum pool length; mixed cases rotate through the recorded input pools. Median and min/max of process means, not a confidence interval.",
+  "summary": [
+    {
+      "name": "short",
+      "operation": "escapeText",
+      "inputUnits": 16,
+      "minimumInputUnits": 16,
+      "inputPoolSize": 1,
+      "nsPerCall": {
+        "esm": 146.8350375258394,
+        "wasm": 272.0350556248549,
+        "native": 143.94829520157822
+      },
+      "ranges": {
+        "esm": {
+          "min": 142.8599401778096,
+          "max": 155.3406343190855
+        },
+        "wasm": {
+          "min": 271.525395601691,
+          "max": 274.66409637186547
+        },
+        "native": {
+          "min": 141.64145109516616,
+          "max": 145.25478635441195
+        }
+      }
+    },
+    {
+      "name": "unchanged-16",
+      "operation": "escapeText",
+      "inputUnits": 16,
+      "minimumInputUnits": 16,
+      "inputPoolSize": 1,
+      "nsPerCall": {
+        "esm": 33.64144118448999,
+        "wasm": 35.26415137135959,
+        "native": 34.782590802691715
+      },
+      "ranges": {
+        "esm": {
+          "min": 33.636115856830244,
+          "max": 37.471029010078645
+        },
+        "wasm": {
+          "min": 35.030276852564484,
+          "max": 43.259344781132356
+        },
+        "native": {
+          "min": 34.20461985368151,
+          "max": 35.73638231561376
+        }
+      }
+    },
+    {
+      "name": "first-16",
+      "operation": "escapeText",
+      "inputUnits": 16,
+      "minimumInputUnits": 16,
+      "inputPoolSize": 1,
+      "nsPerCall": {
+        "esm": 98.96751465915808,
+        "wasm": 260.1353314026083,
+        "native": 99.47805855296664
+      },
+      "ranges": {
+        "esm": {
+          "min": 96.74287562427772,
+          "max": 107.2415097684846
+        },
+        "wasm": {
+          "min": 258.16006848843614,
+          "max": 265.3839365307336
+        },
+        "native": {
+          "min": 98.00849136489087,
+          "max": 108.27379586162694
+        }
+      }
+    },
+    {
+      "name": "first-31",
+      "operation": "escapeText",
+      "inputUnits": 31,
+      "minimumInputUnits": 31,
+      "inputPoolSize": 1,
+      "nsPerCall": {
+        "esm": 106.35978905753696,
+        "wasm": 311.73545960771287,
+        "native": 105.942391464021
+      },
+      "ranges": {
+        "esm": {
+          "min": 106.25054574172708,
+          "max": 110.81337351373388
+        },
+        "wasm": {
+          "min": 308.81603878458503,
+          "max": 314.6674884647652
+        },
+        "native": {
+          "min": 104.12170667203469,
+          "max": 106.29359445861675
+        }
+      }
+    },
+    {
+      "name": "first-32",
+      "operation": "escapeText",
+      "inputUnits": 32,
+      "minimumInputUnits": 32,
+      "inputPoolSize": 1,
+      "nsPerCall": {
+        "esm": 106.79225007688628,
+        "wasm": 315.7982781342629,
+        "native": 104.98189750739051
+      },
+      "ranges": {
+        "esm": {
+          "min": 105.8395728207125,
+          "max": 112.84616145582575
+        },
+        "wasm": {
+          "min": 315.39022344254573,
+          "max": 320.39512605077914
+        },
+        "native": {
+          "min": 104.10839852425156,
+          "max": 108.85485012133108
+        }
+      }
+    },
+    {
+      "name": "dense-31",
+      "operation": "escapeText",
+      "inputUnits": 31,
+      "minimumInputUnits": 31,
+      "inputPoolSize": 1,
+      "nsPerCall": {
+        "esm": 708.405025018882,
+        "wasm": 612.7537469779137,
+        "native": 716.6341137874383
+      },
+      "ranges": {
+        "esm": {
+          "min": 706.427987492466,
+          "max": 713.976422141443
+        },
+        "wasm": {
+          "min": 609.2527611746359,
+          "max": 615.1862737860897
+        },
+        "native": {
+          "min": 710.1574140672326,
+          "max": 720.9733913745388
+        }
+      }
+    },
+    {
+      "name": "unchanged-short",
+      "operation": "escapeText",
+      "inputUnits": 37,
+      "minimumInputUnits": 37,
+      "inputPoolSize": 1,
+      "nsPerCall": {
+        "esm": 39.93678807848284,
+        "wasm": 41.30016175660793,
+        "native": 40.5544525599543
+      },
+      "ranges": {
+        "esm": {
+          "min": 39.917632518180746,
+          "max": 43.30488626233281
+        },
+        "wasm": {
+          "min": 41.1370154758144,
+          "max": 48.13319611374097
+        },
+        "native": {
+          "min": 39.71890357566512,
+          "max": 40.82759208211398
+        }
+      }
+    },
+    {
+      "name": "unchanged-long",
+      "operation": "escapeText",
+      "inputUnits": 155648,
+      "minimumInputUnits": 155648,
+      "inputPoolSize": 1,
+      "nsPerCall": {
+        "esm": 28853.24100788614,
+        "wasm": 28779.492374100697,
+        "native": 28757.744631901824
+      },
+      "ranges": {
+        "esm": {
+          "min": 28801.162426802355,
+          "max": 28868.72113163971
+        },
+        "wasm": {
+          "min": 28771.021097046396,
+          "max": 28781.02216039908
+        },
+        "native": {
+          "min": 28652.631840320908,
+          "max": 28883.050929045912
+        }
+      }
+    },
+    {
+      "name": "quoted-json",
+      "operation": "escapeText",
+      "inputUnits": 33171,
+      "minimumInputUnits": 33171,
+      "inputPoolSize": 1,
+      "nsPerCall": {
+        "esm": 76095.38742393504,
+        "wasm": 122156.53827361566,
+        "native": 30060.40420841682
+      },
+      "ranges": {
+        "esm": {
+          "min": 75954.18784810124,
+          "max": 76152.4850253808
+        },
+        "wasm": {
+          "min": 122054.21074043922,
+          "max": 122161.71294788278
+        },
+        "native": {
+          "min": 29867.924248457104,
+          "max": 30274.949545913176
+        }
+      }
+    },
+    {
+      "name": "japanese-emoji",
+      "operation": "escapeText",
+      "inputUnits": 44032,
+      "minimumInputUnits": 44032,
+      "inputPoolSize": 1,
+      "nsPerCall": {
+        "esm": 326248.8228260874,
+        "wasm": 328296.0886214442,
+        "native": 91925.7046568628
+      },
+      "ranges": {
+        "esm": {
+          "min": 325472.3882863343,
+          "max": 327965.8842794753
+        },
+        "wasm": {
+          "min": 328200.78165938845,
+          "max": 328320.9792122534
+        },
+        "native": {
+          "min": 91312.75349969567,
+          "max": 92044.86196319015
+        }
+      }
+    },
+    {
+      "name": "long-body",
+      "operation": "escapeText",
+      "inputUnits": 349440,
+      "minimumInputUnits": 349440,
+      "inputPoolSize": 1,
+      "nsPerCall": {
+        "esm": 133264.74600355222,
+        "wasm": 1070885.6761565816,
+        "native": 233318.5909797823
+      },
+      "ranges": {
+        "esm": {
+          "min": 131942.06244503084,
+          "max": 133816.44023193597
+        },
+        "wasm": {
+          "min": 1068181.9395017799,
+          "max": 1073890.4749999978
+        },
+        "native": {
+          "min": 231648.05169753078,
+          "max": 233328.8297045102
+        }
+      }
+    },
+    {
+      "name": "dense-quotes",
+      "operation": "escapeText",
+      "inputUnits": 28672,
+      "minimumInputUnits": 28672,
+      "inputPoolSize": 1,
+      "nsPerCall": {
+        "esm": 331472.31456953584,
+        "wasm": 240349.1542765789,
+        "native": 50368.31436723737
+      },
+      "ranges": {
+        "esm": {
+          "min": 331443.2947019867,
+          "max": 332481.77408637805
+        },
+        "wasm": {
+          "min": 240273.68105515582,
+          "max": 240386.82414068692
+        },
+        "native": {
+          "min": 50227.05658797926,
+          "max": 50602.54729387962
+        }
+      }
+    },
+    {
+      "name": "first-24",
+      "operation": "escapeText",
+      "inputUnits": 24,
+      "minimumInputUnits": 24,
+      "inputPoolSize": 1,
+      "nsPerCall": {
+        "esm": 100.77005421055452,
+        "wasm": 300.35695536744055,
+        "native": 102.9268516434654
+      },
+      "ranges": {
+        "esm": {
+          "min": 97.74567999374463,
+          "max": 107.69060468261819
+        },
+        "wasm": {
+          "min": 299.7519041719945,
+          "max": 306.7446870501828
+        },
+        "native": {
+          "min": 102.04096035589892,
+          "max": 104.29730083930319
+        }
+      }
+    },
+    {
+      "name": "last-31",
+      "operation": "escapeText",
+      "inputUnits": 31,
+      "minimumInputUnits": 31,
+      "inputPoolSize": 1,
+      "nsPerCall": {
+        "esm": 98.51620128351959,
+        "wasm": 315.708042267035,
+        "native": 99.62293364554998
+      },
+      "ranges": {
+        "esm": {
+          "min": 97.68627313078247,
+          "max": 106.48223873625756
+        },
+        "wasm": {
+          "min": 314.0650204314038,
+          "max": 318.7118532431323
+        },
+        "native": {
+          "min": 99.50973162732419,
+          "max": 100.4168598984661
+        }
+      }
+    },
+    {
+      "name": "two-near-31",
+      "operation": "escapeText",
+      "inputUnits": 31,
+      "minimumInputUnits": 31,
+      "inputPoolSize": 1,
+      "nsPerCall": {
+        "esm": 128.5973570551686,
+        "wasm": 330.5236732409764,
+        "native": 129.76698230400814
+      },
+      "ranges": {
+        "esm": {
+          "min": 126.21736377557872,
+          "max": 135.88577298817262
+        },
+        "wasm": {
+          "min": 328.6705626927931,
+          "max": 331.6029331140357
+        },
+        "native": {
+          "min": 129.64446902654873,
+          "max": 134.28523279047818
+        }
+      }
+    },
+    {
+      "name": "two-far-31",
+      "operation": "escapeText",
+      "inputUnits": 31,
+      "minimumInputUnits": 31,
+      "inputPoolSize": 1,
+      "nsPerCall": {
+        "esm": 126.18781630235806,
+        "wasm": 333.9120837784896,
+        "native": 128.72151749917606
+      },
+      "ranges": {
+        "esm": {
+          "min": 126.18055639669458,
+          "max": 131.46960802529736
+        },
+        "wasm": {
+          "min": 332.42360988017595,
+          "max": 337.27892648381254
+        },
+        "native": {
+          "min": 128.6932281085271,
+          "max": 130.3727415973689
+        }
+      }
+    },
+    {
+      "name": "dense-32",
+      "operation": "escapeText",
+      "inputUnits": 32,
+      "minimumInputUnits": 32,
+      "inputPoolSize": 1,
+      "nsPerCall": {
+        "esm": 712.1480174476009,
+        "wasm": 631.6438872238688,
+        "native": 729.7521379786751
+      },
+      "ranges": {
+        "esm": {
+          "min": 710.8481726614621,
+          "max": 716.6201864303168
+        },
+        "wasm": {
+          "min": 631.5540013806558,
+          "max": 635.6193228036874
+        },
+        "native": {
+          "min": 727.7062674581,
+          "max": 735.2205560892411
+        }
+      }
+    },
+    {
+      "name": "dense-255",
+      "operation": "escapeText",
+      "inputUnits": 255,
+      "minimumInputUnits": 255,
+      "inputPoolSize": 1,
+      "nsPerCall": {
+        "esm": 5109.998437499996,
+        "wasm": 3734.867946357491,
+        "native": 5214.505208333328
+      },
+      "ranges": {
+        "esm": {
+          "min": 5109.769157608692,
+          "max": 5115.295227581524
+        },
+        "wasm": {
+          "min": 3734.444976612272,
+          "max": 3771.644003717859
+        },
+        "native": {
+          "min": 5205.437482715699,
+          "max": 5241.42529296875
+        }
+      }
+    },
+    {
+      "name": "first-255",
+      "operation": "escapeText",
+      "inputUnits": 255,
+      "minimumInputUnits": 255,
+      "inputPoolSize": 1,
+      "nsPerCall": {
+        "esm": 149.28965963375788,
+        "wasm": 1007.2140349817441,
+        "native": 154.40349503870218
+      },
+      "ranges": {
+        "esm": {
+          "min": 146.31874951232808,
+          "max": 154.7018210261021
+        },
+        "wasm": {
+          "min": 1007.1223052244405,
+          "max": 1013.0453084485716
+        },
+        "native": {
+          "min": 152.2073270089285,
+          "max": 155.29396873343737
+        }
+      }
+    },
+    {
+      "name": "first-256",
+      "operation": "escapeText",
+      "inputUnits": 256,
+      "minimumInputUnits": 256,
+      "inputPoolSize": 1,
+      "nsPerCall": {
+        "esm": 156.68819142713903,
+        "wasm": 1005.3871475664633,
+        "native": 456.54702717179623
+      },
+      "ranges": {
+        "esm": {
+          "min": 151.75205504256775,
+          "max": 158.09859210592916
+        },
+        "wasm": {
+          "min": 999.9631972589563,
+          "max": 1010.5092706088362
+        },
+        "native": {
+          "min": 453.55199363873885,
+          "max": 474.23532943972424
+        }
+      }
+    },
+    {
+      "name": "spaced-8",
+      "operation": "escapeText",
+      "inputUnits": 1024,
+      "minimumInputUnits": 1024,
+      "inputPoolSize": 1,
+      "nsPerCall": {
+        "esm": 4624.183308678506,
+        "wasm": 6069.979806759399,
+        "native": 1550.926619872639
+      },
+      "ranges": {
+        "esm": {
+          "min": 4614.399421751994,
+          "max": 4635.653409090912
+        },
+        "wasm": {
+          "min": 6064.290588615784,
+          "max": 6076.246923575122
+        },
+        "native": {
+          "min": 1538.8951991713216,
+          "max": 1551.8880854849378
+        }
+      }
+    },
+    {
+      "name": "spaced-32",
+      "operation": "escapeText",
+      "inputUnits": 1024,
+      "minimumInputUnits": 1024,
+      "inputPoolSize": 1,
+      "nsPerCall": {
+        "esm": 1328.1013898725203,
+        "wasm": 4037.8260255168016,
+        "native": 1108.621737556156
+      },
+      "ranges": {
+        "esm": {
+          "min": 1325.7345915229055,
+          "max": 1334.9364678246072
+        },
+        "wasm": {
+          "min": 4034.878912973325,
+          "max": 4038.3105216408335
+        },
+        "native": {
+          "min": 1108.3796616430234,
+          "max": 1120.205626493434
+        }
+      }
+    },
+    {
+      "name": "sparse-8192",
+      "operation": "escapeText",
+      "inputUnits": 8192,
+      "minimumInputUnits": 8192,
+      "inputPoolSize": 1,
+      "nsPerCall": {
+        "esm": 1852.9882399446515,
+        "wasm": 24145.317165379667,
+        "native": 5219.262491301323
+      },
+      "ranges": {
+        "esm": {
+          "min": 1852.8468255928813,
+          "max": 1873.6023544841369
+        },
+        "wasm": {
+          "min": 24122.17307073953,
+          "max": 24161.270524790638
+        },
+        "native": {
+          "min": 5211.588173985548,
+          "max": 5226.2003205128385
+        }
+      }
+    },
+    {
+      "name": "mixed-short",
+      "operation": "escapeText",
+      "inputUnits": 255,
+      "minimumInputUnits": 7,
+      "inputPoolSize": 36,
+      "nsPerCall": {
+        "esm": 293.53533429595564,
+        "wasm": 431.1764768441885,
+        "native": 309.05563418875374
+      },
+      "ranges": {
+        "esm": {
+          "min": 293.28742943926653,
+          "max": 297.7978049177452
+        },
+        "wasm": {
+          "min": 426.5506305722336,
+          "max": 431.3541618743093
+        },
+        "native": {
+          "min": 308.9088033737472,
+          "max": 310.69087099125363
+        }
+      }
+    },
+    {
+      "name": "mixed-long",
+      "operation": "escapeText",
+      "inputUnits": 16384,
+      "minimumInputUnits": 256,
+      "inputPoolSize": 24,
+      "nsPerCall": {
+        "esm": 24524.20343137258,
+        "wasm": 27308.199254274256,
+        "native": 6608.299026517517
+      },
+      "ranges": {
+        "esm": {
+          "min": 24439.43277994798,
+          "max": 24649.20514295098
+        },
+        "wasm": {
+          "min": 27247.272875816932,
+          "max": 27318.076055312908
+        },
+        "native": {
+          "min": 6593.46705784105,
+          "max": 6618.503838686912
+        }
+      }
+    },
+    {
+      "name": "quotes-only",
+      "operation": "escapeText",
+      "inputUnits": 256,
+      "minimumInputUnits": 256,
+      "inputPoolSize": 1,
+      "nsPerCall": {
+        "esm": 79.90683086392939,
+        "wasm": 80.7418833755339,
+        "native": 85.6555539440506
+      },
+      "ranges": {
+        "esm": {
+          "min": 79.61081772000871,
+          "max": 81.27312732966372
+        },
+        "wasm": {
+          "min": 80.57058025739073,
+          "max": 87.50613501764067
+        },
+        "native": {
+          "min": 85.41727149006952,
+          "max": 87.83810786660545
+        }
+      }
+    },
+    {
+      "name": "line-endings",
+      "operation": "escapeText",
+      "inputUnits": 1280,
+      "minimumInputUnits": 1280,
+      "inputPoolSize": 1,
+      "nsPerCall": {
+        "esm": 271.540861877332,
+        "wasm": 272.44180009007937,
+        "native": 277.31668885068297
+      },
+      "ranges": {
+        "esm": {
+          "min": 271.20890692065393,
+          "max": 272.69612348704436
+        },
+        "wasm": {
+          "min": 272.1750782004107,
+          "max": 278.83054766613736
+        },
+        "native": {
+          "min": 276.96286599483767,
+          "max": 280.6646702441357
+        }
+      }
+    },
+    {
+      "name": "mixed-context",
+      "operation": "escapeText",
+      "inputUnits": 257,
+      "minimumInputUnits": 15,
+      "inputPoolSize": 27,
+      "nsPerCall": {
+        "esm": 527.1162952450551,
+        "wasm": 501.72619461686594,
+        "native": 408.9019839279498
+      },
+      "ranges": {
+        "esm": {
+          "min": 525.4110509580904,
+          "max": 527.363005369996
+        },
+        "wasm": {
+          "min": 496.527295769801,
+          "max": 503.85106393693616
+        },
+        "native": {
+          "min": 404.70237099663416,
+          "max": 410.12561094952764
+        }
+      }
+    }
+  ],
+  "runs": [
+    {
+      "round": 1,
+      "variant": "esm",
+      "operation": "escapeText",
+      "compatibility": {
+        "preservesLoneSurrogates": true,
+        "identicalEntitySpelling": true,
+        "escapesSlash": false
+      },
+      "nonStringContract": [
+        {
+          "type": "undefined",
+          "error": "TypeError"
+        },
+        {
+          "type": "null",
+          "error": "TypeError"
+        },
+        {
+          "type": "0",
+          "error": "TypeError"
+        },
+        {
+          "type": "true",
+          "error": "TypeError"
+        },
+        {
+          "type": "boxed-string",
+          "error": "TypeError"
+        }
+      ],
+      "measurements": [
+        {
+          "name": "short",
+          "operation": "escapeText",
+          "inputUnits": 16,
+          "minimumInputUnits": 16,
+          "inputPoolSize": 1,
+          "outputUnits": 23,
+          "nsPerCall": 146.8350375258394,
+          "warmIterations": 666624,
+          "iterations": 2043392
+        },
+        {
+          "name": "unchanged-16",
+          "operation": "escapeText",
+          "inputUnits": 16,
+          "minimumInputUnits": 16,
+          "inputPoolSize": 1,
+          "outputUnits": 16,
+          "nsPerCall": 33.64144118448999,
+          "warmIterations": 2852096,
+          "iterations": 8919552
+        },
+        {
+          "name": "first-16",
+          "operation": "escapeText",
+          "inputUnits": 16,
+          "minimumInputUnits": 16,
+          "inputPoolSize": 1,
+          "outputUnits": 19,
+          "nsPerCall": 98.96751465915808,
+          "warmIterations": 1039616,
+          "iterations": 3031552
+        },
+        {
+          "name": "first-31",
+          "operation": "escapeText",
+          "inputUnits": 31,
+          "minimumInputUnits": 31,
+          "inputPoolSize": 1,
+          "outputUnits": 34,
+          "nsPerCall": 106.35978905753696,
+          "warmIterations": 964864,
+          "iterations": 2820864
+        },
+        {
+          "name": "first-32",
+          "operation": "escapeText",
+          "inputUnits": 32,
+          "minimumInputUnits": 32,
+          "inputPoolSize": 1,
+          "outputUnits": 35,
+          "nsPerCall": 106.79225007688628,
+          "warmIterations": 936960,
+          "iterations": 2809344
+        },
+        {
+          "name": "dense-31",
+          "operation": "escapeText",
+          "inputUnits": 31,
+          "minimumInputUnits": 31,
+          "inputPoolSize": 1,
+          "outputUnits": 111,
+          "nsPerCall": 706.427987492466,
+          "warmIterations": 138752,
+          "iterations": 424704
+        },
+        {
+          "name": "unchanged-short",
+          "operation": "escapeText",
+          "inputUnits": 37,
+          "minimumInputUnits": 37,
+          "inputPoolSize": 1,
+          "outputUnits": 37,
+          "nsPerCall": 39.917632518180746,
+          "warmIterations": 2502400,
+          "iterations": 7515648
+        },
+        {
+          "name": "unchanged-long",
+          "operation": "escapeText",
+          "inputUnits": 155648,
+          "minimumInputUnits": 155648,
+          "inputPoolSize": 1,
+          "outputUnits": 155648,
+          "nsPerCall": 28868.72113163971,
+          "warmIterations": 3477,
+          "iterations": 10392
+        },
+        {
+          "name": "quoted-json",
+          "operation": "escapeText",
+          "inputUnits": 33171,
+          "minimumInputUnits": 33171,
+          "inputPoolSize": 1,
+          "outputUnits": 41363,
+          "nsPerCall": 75954.18784810124,
+          "warmIterations": 1306,
+          "iterations": 3950
+        },
+        {
+          "name": "japanese-emoji",
+          "operation": "escapeText",
+          "inputUnits": 44032,
+          "minimumInputUnits": 44032,
+          "inputPoolSize": 1,
+          "outputUnits": 60416,
+          "nsPerCall": 327965.8842794753,
+          "warmIterations": 1000,
+          "iterations": 916
+        },
+        {
+          "name": "long-body",
+          "operation": "escapeText",
+          "inputUnits": 349440,
+          "minimumInputUnits": 349440,
+          "inputPoolSize": 1,
+          "outputUnits": 351488,
+          "nsPerCall": 131942.06244503084,
+          "warmIterations": 1000,
+          "iterations": 2274
+        },
+        {
+          "name": "dense-quotes",
+          "operation": "escapeText",
+          "inputUnits": 28672,
+          "minimumInputUnits": 28672,
+          "inputPoolSize": 1,
+          "outputUnits": 69632,
+          "nsPerCall": 331443.2947019867,
+          "warmIterations": 1002,
+          "iterations": 906
+        },
+        {
+          "name": "first-24",
+          "operation": "escapeText",
+          "inputUnits": 24,
+          "minimumInputUnits": 24,
+          "inputPoolSize": 1,
+          "outputUnits": 27,
+          "nsPerCall": 100.77005421055452,
+          "warmIterations": 976384,
+          "iterations": 2977280
+        },
+        {
+          "name": "last-31",
+          "operation": "escapeText",
+          "inputUnits": 31,
+          "minimumInputUnits": 31,
+          "inputPoolSize": 1,
+          "outputUnits": 35,
+          "nsPerCall": 98.51620128351959,
+          "warmIterations": 1018368,
+          "iterations": 3045376
+        },
+        {
+          "name": "two-near-31",
+          "operation": "escapeText",
+          "inputUnits": 31,
+          "minimumInputUnits": 31,
+          "inputPoolSize": 1,
+          "outputUnits": 38,
+          "nsPerCall": 128.5973570551686,
+          "warmIterations": 782336,
+          "iterations": 2332928
+        },
+        {
+          "name": "two-far-31",
+          "operation": "escapeText",
+          "inputUnits": 31,
+          "minimumInputUnits": 31,
+          "inputPoolSize": 1,
+          "outputUnits": 38,
+          "nsPerCall": 126.18055639669458,
+          "warmIterations": 785920,
+          "iterations": 2377728
+        },
+        {
+          "name": "dense-32",
+          "operation": "escapeText",
+          "inputUnits": 32,
+          "minimumInputUnits": 32,
+          "inputPoolSize": 1,
+          "outputUnits": 112,
+          "nsPerCall": 710.8481726614621,
+          "warmIterations": 125184,
+          "iterations": 422144
+        },
+        {
+          "name": "dense-255",
+          "operation": "escapeText",
+          "inputUnits": 255,
+          "minimumInputUnits": 255,
+          "inputPoolSize": 1,
+          "outputUnits": 895,
+          "nsPerCall": 5115.295227581524,
+          "warmIterations": 19712,
+          "iterations": 58880
+        },
+        {
+          "name": "first-255",
+          "operation": "escapeText",
+          "inputUnits": 255,
+          "minimumInputUnits": 255,
+          "inputPoolSize": 1,
+          "outputUnits": 258,
+          "nsPerCall": 149.28965963375788,
+          "warmIterations": 673280,
+          "iterations": 2009600
+        },
+        {
+          "name": "first-256",
+          "operation": "escapeText",
+          "inputUnits": 256,
+          "minimumInputUnits": 256,
+          "inputPoolSize": 1,
+          "outputUnits": 259,
+          "nsPerCall": 158.09859210592916,
+          "warmIterations": 673536,
+          "iterations": 1897728
+        },
+        {
+          "name": "spaced-8",
+          "operation": "escapeText",
+          "inputUnits": 1024,
+          "minimumInputUnits": 1024,
+          "inputPoolSize": 1,
+          "outputUnits": 1536,
+          "nsPerCall": 4614.399421751994,
+          "warmIterations": 21696,
+          "iterations": 65024
+        },
+        {
+          "name": "spaced-32",
+          "operation": "escapeText",
+          "inputUnits": 1024,
+          "minimumInputUnits": 1024,
+          "inputPoolSize": 1,
+          "outputUnits": 1152,
+          "nsPerCall": 1325.7345915229055,
+          "warmIterations": 75648,
+          "iterations": 226304
+        },
+        {
+          "name": "sparse-8192",
+          "operation": "escapeText",
+          "inputUnits": 8192,
+          "minimumInputUnits": 8192,
+          "inputPoolSize": 1,
+          "outputUnits": 8198,
+          "nsPerCall": 1852.8468255928813,
+          "warmIterations": 53648,
+          "iterations": 161920
+        },
+        {
+          "name": "mixed-short",
+          "operation": "escapeText",
+          "inputUnits": 255,
+          "minimumInputUnits": 7,
+          "inputPoolSize": 36,
+          "outputUnits": 434,
+          "nsPerCall": 293.53533429595564,
+          "warmIterations": 337152,
+          "iterations": 1022208
+        },
+        {
+          "name": "mixed-long",
+          "operation": "escapeText",
+          "inputUnits": 16384,
+          "minimumInputUnits": 256,
+          "inputPoolSize": 24,
+          "outputUnits": 57344,
+          "nsPerCall": 24649.20514295098,
+          "warmIterations": 4172,
+          "iterations": 12172
+        },
+        {
+          "name": "quotes-only",
+          "operation": "escapeText",
+          "inputUnits": 256,
+          "minimumInputUnits": 256,
+          "inputPoolSize": 1,
+          "outputUnits": 256,
+          "nsPerCall": 79.61081772000871,
+          "warmIterations": 1250816,
+          "iterations": 3768576
+        },
+        {
+          "name": "line-endings",
+          "operation": "escapeText",
+          "inputUnits": 1280,
+          "minimumInputUnits": 1280,
+          "inputPoolSize": 1,
+          "outputUnits": 1280,
+          "nsPerCall": 271.20890692065393,
+          "warmIterations": 369408,
+          "iterations": 1106196
+        },
+        {
+          "name": "mixed-context",
+          "operation": "escapeText",
+          "inputUnits": 257,
+          "minimumInputUnits": 15,
+          "inputPoolSize": 27,
+          "outputUnits": 439,
+          "nsPerCall": 525.4110509580904,
+          "warmIterations": 187904,
+          "iterations": 571136
+        }
+      ],
+      "checksum": 4077203060
+    },
+    {
+      "round": 1,
+      "variant": "wasm",
+      "operation": "escapeText",
+      "compatibility": {
+        "preservesLoneSurrogates": true,
+        "identicalEntitySpelling": true,
+        "escapesSlash": false
+      },
+      "nonStringContract": [
+        {
+          "type": "undefined",
+          "error": "TypeError"
+        },
+        {
+          "type": "null",
+          "error": "TypeError"
+        },
+        {
+          "type": "0",
+          "error": "TypeError"
+        },
+        {
+          "type": "true",
+          "error": "TypeError"
+        },
+        {
+          "type": "boxed-string",
+          "error": "TypeError"
+        }
+      ],
+      "measurements": [
+        {
+          "name": "short",
+          "operation": "escapeText",
+          "inputUnits": 16,
+          "minimumInputUnits": 16,
+          "inputPoolSize": 1,
+          "outputUnits": 23,
+          "nsPerCall": 272.0350556248549,
+          "warmIterations": 354304,
+          "iterations": 1103104
+        },
+        {
+          "name": "unchanged-16",
+          "operation": "escapeText",
+          "inputUnits": 16,
+          "minimumInputUnits": 16,
+          "inputPoolSize": 1,
+          "outputUnits": 16,
+          "nsPerCall": 35.030276852564484,
+          "warmIterations": 2837248,
+          "iterations": 8564992
+        },
+        {
+          "name": "first-16",
+          "operation": "escapeText",
+          "inputUnits": 16,
+          "minimumInputUnits": 16,
+          "inputPoolSize": 1,
+          "outputUnits": 19,
+          "nsPerCall": 258.16006848843614,
+          "warmIterations": 385536,
+          "iterations": 1162240
+        },
+        {
+          "name": "first-31",
+          "operation": "escapeText",
+          "inputUnits": 31,
+          "minimumInputUnits": 31,
+          "inputPoolSize": 1,
+          "outputUnits": 34,
+          "nsPerCall": 308.81603878458503,
+          "warmIterations": 323840,
+          "iterations": 971520
+        },
+        {
+          "name": "first-32",
+          "operation": "escapeText",
+          "inputUnits": 32,
+          "minimumInputUnits": 32,
+          "inputPoolSize": 1,
+          "outputUnits": 35,
+          "nsPerCall": 315.39022344254573,
+          "warmIterations": 318464,
+          "iterations": 951296
+        },
+        {
+          "name": "dense-31",
+          "operation": "escapeText",
+          "inputUnits": 31,
+          "minimumInputUnits": 31,
+          "inputPoolSize": 1,
+          "outputUnits": 111,
+          "nsPerCall": 609.2527611746359,
+          "warmIterations": 164352,
+          "iterations": 492544
+        },
+        {
+          "name": "unchanged-short",
+          "operation": "escapeText",
+          "inputUnits": 37,
+          "minimumInputUnits": 37,
+          "inputPoolSize": 1,
+          "outputUnits": 37,
+          "nsPerCall": 41.1370154758144,
+          "warmIterations": 2430720,
+          "iterations": 7292928
+        },
+        {
+          "name": "unchanged-long",
+          "operation": "escapeText",
+          "inputUnits": 155648,
+          "minimumInputUnits": 155648,
+          "inputPoolSize": 1,
+          "outputUnits": 155648,
+          "nsPerCall": 28771.021097046396,
+          "warmIterations": 3470,
+          "iterations": 10428
+        },
+        {
+          "name": "quoted-json",
+          "operation": "escapeText",
+          "inputUnits": 33171,
+          "minimumInputUnits": 33171,
+          "inputPoolSize": 1,
+          "outputUnits": 41363,
+          "nsPerCall": 122161.71294788278,
+          "warmIterations": 1000,
+          "iterations": 2456
+        },
+        {
+          "name": "japanese-emoji",
+          "operation": "escapeText",
+          "inputUnits": 44032,
+          "minimumInputUnits": 44032,
+          "inputPoolSize": 1,
+          "outputUnits": 60416,
+          "nsPerCall": 328296.0886214442,
+          "warmIterations": 1000,
+          "iterations": 914
+        },
+        {
+          "name": "long-body",
+          "operation": "escapeText",
+          "inputUnits": 349440,
+          "minimumInputUnits": 349440,
+          "inputPoolSize": 1,
+          "outputUnits": 351488,
+          "nsPerCall": 1068181.9395017799,
+          "warmIterations": 1000,
+          "iterations": 281
+        },
+        {
+          "name": "dense-quotes",
+          "operation": "escapeText",
+          "inputUnits": 28672,
+          "minimumInputUnits": 28672,
+          "inputPoolSize": 1,
+          "outputUnits": 69632,
+          "nsPerCall": 240349.1542765789,
+          "warmIterations": 1002,
+          "iterations": 1251
+        },
+        {
+          "name": "first-24",
+          "operation": "escapeText",
+          "inputUnits": 24,
+          "minimumInputUnits": 24,
+          "inputPoolSize": 1,
+          "outputUnits": 27,
+          "nsPerCall": 300.35695536744055,
+          "warmIterations": 333312,
+          "iterations": 998912
+        },
+        {
+          "name": "last-31",
+          "operation": "escapeText",
+          "inputUnits": 31,
+          "minimumInputUnits": 31,
+          "inputPoolSize": 1,
+          "outputUnits": 35,
+          "nsPerCall": 315.708042267035,
+          "warmIterations": 316416,
+          "iterations": 950528
+        },
+        {
+          "name": "two-near-31",
+          "operation": "escapeText",
+          "inputUnits": 31,
+          "minimumInputUnits": 31,
+          "inputPoolSize": 1,
+          "outputUnits": 38,
+          "nsPerCall": 330.5236732409764,
+          "warmIterations": 303360,
+          "iterations": 907776
+        },
+        {
+          "name": "two-far-31",
+          "operation": "escapeText",
+          "inputUnits": 31,
+          "minimumInputUnits": 31,
+          "inputPoolSize": 1,
+          "outputUnits": 38,
+          "nsPerCall": 332.42360988017595,
+          "warmIterations": 299008,
+          "iterations": 902656
+        },
+        {
+          "name": "dense-32",
+          "operation": "escapeText",
+          "inputUnits": 32,
+          "minimumInputUnits": 32,
+          "inputPoolSize": 1,
+          "outputUnits": 112,
+          "nsPerCall": 631.6438872238688,
+          "warmIterations": 157440,
+          "iterations": 475136
+        },
+        {
+          "name": "dense-255",
+          "operation": "escapeText",
+          "inputUnits": 255,
+          "minimumInputUnits": 255,
+          "inputPoolSize": 1,
+          "outputUnits": 895,
+          "nsPerCall": 3734.867946357491,
+          "warmIterations": 26880,
+          "iterations": 80384
+        },
+        {
+          "name": "first-255",
+          "operation": "escapeText",
+          "inputUnits": 255,
+          "minimumInputUnits": 255,
+          "inputPoolSize": 1,
+          "outputUnits": 258,
+          "nsPerCall": 1007.2140349817441,
+          "warmIterations": 99072,
+          "iterations": 297984
+        },
+        {
+          "name": "first-256",
+          "operation": "escapeText",
+          "inputUnits": 256,
+          "minimumInputUnits": 256,
+          "inputPoolSize": 1,
+          "outputUnits": 259,
+          "nsPerCall": 999.9631972589563,
+          "warmIterations": 99840,
+          "iterations": 300032
+        },
+        {
+          "name": "spaced-8",
+          "operation": "escapeText",
+          "inputUnits": 1024,
+          "minimumInputUnits": 1024,
+          "inputPoolSize": 1,
+          "outputUnits": 1536,
+          "nsPerCall": 6064.290588615784,
+          "warmIterations": 16512,
+          "iterations": 49472
+        },
+        {
+          "name": "spaced-32",
+          "operation": "escapeText",
+          "inputUnits": 1024,
+          "minimumInputUnits": 1024,
+          "inputPoolSize": 1,
+          "outputUnits": 1152,
+          "nsPerCall": 4037.8260255168016,
+          "warmIterations": 24768,
+          "iterations": 74304
+        },
+        {
+          "name": "sparse-8192",
+          "operation": "escapeText",
+          "inputUnits": 8192,
+          "minimumInputUnits": 8192,
+          "inputPoolSize": 1,
+          "outputUnits": 8198,
+          "nsPerCall": 24122.17307073953,
+          "warmIterations": 4136,
+          "iterations": 12440
+        },
+        {
+          "name": "mixed-short",
+          "operation": "escapeText",
+          "inputUnits": 255,
+          "minimumInputUnits": 7,
+          "inputPoolSize": 36,
+          "outputUnits": 434,
+          "nsPerCall": 426.5506305722336,
+          "warmIterations": 233216,
+          "iterations": 703488
+        },
+        {
+          "name": "mixed-long",
+          "operation": "escapeText",
+          "inputUnits": 16384,
+          "minimumInputUnits": 256,
+          "inputPoolSize": 24,
+          "outputUnits": 57344,
+          "nsPerCall": 27318.076055312908,
+          "warmIterations": 3672,
+          "iterations": 10992
+        },
+        {
+          "name": "quotes-only",
+          "operation": "escapeText",
+          "inputUnits": 256,
+          "minimumInputUnits": 256,
+          "inputPoolSize": 1,
+          "outputUnits": 256,
+          "nsPerCall": 80.57058025739073,
+          "warmIterations": 1233920,
+          "iterations": 3723520
+        },
+        {
+          "name": "line-endings",
+          "operation": "escapeText",
+          "inputUnits": 1280,
+          "minimumInputUnits": 1280,
+          "inputPoolSize": 1,
+          "outputUnits": 1280,
+          "nsPerCall": 272.1750782004107,
+          "warmIterations": 368316,
+          "iterations": 1102296
+        },
+        {
+          "name": "mixed-context",
+          "operation": "escapeText",
+          "inputUnits": 257,
+          "minimumInputUnits": 15,
+          "inputPoolSize": 27,
+          "outputUnits": 439,
+          "nsPerCall": 496.527295769801,
+          "warmIterations": 199424,
+          "iterations": 604416
+        }
+      ],
+      "checksum": 3975142029
+    },
+    {
+      "round": 1,
+      "variant": "native",
+      "operation": "escapeText",
+      "compatibility": {
+        "preservesLoneSurrogates": true,
+        "identicalEntitySpelling": true,
+        "escapesSlash": false
+      },
+      "nonStringContract": [
+        {
+          "type": "undefined",
+          "error": "TypeError"
+        },
+        {
+          "type": "null",
+          "error": "TypeError"
+        },
+        {
+          "type": "0",
+          "error": "TypeError"
+        },
+        {
+          "type": "true",
+          "error": "TypeError"
+        },
+        {
+          "type": "boxed-string",
+          "error": "TypeError"
+        }
+      ],
+      "measurements": [
+        {
+          "name": "short",
+          "operation": "escapeText",
+          "inputUnits": 16,
+          "minimumInputUnits": 16,
+          "inputPoolSize": 1,
+          "outputUnits": 23,
+          "nsPerCall": 143.94829520157822,
+          "warmIterations": 689920,
+          "iterations": 2084352
+        },
+        {
+          "name": "unchanged-16",
+          "operation": "escapeText",
+          "inputUnits": 16,
+          "minimumInputUnits": 16,
+          "inputPoolSize": 1,
+          "outputUnits": 16,
+          "nsPerCall": 34.782590802691715,
+          "warmIterations": 2868992,
+          "iterations": 8626176
+        },
+        {
+          "name": "first-16",
+          "operation": "escapeText",
+          "inputUnits": 16,
+          "minimumInputUnits": 16,
+          "inputPoolSize": 1,
+          "outputUnits": 19,
+          "nsPerCall": 99.47805855296664,
+          "warmIterations": 1011712,
+          "iterations": 3015936
+        },
+        {
+          "name": "first-31",
+          "operation": "escapeText",
+          "inputUnits": 31,
+          "minimumInputUnits": 31,
+          "inputPoolSize": 1,
+          "outputUnits": 34,
+          "nsPerCall": 104.12170667203469,
+          "warmIterations": 976384,
+          "iterations": 2881280
+        },
+        {
+          "name": "first-32",
+          "operation": "escapeText",
+          "inputUnits": 32,
+          "minimumInputUnits": 32,
+          "inputPoolSize": 1,
+          "outputUnits": 35,
+          "nsPerCall": 108.85485012133108,
+          "warmIterations": 938240,
+          "iterations": 2756096
+        },
+        {
+          "name": "dense-31",
+          "operation": "escapeText",
+          "inputUnits": 31,
+          "minimumInputUnits": 31,
+          "inputPoolSize": 1,
+          "outputUnits": 111,
+          "nsPerCall": 716.6341137874383,
+          "warmIterations": 139264,
+          "iterations": 418816
+        },
+        {
+          "name": "unchanged-short",
+          "operation": "escapeText",
+          "inputUnits": 37,
+          "minimumInputUnits": 37,
+          "inputPoolSize": 1,
+          "outputUnits": 37,
+          "nsPerCall": 40.82759208211398,
+          "warmIterations": 2435328,
+          "iterations": 7348224
+        },
+        {
+          "name": "unchanged-long",
+          "operation": "escapeText",
+          "inputUnits": 155648,
+          "minimumInputUnits": 155648,
+          "inputPoolSize": 1,
+          "outputUnits": 155648,
+          "nsPerCall": 28883.050929045912,
+          "warmIterations": 3464,
+          "iterations": 10387
+        },
+        {
+          "name": "quoted-json",
+          "operation": "escapeText",
+          "inputUnits": 33171,
+          "minimumInputUnits": 33171,
+          "inputPoolSize": 1,
+          "outputUnits": 41363,
+          "nsPerCall": 30060.40420841682,
+          "warmIterations": 3304,
+          "iterations": 9980
+        },
+        {
+          "name": "japanese-emoji",
+          "operation": "escapeText",
+          "inputUnits": 44032,
+          "minimumInputUnits": 44032,
+          "inputPoolSize": 1,
+          "outputUnits": 60416,
+          "nsPerCall": 92044.86196319015,
+          "warmIterations": 1086,
+          "iterations": 3260
+        },
+        {
+          "name": "long-body",
+          "operation": "escapeText",
+          "inputUnits": 349440,
+          "minimumInputUnits": 349440,
+          "inputPoolSize": 1,
+          "outputUnits": 351488,
+          "nsPerCall": 233328.8297045102,
+          "warmIterations": 1000,
+          "iterations": 1286
+        },
+        {
+          "name": "dense-quotes",
+          "operation": "escapeText",
+          "inputUnits": 28672,
+          "minimumInputUnits": 28672,
+          "inputPoolSize": 1,
+          "outputUnits": 69632,
+          "nsPerCall": 50227.05658797926,
+          "warmIterations": 1989,
+          "iterations": 5973
+        },
+        {
+          "name": "first-24",
+          "operation": "escapeText",
+          "inputUnits": 24,
+          "minimumInputUnits": 24,
+          "inputPoolSize": 1,
+          "outputUnits": 27,
+          "nsPerCall": 102.04096035589892,
+          "warmIterations": 987904,
+          "iterations": 2940160
+        },
+        {
+          "name": "last-31",
+          "operation": "escapeText",
+          "inputUnits": 31,
+          "minimumInputUnits": 31,
+          "inputPoolSize": 1,
+          "outputUnits": 35,
+          "nsPerCall": 99.50973162732419,
+          "warmIterations": 999168,
+          "iterations": 3014912
+        },
+        {
+          "name": "two-near-31",
+          "operation": "escapeText",
+          "inputUnits": 31,
+          "minimumInputUnits": 31,
+          "inputPoolSize": 1,
+          "outputUnits": 38,
+          "nsPerCall": 129.76698230400814,
+          "warmIterations": 752640,
+          "iterations": 2311936
+        },
+        {
+          "name": "two-far-31",
+          "operation": "escapeText",
+          "inputUnits": 31,
+          "minimumInputUnits": 31,
+          "inputPoolSize": 1,
+          "outputUnits": 38,
+          "nsPerCall": 128.6932281085271,
+          "warmIterations": 778496,
+          "iterations": 2331136
+        },
+        {
+          "name": "dense-32",
+          "operation": "escapeText",
+          "inputUnits": 32,
+          "minimumInputUnits": 32,
+          "inputPoolSize": 1,
+          "outputUnits": 112,
+          "nsPerCall": 727.7062674581,
+          "warmIterations": 136448,
+          "iterations": 412416
+        },
+        {
+          "name": "dense-255",
+          "operation": "escapeText",
+          "inputUnits": 255,
+          "minimumInputUnits": 255,
+          "inputPoolSize": 1,
+          "outputUnits": 895,
+          "nsPerCall": 5205.437482715699,
+          "warmIterations": 19200,
+          "iterations": 57856
+        },
+        {
+          "name": "first-255",
+          "operation": "escapeText",
+          "inputUnits": 255,
+          "minimumInputUnits": 255,
+          "inputPoolSize": 1,
+          "outputUnits": 258,
+          "nsPerCall": 152.2073270089285,
+          "warmIterations": 680704,
+          "iterations": 1971200
+        },
+        {
+          "name": "first-256",
+          "operation": "escapeText",
+          "inputUnits": 256,
+          "minimumInputUnits": 256,
+          "inputPoolSize": 1,
+          "outputUnits": 259,
+          "nsPerCall": 453.55199363873885,
+          "warmIterations": 219648,
+          "iterations": 661504
+        },
+        {
+          "name": "spaced-8",
+          "operation": "escapeText",
+          "inputUnits": 1024,
+          "minimumInputUnits": 1024,
+          "inputPoolSize": 1,
+          "outputUnits": 1536,
+          "nsPerCall": 1550.926619872639,
+          "warmIterations": 64512,
+          "iterations": 193472
+        },
+        {
+          "name": "spaced-32",
+          "operation": "escapeText",
+          "inputUnits": 1024,
+          "minimumInputUnits": 1024,
+          "inputPoolSize": 1,
+          "outputUnits": 1152,
+          "nsPerCall": 1120.205626493434,
+          "warmIterations": 89280,
+          "iterations": 267840
+        },
+        {
+          "name": "sparse-8192",
+          "operation": "escapeText",
+          "inputUnits": 8192,
+          "minimumInputUnits": 8192,
+          "inputPoolSize": 1,
+          "outputUnits": 8198,
+          "nsPerCall": 5211.588173985548,
+          "warmIterations": 19216,
+          "iterations": 57568
+        },
+        {
+          "name": "mixed-short",
+          "operation": "escapeText",
+          "inputUnits": 255,
+          "minimumInputUnits": 7,
+          "inputPoolSize": 36,
+          "outputUnits": 434,
+          "nsPerCall": 309.05563418875374,
+          "warmIterations": 325120,
+          "iterations": 970752
+        },
+        {
+          "name": "mixed-long",
+          "operation": "escapeText",
+          "inputUnits": 16384,
+          "minimumInputUnits": 256,
+          "inputPoolSize": 24,
+          "outputUnits": 57344,
+          "nsPerCall": 6608.299026517517,
+          "warmIterations": 15120,
+          "iterations": 45404
+        },
+        {
+          "name": "quotes-only",
+          "operation": "escapeText",
+          "inputUnits": 256,
+          "minimumInputUnits": 256,
+          "inputPoolSize": 1,
+          "outputUnits": 256,
+          "nsPerCall": 87.83810786660545,
+          "warmIterations": 1134848,
+          "iterations": 3415552
+        },
+        {
+          "name": "line-endings",
+          "operation": "escapeText",
+          "inputUnits": 1280,
+          "minimumInputUnits": 1280,
+          "inputPoolSize": 1,
+          "outputUnits": 1280,
+          "nsPerCall": 280.6646702441357,
+          "warmIterations": 362804,
+          "iterations": 1068912
+        },
+        {
+          "name": "mixed-context",
+          "operation": "escapeText",
+          "inputUnits": 257,
+          "minimumInputUnits": 15,
+          "inputPoolSize": 27,
+          "outputUnits": 439,
+          "nsPerCall": 404.70237099663416,
+          "warmIterations": 245760,
+          "iterations": 741376
+        }
+      ],
+      "checksum": 3692596224
+    },
+    {
+      "round": 2,
+      "variant": "wasm",
+      "operation": "escapeText",
+      "compatibility": {
+        "preservesLoneSurrogates": true,
+        "identicalEntitySpelling": true,
+        "escapesSlash": false
+      },
+      "nonStringContract": [
+        {
+          "type": "undefined",
+          "error": "TypeError"
+        },
+        {
+          "type": "null",
+          "error": "TypeError"
+        },
+        {
+          "type": "0",
+          "error": "TypeError"
+        },
+        {
+          "type": "true",
+          "error": "TypeError"
+        },
+        {
+          "type": "boxed-string",
+          "error": "TypeError"
+        }
+      ],
+      "measurements": [
+        {
+          "name": "short",
+          "operation": "escapeText",
+          "inputUnits": 16,
+          "minimumInputUnits": 16,
+          "inputPoolSize": 1,
+          "outputUnits": 23,
+          "nsPerCall": 274.66409637186547,
+          "warmIterations": 353536,
+          "iterations": 1092352
+        },
+        {
+          "name": "unchanged-16",
+          "operation": "escapeText",
+          "inputUnits": 16,
+          "minimumInputUnits": 16,
+          "inputPoolSize": 1,
+          "outputUnits": 16,
+          "nsPerCall": 35.26415137135959,
+          "warmIterations": 2841600,
+          "iterations": 8508928
+        },
+        {
+          "name": "first-16",
+          "operation": "escapeText",
+          "inputUnits": 16,
+          "minimumInputUnits": 16,
+          "inputPoolSize": 1,
+          "outputUnits": 19,
+          "nsPerCall": 260.1353314026083,
+          "warmIterations": 381440,
+          "iterations": 1153280
+        },
+        {
+          "name": "first-31",
+          "operation": "escapeText",
+          "inputUnits": 31,
+          "minimumInputUnits": 31,
+          "inputPoolSize": 1,
+          "outputUnits": 34,
+          "nsPerCall": 311.73545960771287,
+          "warmIterations": 319744,
+          "iterations": 962560
+        },
+        {
+          "name": "first-32",
+          "operation": "escapeText",
+          "inputUnits": 32,
+          "minimumInputUnits": 32,
+          "inputPoolSize": 1,
+          "outputUnits": 35,
+          "nsPerCall": 315.7982781342629,
+          "warmIterations": 316928,
+          "iterations": 950016
+        },
+        {
+          "name": "dense-31",
+          "operation": "escapeText",
+          "inputUnits": 31,
+          "minimumInputUnits": 31,
+          "inputPoolSize": 1,
+          "outputUnits": 111,
+          "nsPerCall": 612.7537469779137,
+          "warmIterations": 163072,
+          "iterations": 489728
+        },
+        {
+          "name": "unchanged-short",
+          "operation": "escapeText",
+          "inputUnits": 37,
+          "minimumInputUnits": 37,
+          "inputPoolSize": 1,
+          "outputUnits": 37,
+          "nsPerCall": 41.30016175660793,
+          "warmIterations": 2412032,
+          "iterations": 7264000
+        },
+        {
+          "name": "unchanged-long",
+          "operation": "escapeText",
+          "inputUnits": 155648,
+          "minimumInputUnits": 155648,
+          "inputPoolSize": 1,
+          "outputUnits": 155648,
+          "nsPerCall": 28781.02216039908,
+          "warmIterations": 3466,
+          "iterations": 10424
+        },
+        {
+          "name": "quoted-json",
+          "operation": "escapeText",
+          "inputUnits": 33171,
+          "minimumInputUnits": 33171,
+          "inputPoolSize": 1,
+          "outputUnits": 41363,
+          "nsPerCall": 122054.21074043922,
+          "warmIterations": 1000,
+          "iterations": 2458
+        },
+        {
+          "name": "japanese-emoji",
+          "operation": "escapeText",
+          "inputUnits": 44032,
+          "minimumInputUnits": 44032,
+          "inputPoolSize": 1,
+          "outputUnits": 60416,
+          "nsPerCall": 328200.78165938845,
+          "warmIterations": 1000,
+          "iterations": 916
+        },
+        {
+          "name": "long-body",
+          "operation": "escapeText",
+          "inputUnits": 349440,
+          "minimumInputUnits": 349440,
+          "inputPoolSize": 1,
+          "outputUnits": 351488,
+          "nsPerCall": 1073890.4749999978,
+          "warmIterations": 1000,
+          "iterations": 280
+        },
+        {
+          "name": "dense-quotes",
+          "operation": "escapeText",
+          "inputUnits": 28672,
+          "minimumInputUnits": 28672,
+          "inputPoolSize": 1,
+          "outputUnits": 69632,
+          "nsPerCall": 240386.82414068692,
+          "warmIterations": 1002,
+          "iterations": 1251
+        },
+        {
+          "name": "first-24",
+          "operation": "escapeText",
+          "inputUnits": 24,
+          "minimumInputUnits": 24,
+          "inputPoolSize": 1,
+          "outputUnits": 27,
+          "nsPerCall": 299.7519041719945,
+          "warmIterations": 337664,
+          "iterations": 1000960
+        },
+        {
+          "name": "last-31",
+          "operation": "escapeText",
+          "inputUnits": 31,
+          "minimumInputUnits": 31,
+          "inputPoolSize": 1,
+          "outputUnits": 35,
+          "nsPerCall": 314.0650204314038,
+          "warmIterations": 317696,
+          "iterations": 955392
+        },
+        {
+          "name": "two-near-31",
+          "operation": "escapeText",
+          "inputUnits": 31,
+          "minimumInputUnits": 31,
+          "inputPoolSize": 1,
+          "outputUnits": 38,
+          "nsPerCall": 328.6705626927931,
+          "warmIterations": 303360,
+          "iterations": 912896
+        },
+        {
+          "name": "two-far-31",
+          "operation": "escapeText",
+          "inputUnits": 31,
+          "minimumInputUnits": 31,
+          "inputPoolSize": 1,
+          "outputUnits": 38,
+          "nsPerCall": 333.9120837784896,
+          "warmIterations": 303104,
+          "iterations": 898560
+        },
+        {
+          "name": "dense-32",
+          "operation": "escapeText",
+          "inputUnits": 32,
+          "minimumInputUnits": 32,
+          "inputPoolSize": 1,
+          "outputUnits": 112,
+          "nsPerCall": 631.5540013806558,
+          "warmIterations": 158464,
+          "iterations": 475136
+        },
+        {
+          "name": "dense-255",
+          "operation": "escapeText",
+          "inputUnits": 255,
+          "minimumInputUnits": 255,
+          "inputPoolSize": 1,
+          "outputUnits": 895,
+          "nsPerCall": 3734.444976612272,
+          "warmIterations": 26880,
+          "iterations": 80384
+        },
+        {
+          "name": "first-255",
+          "operation": "escapeText",
+          "inputUnits": 255,
+          "minimumInputUnits": 255,
+          "inputPoolSize": 1,
+          "outputUnits": 258,
+          "nsPerCall": 1013.0453084485716,
+          "warmIterations": 99840,
+          "iterations": 296192
+        },
+        {
+          "name": "first-256",
+          "operation": "escapeText",
+          "inputUnits": 256,
+          "minimumInputUnits": 256,
+          "inputPoolSize": 1,
+          "outputUnits": 259,
+          "nsPerCall": 1005.3871475664633,
+          "warmIterations": 99328,
+          "iterations": 298496
+        },
+        {
+          "name": "spaced-8",
+          "operation": "escapeText",
+          "inputUnits": 1024,
+          "minimumInputUnits": 1024,
+          "inputPoolSize": 1,
+          "outputUnits": 1536,
+          "nsPerCall": 6069.979806759399,
+          "warmIterations": 16512,
+          "iterations": 49472
+        },
+        {
+          "name": "spaced-32",
+          "operation": "escapeText",
+          "inputUnits": 1024,
+          "minimumInputUnits": 1024,
+          "inputPoolSize": 1,
+          "outputUnits": 1152,
+          "nsPerCall": 4038.3105216408335,
+          "warmIterations": 24768,
+          "iterations": 74304
+        },
+        {
+          "name": "sparse-8192",
+          "operation": "escapeText",
+          "inputUnits": 8192,
+          "minimumInputUnits": 8192,
+          "inputPoolSize": 1,
+          "outputUnits": 8198,
+          "nsPerCall": 24145.317165379667,
+          "warmIterations": 4144,
+          "iterations": 12432
+        },
+        {
+          "name": "mixed-short",
+          "operation": "escapeText",
+          "inputUnits": 255,
+          "minimumInputUnits": 7,
+          "inputPoolSize": 36,
+          "outputUnits": 434,
+          "nsPerCall": 431.1764768441885,
+          "warmIterations": 231680,
+          "iterations": 695808
+        },
+        {
+          "name": "mixed-long",
+          "operation": "escapeText",
+          "inputUnits": 16384,
+          "minimumInputUnits": 256,
+          "inputPoolSize": 24,
+          "outputUnits": 57344,
+          "nsPerCall": 27308.199254274256,
+          "warmIterations": 3668,
+          "iterations": 10996
+        },
+        {
+          "name": "quotes-only",
+          "operation": "escapeText",
+          "inputUnits": 256,
+          "minimumInputUnits": 256,
+          "inputPoolSize": 1,
+          "outputUnits": 256,
+          "nsPerCall": 80.7418833755339,
+          "warmIterations": 1234432,
+          "iterations": 3715584
+        },
+        {
+          "name": "line-endings",
+          "operation": "escapeText",
+          "inputUnits": 1280,
+          "minimumInputUnits": 1280,
+          "inputPoolSize": 1,
+          "outputUnits": 1280,
+          "nsPerCall": 272.44180009007937,
+          "warmIterations": 369772,
+          "iterations": 1101256
+        },
+        {
+          "name": "mixed-context",
+          "operation": "escapeText",
+          "inputUnits": 257,
+          "minimumInputUnits": 15,
+          "inputPoolSize": 27,
+          "outputUnits": 439,
+          "nsPerCall": 501.72619461686594,
+          "warmIterations": 196608,
+          "iterations": 598016
+        }
+      ],
+      "checksum": 3965671462
+    },
+    {
+      "round": 2,
+      "variant": "native",
+      "operation": "escapeText",
+      "compatibility": {
+        "preservesLoneSurrogates": true,
+        "identicalEntitySpelling": true,
+        "escapesSlash": false
+      },
+      "nonStringContract": [
+        {
+          "type": "undefined",
+          "error": "TypeError"
+        },
+        {
+          "type": "null",
+          "error": "TypeError"
+        },
+        {
+          "type": "0",
+          "error": "TypeError"
+        },
+        {
+          "type": "true",
+          "error": "TypeError"
+        },
+        {
+          "type": "boxed-string",
+          "error": "TypeError"
+        }
+      ],
+      "measurements": [
+        {
+          "name": "short",
+          "operation": "escapeText",
+          "inputUnits": 16,
+          "minimumInputUnits": 16,
+          "inputPoolSize": 1,
+          "outputUnits": 23,
+          "nsPerCall": 145.25478635441195,
+          "warmIterations": 667904,
+          "iterations": 2065664
+        },
+        {
+          "name": "unchanged-16",
+          "operation": "escapeText",
+          "inputUnits": 16,
+          "minimumInputUnits": 16,
+          "inputPoolSize": 1,
+          "outputUnits": 16,
+          "nsPerCall": 35.73638231561376,
+          "warmIterations": 2792960,
+          "iterations": 8396288
+        },
+        {
+          "name": "first-16",
+          "operation": "escapeText",
+          "inputUnits": 16,
+          "minimumInputUnits": 16,
+          "inputPoolSize": 1,
+          "outputUnits": 19,
+          "nsPerCall": 108.27379586162694,
+          "warmIterations": 915712,
+          "iterations": 2770944
+        },
+        {
+          "name": "first-31",
+          "operation": "escapeText",
+          "inputUnits": 31,
+          "minimumInputUnits": 31,
+          "inputPoolSize": 1,
+          "outputUnits": 34,
+          "nsPerCall": 106.29359445861675,
+          "warmIterations": 903680,
+          "iterations": 2822400
+        },
+        {
+          "name": "first-32",
+          "operation": "escapeText",
+          "inputUnits": 32,
+          "minimumInputUnits": 32,
+          "inputPoolSize": 1,
+          "outputUnits": 35,
+          "nsPerCall": 104.98189750739051,
+          "warmIterations": 959488,
+          "iterations": 2857728
+        },
+        {
+          "name": "dense-31",
+          "operation": "escapeText",
+          "inputUnits": 31,
+          "minimumInputUnits": 31,
+          "inputPoolSize": 1,
+          "outputUnits": 111,
+          "nsPerCall": 720.9733913745388,
+          "warmIterations": 138496,
+          "iterations": 416256
+        },
+        {
+          "name": "unchanged-short",
+          "operation": "escapeText",
+          "inputUnits": 37,
+          "minimumInputUnits": 37,
+          "inputPoolSize": 1,
+          "outputUnits": 37,
+          "nsPerCall": 40.5544525599543,
+          "warmIterations": 2447104,
+          "iterations": 7397632
+        },
+        {
+          "name": "unchanged-long",
+          "operation": "escapeText",
+          "inputUnits": 155648,
+          "minimumInputUnits": 155648,
+          "inputPoolSize": 1,
+          "outputUnits": 155648,
+          "nsPerCall": 28757.744631901824,
+          "warmIterations": 3469,
+          "iterations": 10432
+        },
+        {
+          "name": "quoted-json",
+          "operation": "escapeText",
+          "inputUnits": 33171,
+          "minimumInputUnits": 33171,
+          "inputPoolSize": 1,
+          "outputUnits": 41363,
+          "nsPerCall": 30274.949545913176,
+          "warmIterations": 3256,
+          "iterations": 9910
+        },
+        {
+          "name": "japanese-emoji",
+          "operation": "escapeText",
+          "inputUnits": 44032,
+          "minimumInputUnits": 44032,
+          "inputPoolSize": 1,
+          "outputUnits": 60416,
+          "nsPerCall": 91925.7046568628,
+          "warmIterations": 1088,
+          "iterations": 3264
+        },
+        {
+          "name": "long-body",
+          "operation": "escapeText",
+          "inputUnits": 349440,
+          "minimumInputUnits": 349440,
+          "inputPoolSize": 1,
+          "outputUnits": 351488,
+          "nsPerCall": 233318.5909797823,
+          "warmIterations": 1000,
+          "iterations": 1286
+        },
+        {
+          "name": "dense-quotes",
+          "operation": "escapeText",
+          "inputUnits": 28672,
+          "minimumInputUnits": 28672,
+          "inputPoolSize": 1,
+          "outputUnits": 69632,
+          "nsPerCall": 50602.54729387962,
+          "warmIterations": 1959,
+          "iterations": 5931
+        },
+        {
+          "name": "first-24",
+          "operation": "escapeText",
+          "inputUnits": 24,
+          "minimumInputUnits": 24,
+          "inputPoolSize": 1,
+          "outputUnits": 27,
+          "nsPerCall": 104.29730083930319,
+          "warmIterations": 973312,
+          "iterations": 2876672
+        },
+        {
+          "name": "last-31",
+          "operation": "escapeText",
+          "inputUnits": 31,
+          "minimumInputUnits": 31,
+          "inputPoolSize": 1,
+          "outputUnits": 35,
+          "nsPerCall": 100.4168598984661,
+          "warmIterations": 995328,
+          "iterations": 2987776
+        },
+        {
+          "name": "two-near-31",
+          "operation": "escapeText",
+          "inputUnits": 31,
+          "minimumInputUnits": 31,
+          "inputPoolSize": 1,
+          "outputUnits": 38,
+          "nsPerCall": 134.28523279047818,
+          "warmIterations": 742400,
+          "iterations": 2234112
+        },
+        {
+          "name": "two-far-31",
+          "operation": "escapeText",
+          "inputUnits": 31,
+          "minimumInputUnits": 31,
+          "inputPoolSize": 1,
+          "outputUnits": 38,
+          "nsPerCall": 130.3727415973689,
+          "warmIterations": 764672,
+          "iterations": 2301184
+        },
+        {
+          "name": "dense-32",
+          "operation": "escapeText",
+          "inputUnits": 32,
+          "minimumInputUnits": 32,
+          "inputPoolSize": 1,
+          "outputUnits": 112,
+          "nsPerCall": 735.2205560892411,
+          "warmIterations": 136704,
+          "iterations": 408064
+        },
+        {
+          "name": "dense-255",
+          "operation": "escapeText",
+          "inputUnits": 255,
+          "minimumInputUnits": 255,
+          "inputPoolSize": 1,
+          "outputUnits": 895,
+          "nsPerCall": 5241.42529296875,
+          "warmIterations": 18944,
+          "iterations": 57344
+        },
+        {
+          "name": "first-255",
+          "operation": "escapeText",
+          "inputUnits": 255,
+          "minimumInputUnits": 255,
+          "inputPoolSize": 1,
+          "outputUnits": 258,
+          "nsPerCall": 155.29396873343737,
+          "warmIterations": 656896,
+          "iterations": 1932032
+        },
+        {
+          "name": "first-256",
+          "operation": "escapeText",
+          "inputUnits": 256,
+          "minimumInputUnits": 256,
+          "inputPoolSize": 1,
+          "outputUnits": 259,
+          "nsPerCall": 456.54702717179623,
+          "warmIterations": 216832,
+          "iterations": 657152
+        },
+        {
+          "name": "spaced-8",
+          "operation": "escapeText",
+          "inputUnits": 1024,
+          "minimumInputUnits": 1024,
+          "inputPoolSize": 1,
+          "outputUnits": 1536,
+          "nsPerCall": 1538.8951991713216,
+          "warmIterations": 64896,
+          "iterations": 195008
+        },
+        {
+          "name": "spaced-32",
+          "operation": "escapeText",
+          "inputUnits": 1024,
+          "minimumInputUnits": 1024,
+          "inputPoolSize": 1,
+          "outputUnits": 1152,
+          "nsPerCall": 1108.621737556156,
+          "warmIterations": 90112,
+          "iterations": 270656
+        },
+        {
+          "name": "sparse-8192",
+          "operation": "escapeText",
+          "inputUnits": 8192,
+          "minimumInputUnits": 8192,
+          "inputPoolSize": 1,
+          "outputUnits": 8198,
+          "nsPerCall": 5226.2003205128385,
+          "warmIterations": 19176,
+          "iterations": 57408
+        },
+        {
+          "name": "mixed-short",
+          "operation": "escapeText",
+          "inputUnits": 255,
+          "minimumInputUnits": 7,
+          "inputPoolSize": 36,
+          "outputUnits": 434,
+          "nsPerCall": 308.9088033737472,
+          "warmIterations": 321024,
+          "iterations": 971264
+        },
+        {
+          "name": "mixed-long",
+          "operation": "escapeText",
+          "inputUnits": 16384,
+          "minimumInputUnits": 256,
+          "inputPoolSize": 24,
+          "outputUnits": 57344,
+          "nsPerCall": 6618.503838686912,
+          "warmIterations": 15120,
+          "iterations": 45328
+        },
+        {
+          "name": "quotes-only",
+          "operation": "escapeText",
+          "inputUnits": 256,
+          "minimumInputUnits": 256,
+          "inputPoolSize": 1,
+          "outputUnits": 256,
+          "nsPerCall": 85.41727149006952,
+          "warmIterations": 1166848,
+          "iterations": 3512320
+        },
+        {
+          "name": "line-endings",
+          "operation": "escapeText",
+          "inputUnits": 1280,
+          "minimumInputUnits": 1280,
+          "inputPoolSize": 1,
+          "outputUnits": 1280,
+          "nsPerCall": 276.96286599483767,
+          "warmIterations": 364988,
+          "iterations": 1083212
+        },
+        {
+          "name": "mixed-context",
+          "operation": "escapeText",
+          "inputUnits": 257,
+          "minimumInputUnits": 15,
+          "inputPoolSize": 27,
+          "outputUnits": 439,
+          "nsPerCall": 408.9019839279498,
+          "warmIterations": 244992,
+          "iterations": 733696
+        }
+      ],
+      "checksum": 3709886702
+    },
+    {
+      "round": 2,
+      "variant": "esm",
+      "operation": "escapeText",
+      "compatibility": {
+        "preservesLoneSurrogates": true,
+        "identicalEntitySpelling": true,
+        "escapesSlash": false
+      },
+      "nonStringContract": [
+        {
+          "type": "undefined",
+          "error": "TypeError"
+        },
+        {
+          "type": "null",
+          "error": "TypeError"
+        },
+        {
+          "type": "0",
+          "error": "TypeError"
+        },
+        {
+          "type": "true",
+          "error": "TypeError"
+        },
+        {
+          "type": "boxed-string",
+          "error": "TypeError"
+        }
+      ],
+      "measurements": [
+        {
+          "name": "short",
+          "operation": "escapeText",
+          "inputUnits": 16,
+          "minimumInputUnits": 16,
+          "inputPoolSize": 1,
+          "outputUnits": 23,
+          "nsPerCall": 142.8599401778096,
+          "warmIterations": 666624,
+          "iterations": 2100224
+        },
+        {
+          "name": "unchanged-16",
+          "operation": "escapeText",
+          "inputUnits": 16,
+          "minimumInputUnits": 16,
+          "inputPoolSize": 1,
+          "outputUnits": 16,
+          "nsPerCall": 33.636115856830244,
+          "warmIterations": 2894592,
+          "iterations": 8920320
+        },
+        {
+          "name": "first-16",
+          "operation": "escapeText",
+          "inputUnits": 16,
+          "minimumInputUnits": 16,
+          "inputPoolSize": 1,
+          "outputUnits": 19,
+          "nsPerCall": 96.74287562427772,
+          "warmIterations": 1011200,
+          "iterations": 3101184
+        },
+        {
+          "name": "first-31",
+          "operation": "escapeText",
+          "inputUnits": 31,
+          "minimumInputUnits": 31,
+          "inputPoolSize": 1,
+          "outputUnits": 34,
+          "nsPerCall": 106.25054574172708,
+          "warmIterations": 955648,
+          "iterations": 2823680
+        },
+        {
+          "name": "first-32",
+          "operation": "escapeText",
+          "inputUnits": 32,
+          "minimumInputUnits": 32,
+          "inputPoolSize": 1,
+          "outputUnits": 35,
+          "nsPerCall": 105.8395728207125,
+          "warmIterations": 959232,
+          "iterations": 2834688
+        },
+        {
+          "name": "dense-31",
+          "operation": "escapeText",
+          "inputUnits": 31,
+          "minimumInputUnits": 31,
+          "inputPoolSize": 1,
+          "outputUnits": 111,
+          "nsPerCall": 708.405025018882,
+          "warmIterations": 138496,
+          "iterations": 423680
+        },
+        {
+          "name": "unchanged-short",
+          "operation": "escapeText",
+          "inputUnits": 37,
+          "minimumInputUnits": 37,
+          "inputPoolSize": 1,
+          "outputUnits": 37,
+          "nsPerCall": 39.93678807848284,
+          "warmIterations": 2490368,
+          "iterations": 7512064
+        },
+        {
+          "name": "unchanged-long",
+          "operation": "escapeText",
+          "inputUnits": 155648,
+          "minimumInputUnits": 155648,
+          "inputPoolSize": 1,
+          "outputUnits": 155648,
+          "nsPerCall": 28853.24100788614,
+          "warmIterations": 3477,
+          "iterations": 10398
+        },
+        {
+          "name": "quoted-json",
+          "operation": "escapeText",
+          "inputUnits": 33171,
+          "minimumInputUnits": 33171,
+          "inputPoolSize": 1,
+          "outputUnits": 41363,
+          "nsPerCall": 76095.38742393504,
+          "warmIterations": 1302,
+          "iterations": 3944
+        },
+        {
+          "name": "japanese-emoji",
+          "operation": "escapeText",
+          "inputUnits": 44032,
+          "minimumInputUnits": 44032,
+          "inputPoolSize": 1,
+          "outputUnits": 60416,
+          "nsPerCall": 326248.8228260874,
+          "warmIterations": 1000,
+          "iterations": 920
+        },
+        {
+          "name": "long-body",
+          "operation": "escapeText",
+          "inputUnits": 349440,
+          "minimumInputUnits": 349440,
+          "inputPoolSize": 1,
+          "outputUnits": 351488,
+          "nsPerCall": 133264.74600355222,
+          "warmIterations": 1000,
+          "iterations": 2252
+        },
+        {
+          "name": "dense-quotes",
+          "operation": "escapeText",
+          "inputUnits": 28672,
+          "minimumInputUnits": 28672,
+          "inputPoolSize": 1,
+          "outputUnits": 69632,
+          "nsPerCall": 332481.77408637805,
+          "warmIterations": 1002,
+          "iterations": 903
+        },
+        {
+          "name": "first-24",
+          "operation": "escapeText",
+          "inputUnits": 24,
+          "minimumInputUnits": 24,
+          "inputPoolSize": 1,
+          "outputUnits": 27,
+          "nsPerCall": 97.74567999374463,
+          "warmIterations": 991744,
+          "iterations": 3069440
+        },
+        {
+          "name": "last-31",
+          "operation": "escapeText",
+          "inputUnits": 31,
+          "minimumInputUnits": 31,
+          "inputPoolSize": 1,
+          "outputUnits": 35,
+          "nsPerCall": 97.68627313078247,
+          "warmIterations": 1023232,
+          "iterations": 3071232
+        },
+        {
+          "name": "two-near-31",
+          "operation": "escapeText",
+          "inputUnits": 31,
+          "minimumInputUnits": 31,
+          "inputPoolSize": 1,
+          "outputUnits": 38,
+          "nsPerCall": 126.21736377557872,
+          "warmIterations": 795648,
+          "iterations": 2376960
+        },
+        {
+          "name": "two-far-31",
+          "operation": "escapeText",
+          "inputUnits": 31,
+          "minimumInputUnits": 31,
+          "inputPoolSize": 1,
+          "outputUnits": 38,
+          "nsPerCall": 126.18781630235806,
+          "warmIterations": 790272,
+          "iterations": 2377472
+        },
+        {
+          "name": "dense-32",
+          "operation": "escapeText",
+          "inputUnits": 32,
+          "minimumInputUnits": 32,
+          "inputPoolSize": 1,
+          "outputUnits": 112,
+          "nsPerCall": 712.1480174476009,
+          "warmIterations": 140800,
+          "iterations": 421376
+        },
+        {
+          "name": "dense-255",
+          "operation": "escapeText",
+          "inputUnits": 255,
+          "minimumInputUnits": 255,
+          "inputPoolSize": 1,
+          "outputUnits": 895,
+          "nsPerCall": 5109.998437499996,
+          "warmIterations": 19712,
+          "iterations": 58880
+        },
+        {
+          "name": "first-255",
+          "operation": "escapeText",
+          "inputUnits": 255,
+          "minimumInputUnits": 255,
+          "inputPoolSize": 1,
+          "outputUnits": 258,
+          "nsPerCall": 146.31874951232808,
+          "warmIterations": 672000,
+          "iterations": 2050560
+        },
+        {
+          "name": "first-256",
+          "operation": "escapeText",
+          "inputUnits": 256,
+          "minimumInputUnits": 256,
+          "inputPoolSize": 1,
+          "outputUnits": 259,
+          "nsPerCall": 151.75205504256775,
+          "warmIterations": 664576,
+          "iterations": 1977088
+        },
+        {
+          "name": "spaced-8",
+          "operation": "escapeText",
+          "inputUnits": 1024,
+          "minimumInputUnits": 1024,
+          "inputPoolSize": 1,
+          "outputUnits": 1536,
+          "nsPerCall": 4624.183308678506,
+          "warmIterations": 21440,
+          "iterations": 64896
+        },
+        {
+          "name": "spaced-32",
+          "operation": "escapeText",
+          "inputUnits": 1024,
+          "minimumInputUnits": 1024,
+          "inputPoolSize": 1,
+          "outputUnits": 1152,
+          "nsPerCall": 1328.1013898725203,
+          "warmIterations": 75200,
+          "iterations": 225920
+        },
+        {
+          "name": "sparse-8192",
+          "operation": "escapeText",
+          "inputUnits": 8192,
+          "minimumInputUnits": 8192,
+          "inputPoolSize": 1,
+          "outputUnits": 8198,
+          "nsPerCall": 1852.9882399446515,
+          "warmIterations": 53696,
+          "iterations": 161904
+        },
+        {
+          "name": "mixed-short",
+          "operation": "escapeText",
+          "inputUnits": 255,
+          "minimumInputUnits": 7,
+          "inputPoolSize": 36,
+          "outputUnits": 434,
+          "nsPerCall": 293.28742943926653,
+          "warmIterations": 339968,
+          "iterations": 1023232
+        },
+        {
+          "name": "mixed-long",
+          "operation": "escapeText",
+          "inputUnits": 16384,
+          "minimumInputUnits": 256,
+          "inputPoolSize": 24,
+          "outputUnits": 57344,
+          "nsPerCall": 24524.20343137258,
+          "warmIterations": 4080,
+          "iterations": 12240
+        },
+        {
+          "name": "quotes-only",
+          "operation": "escapeText",
+          "inputUnits": 256,
+          "minimumInputUnits": 256,
+          "inputPoolSize": 1,
+          "outputUnits": 256,
+          "nsPerCall": 79.90683086392939,
+          "warmIterations": 1250304,
+          "iterations": 3754752
+        },
+        {
+          "name": "line-endings",
+          "operation": "escapeText",
+          "inputUnits": 1280,
+          "minimumInputUnits": 1280,
+          "inputPoolSize": 1,
+          "outputUnits": 1280,
+          "nsPerCall": 271.540861877332,
+          "warmIterations": 368524,
+          "iterations": 1104844
+        },
+        {
+          "name": "mixed-context",
+          "operation": "escapeText",
+          "inputUnits": 257,
+          "minimumInputUnits": 15,
+          "inputPoolSize": 27,
+          "outputUnits": 439,
+          "nsPerCall": 527.363005369996,
+          "warmIterations": 186112,
+          "iterations": 569088
+        }
+      ],
+      "checksum": 4101658845
+    },
+    {
+      "round": 3,
+      "variant": "native",
+      "operation": "escapeText",
+      "compatibility": {
+        "preservesLoneSurrogates": true,
+        "identicalEntitySpelling": true,
+        "escapesSlash": false
+      },
+      "nonStringContract": [
+        {
+          "type": "undefined",
+          "error": "TypeError"
+        },
+        {
+          "type": "null",
+          "error": "TypeError"
+        },
+        {
+          "type": "0",
+          "error": "TypeError"
+        },
+        {
+          "type": "true",
+          "error": "TypeError"
+        },
+        {
+          "type": "boxed-string",
+          "error": "TypeError"
+        }
+      ],
+      "measurements": [
+        {
+          "name": "short",
+          "operation": "escapeText",
+          "inputUnits": 16,
+          "minimumInputUnits": 16,
+          "inputPoolSize": 1,
+          "outputUnits": 23,
+          "nsPerCall": 141.64145109516616,
+          "warmIterations": 699136,
+          "iterations": 2118400
+        },
+        {
+          "name": "unchanged-16",
+          "operation": "escapeText",
+          "inputUnits": 16,
+          "minimumInputUnits": 16,
+          "inputPoolSize": 1,
+          "outputUnits": 16,
+          "nsPerCall": 34.20461985368151,
+          "warmIterations": 2917120,
+          "iterations": 8772096
+        },
+        {
+          "name": "first-16",
+          "operation": "escapeText",
+          "inputUnits": 16,
+          "minimumInputUnits": 16,
+          "inputPoolSize": 1,
+          "outputUnits": 19,
+          "nsPerCall": 98.00849136489087,
+          "warmIterations": 1014016,
+          "iterations": 3060992
+        },
+        {
+          "name": "first-31",
+          "operation": "escapeText",
+          "inputUnits": 31,
+          "minimumInputUnits": 31,
+          "inputPoolSize": 1,
+          "outputUnits": 34,
+          "nsPerCall": 105.942391464021,
+          "warmIterations": 471040,
+          "iterations": 2831872
+        },
+        {
+          "name": "first-32",
+          "operation": "escapeText",
+          "inputUnits": 32,
+          "minimumInputUnits": 32,
+          "inputPoolSize": 1,
+          "outputUnits": 35,
+          "nsPerCall": 104.10839852425156,
+          "warmIterations": 976640,
+          "iterations": 2881792
+        },
+        {
+          "name": "dense-31",
+          "operation": "escapeText",
+          "inputUnits": 31,
+          "minimumInputUnits": 31,
+          "inputPoolSize": 1,
+          "outputUnits": 111,
+          "nsPerCall": 710.1574140672326,
+          "warmIterations": 141056,
+          "iterations": 422656
+        },
+        {
+          "name": "unchanged-short",
+          "operation": "escapeText",
+          "inputUnits": 37,
+          "minimumInputUnits": 37,
+          "inputPoolSize": 1,
+          "outputUnits": 37,
+          "nsPerCall": 39.71890357566512,
+          "warmIterations": 2475264,
+          "iterations": 7553280
+        },
+        {
+          "name": "unchanged-long",
+          "operation": "escapeText",
+          "inputUnits": 155648,
+          "minimumInputUnits": 155648,
+          "inputPoolSize": 1,
+          "outputUnits": 155648,
+          "nsPerCall": 28652.631840320908,
+          "warmIterations": 3496,
+          "iterations": 10471
+        },
+        {
+          "name": "quoted-json",
+          "operation": "escapeText",
+          "inputUnits": 33171,
+          "minimumInputUnits": 33171,
+          "inputPoolSize": 1,
+          "outputUnits": 41363,
+          "nsPerCall": 29867.924248457104,
+          "warmIterations": 3344,
+          "iterations": 10046
+        },
+        {
+          "name": "japanese-emoji",
+          "operation": "escapeText",
+          "inputUnits": 44032,
+          "minimumInputUnits": 44032,
+          "inputPoolSize": 1,
+          "outputUnits": 60416,
+          "nsPerCall": 91312.75349969567,
+          "warmIterations": 1094,
+          "iterations": 3286
+        },
+        {
+          "name": "long-body",
+          "operation": "escapeText",
+          "inputUnits": 349440,
+          "minimumInputUnits": 349440,
+          "inputPoolSize": 1,
+          "outputUnits": 351488,
+          "nsPerCall": 231648.05169753078,
+          "warmIterations": 1000,
+          "iterations": 1296
+        },
+        {
+          "name": "dense-quotes",
+          "operation": "escapeText",
+          "inputUnits": 28672,
+          "minimumInputUnits": 28672,
+          "inputPoolSize": 1,
+          "outputUnits": 69632,
+          "nsPerCall": 50368.31436723737,
+          "warmIterations": 1986,
+          "iterations": 5958
+        },
+        {
+          "name": "first-24",
+          "operation": "escapeText",
+          "inputUnits": 24,
+          "minimumInputUnits": 24,
+          "inputPoolSize": 1,
+          "outputUnits": 27,
+          "nsPerCall": 102.9268516434654,
+          "warmIterations": 971776,
+          "iterations": 2914816
+        },
+        {
+          "name": "last-31",
+          "operation": "escapeText",
+          "inputUnits": 31,
+          "minimumInputUnits": 31,
+          "inputPoolSize": 1,
+          "outputUnits": 35,
+          "nsPerCall": 99.62293364554998,
+          "warmIterations": 1003264,
+          "iterations": 3011584
+        },
+        {
+          "name": "two-near-31",
+          "operation": "escapeText",
+          "inputUnits": 31,
+          "minimumInputUnits": 31,
+          "inputPoolSize": 1,
+          "outputUnits": 38,
+          "nsPerCall": 129.64446902654873,
+          "warmIterations": 749824,
+          "iterations": 2314240
+        },
+        {
+          "name": "two-far-31",
+          "operation": "escapeText",
+          "inputUnits": 31,
+          "minimumInputUnits": 31,
+          "inputPoolSize": 1,
+          "outputUnits": 38,
+          "nsPerCall": 128.72151749917606,
+          "warmIterations": 776960,
+          "iterations": 2330624
+        },
+        {
+          "name": "dense-32",
+          "operation": "escapeText",
+          "inputUnits": 32,
+          "minimumInputUnits": 32,
+          "inputPoolSize": 1,
+          "outputUnits": 112,
+          "nsPerCall": 729.7521379786751,
+          "warmIterations": 137984,
+          "iterations": 411136
+        },
+        {
+          "name": "dense-255",
+          "operation": "escapeText",
+          "inputUnits": 255,
+          "minimumInputUnits": 255,
+          "inputPoolSize": 1,
+          "outputUnits": 895,
+          "nsPerCall": 5214.505208333328,
+          "warmIterations": 19200,
+          "iterations": 57600
+        },
+        {
+          "name": "first-255",
+          "operation": "escapeText",
+          "inputUnits": 255,
+          "minimumInputUnits": 255,
+          "inputPoolSize": 1,
+          "outputUnits": 258,
+          "nsPerCall": 154.40349503870218,
+          "warmIterations": 663040,
+          "iterations": 1943040
+        },
+        {
+          "name": "first-256",
+          "operation": "escapeText",
+          "inputUnits": 256,
+          "minimumInputUnits": 256,
+          "inputPoolSize": 1,
+          "outputUnits": 259,
+          "nsPerCall": 474.23532943972424,
+          "warmIterations": 193792,
+          "iterations": 632832
+        },
+        {
+          "name": "spaced-8",
+          "operation": "escapeText",
+          "inputUnits": 1024,
+          "minimumInputUnits": 1024,
+          "inputPoolSize": 1,
+          "outputUnits": 1536,
+          "nsPerCall": 1551.8880854849378,
+          "warmIterations": 64704,
+          "iterations": 193344
+        },
+        {
+          "name": "spaced-32",
+          "operation": "escapeText",
+          "inputUnits": 1024,
+          "minimumInputUnits": 1024,
+          "inputPoolSize": 1,
+          "outputUnits": 1152,
+          "nsPerCall": 1108.3796616430234,
+          "warmIterations": 90112,
+          "iterations": 270720
+        },
+        {
+          "name": "sparse-8192",
+          "operation": "escapeText",
+          "inputUnits": 8192,
+          "minimumInputUnits": 8192,
+          "inputPoolSize": 1,
+          "outputUnits": 8198,
+          "nsPerCall": 5219.262491301323,
+          "warmIterations": 19088,
+          "iterations": 57480
+        },
+        {
+          "name": "mixed-short",
+          "operation": "escapeText",
+          "inputUnits": 255,
+          "minimumInputUnits": 7,
+          "inputPoolSize": 36,
+          "outputUnits": 434,
+          "nsPerCall": 310.69087099125363,
+          "warmIterations": 321024,
+          "iterations": 965888
+        },
+        {
+          "name": "mixed-long",
+          "operation": "escapeText",
+          "inputUnits": 16384,
+          "minimumInputUnits": 256,
+          "inputPoolSize": 24,
+          "outputUnits": 57344,
+          "nsPerCall": 6593.46705784105,
+          "warmIterations": 15188,
+          "iterations": 45504
+        },
+        {
+          "name": "quotes-only",
+          "operation": "escapeText",
+          "inputUnits": 256,
+          "minimumInputUnits": 256,
+          "inputPoolSize": 1,
+          "outputUnits": 256,
+          "nsPerCall": 85.6555539440506,
+          "warmIterations": 1164032,
+          "iterations": 3502592
+        },
+        {
+          "name": "line-endings",
+          "operation": "escapeText",
+          "inputUnits": 1280,
+          "minimumInputUnits": 1280,
+          "inputPoolSize": 1,
+          "outputUnits": 1280,
+          "nsPerCall": 277.31668885068297,
+          "warmIterations": 365716,
+          "iterations": 1081860
+        },
+        {
+          "name": "mixed-context",
+          "operation": "escapeText",
+          "inputUnits": 257,
+          "minimumInputUnits": 15,
+          "inputPoolSize": 27,
+          "outputUnits": 439,
+          "nsPerCall": 410.12561094952764,
+          "warmIterations": 243712,
+          "iterations": 731648
+        }
+      ],
+      "checksum": 3745745797
+    },
+    {
+      "round": 3,
+      "variant": "esm",
+      "operation": "escapeText",
+      "compatibility": {
+        "preservesLoneSurrogates": true,
+        "identicalEntitySpelling": true,
+        "escapesSlash": false
+      },
+      "nonStringContract": [
+        {
+          "type": "undefined",
+          "error": "TypeError"
+        },
+        {
+          "type": "null",
+          "error": "TypeError"
+        },
+        {
+          "type": "0",
+          "error": "TypeError"
+        },
+        {
+          "type": "true",
+          "error": "TypeError"
+        },
+        {
+          "type": "boxed-string",
+          "error": "TypeError"
+        }
+      ],
+      "measurements": [
+        {
+          "name": "short",
+          "operation": "escapeText",
+          "inputUnits": 16,
+          "minimumInputUnits": 16,
+          "inputPoolSize": 1,
+          "outputUnits": 23,
+          "nsPerCall": 155.3406343190855,
+          "warmIterations": 674560,
+          "iterations": 1931520
+        },
+        {
+          "name": "unchanged-16",
+          "operation": "escapeText",
+          "inputUnits": 16,
+          "minimumInputUnits": 16,
+          "inputPoolSize": 1,
+          "outputUnits": 16,
+          "nsPerCall": 37.471029010078645,
+          "warmIterations": 2648320,
+          "iterations": 8007424
+        },
+        {
+          "name": "first-16",
+          "operation": "escapeText",
+          "inputUnits": 16,
+          "minimumInputUnits": 16,
+          "inputPoolSize": 1,
+          "outputUnits": 19,
+          "nsPerCall": 107.2415097684846,
+          "warmIterations": 927232,
+          "iterations": 2797568
+        },
+        {
+          "name": "first-31",
+          "operation": "escapeText",
+          "inputUnits": 31,
+          "minimumInputUnits": 31,
+          "inputPoolSize": 1,
+          "outputUnits": 34,
+          "nsPerCall": 110.81337351373388,
+          "warmIterations": 899072,
+          "iterations": 2707456
+        },
+        {
+          "name": "first-32",
+          "operation": "escapeText",
+          "inputUnits": 32,
+          "minimumInputUnits": 32,
+          "inputPoolSize": 1,
+          "outputUnits": 35,
+          "nsPerCall": 112.84616145582575,
+          "warmIterations": 898304,
+          "iterations": 2658560
+        },
+        {
+          "name": "dense-31",
+          "operation": "escapeText",
+          "inputUnits": 31,
+          "minimumInputUnits": 31,
+          "inputPoolSize": 1,
+          "outputUnits": 111,
+          "nsPerCall": 713.976422141443,
+          "warmIterations": 137216,
+          "iterations": 420352
+        },
+        {
+          "name": "unchanged-short",
+          "operation": "escapeText",
+          "inputUnits": 37,
+          "minimumInputUnits": 37,
+          "inputPoolSize": 1,
+          "outputUnits": 37,
+          "nsPerCall": 43.30488626233281,
+          "warmIterations": 2308864,
+          "iterations": 6927872
+        },
+        {
+          "name": "unchanged-long",
+          "operation": "escapeText",
+          "inputUnits": 155648,
+          "minimumInputUnits": 155648,
+          "inputPoolSize": 1,
+          "outputUnits": 155648,
+          "nsPerCall": 28801.162426802355,
+          "warmIterations": 3473,
+          "iterations": 10417
+        },
+        {
+          "name": "quoted-json",
+          "operation": "escapeText",
+          "inputUnits": 33171,
+          "minimumInputUnits": 33171,
+          "inputPoolSize": 1,
+          "outputUnits": 41363,
+          "nsPerCall": 76152.4850253808,
+          "warmIterations": 1300,
+          "iterations": 3940
+        },
+        {
+          "name": "japanese-emoji",
+          "operation": "escapeText",
+          "inputUnits": 44032,
+          "minimumInputUnits": 44032,
+          "inputPoolSize": 1,
+          "outputUnits": 60416,
+          "nsPerCall": 325472.3882863343,
+          "warmIterations": 1000,
+          "iterations": 922
+        },
+        {
+          "name": "long-body",
+          "operation": "escapeText",
+          "inputUnits": 349440,
+          "minimumInputUnits": 349440,
+          "inputPoolSize": 1,
+          "outputUnits": 351488,
+          "nsPerCall": 133816.44023193597,
+          "warmIterations": 1000,
+          "iterations": 2242
+        },
+        {
+          "name": "dense-quotes",
+          "operation": "escapeText",
+          "inputUnits": 28672,
+          "minimumInputUnits": 28672,
+          "inputPoolSize": 1,
+          "outputUnits": 69632,
+          "nsPerCall": 331472.31456953584,
+          "warmIterations": 1002,
+          "iterations": 906
+        },
+        {
+          "name": "first-24",
+          "operation": "escapeText",
+          "inputUnits": 24,
+          "minimumInputUnits": 24,
+          "inputPoolSize": 1,
+          "outputUnits": 27,
+          "nsPerCall": 107.69060468261819,
+          "warmIterations": 937984,
+          "iterations": 2785792
+        },
+        {
+          "name": "last-31",
+          "operation": "escapeText",
+          "inputUnits": 31,
+          "minimumInputUnits": 31,
+          "inputPoolSize": 1,
+          "outputUnits": 35,
+          "nsPerCall": 106.48223873625756,
+          "warmIterations": 924928,
+          "iterations": 2817536
+        },
+        {
+          "name": "two-near-31",
+          "operation": "escapeText",
+          "inputUnits": 31,
+          "minimumInputUnits": 31,
+          "inputPoolSize": 1,
+          "outputUnits": 38,
+          "nsPerCall": 135.88577298817262,
+          "warmIterations": 730112,
+          "iterations": 2207744
+        },
+        {
+          "name": "two-far-31",
+          "operation": "escapeText",
+          "inputUnits": 31,
+          "minimumInputUnits": 31,
+          "inputPoolSize": 1,
+          "outputUnits": 38,
+          "nsPerCall": 131.46960802529736,
+          "warmIterations": 757504,
+          "iterations": 2281984
+        },
+        {
+          "name": "dense-32",
+          "operation": "escapeText",
+          "inputUnits": 32,
+          "minimumInputUnits": 32,
+          "inputPoolSize": 1,
+          "outputUnits": 112,
+          "nsPerCall": 716.6201864303168,
+          "warmIterations": 139776,
+          "iterations": 418816
+        },
+        {
+          "name": "dense-255",
+          "operation": "escapeText",
+          "inputUnits": 255,
+          "minimumInputUnits": 255,
+          "inputPoolSize": 1,
+          "outputUnits": 895,
+          "nsPerCall": 5109.769157608692,
+          "warmIterations": 19712,
+          "iterations": 58880
+        },
+        {
+          "name": "first-255",
+          "operation": "escapeText",
+          "inputUnits": 255,
+          "minimumInputUnits": 255,
+          "inputPoolSize": 1,
+          "outputUnits": 258,
+          "nsPerCall": 154.7018210261021,
+          "warmIterations": 649472,
+          "iterations": 1939456
+        },
+        {
+          "name": "first-256",
+          "operation": "escapeText",
+          "inputUnits": 256,
+          "minimumInputUnits": 256,
+          "inputPoolSize": 1,
+          "outputUnits": 259,
+          "nsPerCall": 156.68819142713903,
+          "warmIterations": 642816,
+          "iterations": 1914880
+        },
+        {
+          "name": "spaced-8",
+          "operation": "escapeText",
+          "inputUnits": 1024,
+          "minimumInputUnits": 1024,
+          "inputPoolSize": 1,
+          "outputUnits": 1536,
+          "nsPerCall": 4635.653409090912,
+          "warmIterations": 21696,
+          "iterations": 64768
+        },
+        {
+          "name": "spaced-32",
+          "operation": "escapeText",
+          "inputUnits": 1024,
+          "minimumInputUnits": 1024,
+          "inputPoolSize": 1,
+          "outputUnits": 1152,
+          "nsPerCall": 1334.9364678246072,
+          "warmIterations": 75072,
+          "iterations": 224768
+        },
+        {
+          "name": "sparse-8192",
+          "operation": "escapeText",
+          "inputUnits": 8192,
+          "minimumInputUnits": 8192,
+          "inputPoolSize": 1,
+          "outputUnits": 8198,
+          "nsPerCall": 1873.6023544841369,
+          "warmIterations": 53584,
+          "iterations": 160120
+        },
+        {
+          "name": "mixed-short",
+          "operation": "escapeText",
+          "inputUnits": 255,
+          "minimumInputUnits": 7,
+          "inputPoolSize": 36,
+          "outputUnits": 434,
+          "nsPerCall": 297.7978049177452,
+          "warmIterations": 330240,
+          "iterations": 1007616
+        },
+        {
+          "name": "mixed-long",
+          "operation": "escapeText",
+          "inputUnits": 16384,
+          "minimumInputUnits": 256,
+          "inputPoolSize": 24,
+          "outputUnits": 57344,
+          "nsPerCall": 24439.43277994798,
+          "warmIterations": 4176,
+          "iterations": 12288
+        },
+        {
+          "name": "quotes-only",
+          "operation": "escapeText",
+          "inputUnits": 256,
+          "minimumInputUnits": 256,
+          "inputPoolSize": 1,
+          "outputUnits": 256,
+          "nsPerCall": 81.27312732966372,
+          "warmIterations": 1228544,
+          "iterations": 3691520
+        },
+        {
+          "name": "line-endings",
+          "operation": "escapeText",
+          "inputUnits": 1280,
+          "minimumInputUnits": 1280,
+          "inputPoolSize": 1,
+          "outputUnits": 1280,
+          "nsPerCall": 272.69612348704436,
+          "warmIterations": 368836,
+          "iterations": 1100164
+        },
+        {
+          "name": "mixed-context",
+          "operation": "escapeText",
+          "inputUnits": 257,
+          "minimumInputUnits": 15,
+          "inputPoolSize": 27,
+          "outputUnits": 439,
+          "nsPerCall": 527.1162952450551,
+          "warmIterations": 187648,
+          "iterations": 569344
+        }
+      ],
+      "checksum": 3891426241
+    },
+    {
+      "round": 3,
+      "variant": "wasm",
+      "operation": "escapeText",
+      "compatibility": {
+        "preservesLoneSurrogates": true,
+        "identicalEntitySpelling": true,
+        "escapesSlash": false
+      },
+      "nonStringContract": [
+        {
+          "type": "undefined",
+          "error": "TypeError"
+        },
+        {
+          "type": "null",
+          "error": "TypeError"
+        },
+        {
+          "type": "0",
+          "error": "TypeError"
+        },
+        {
+          "type": "true",
+          "error": "TypeError"
+        },
+        {
+          "type": "boxed-string",
+          "error": "TypeError"
+        }
+      ],
+      "measurements": [
+        {
+          "name": "short",
+          "operation": "escapeText",
+          "inputUnits": 16,
+          "minimumInputUnits": 16,
+          "inputPoolSize": 1,
+          "outputUnits": 23,
+          "nsPerCall": 271.525395601691,
+          "warmIterations": 353280,
+          "iterations": 1105152
+        },
+        {
+          "name": "unchanged-16",
+          "operation": "escapeText",
+          "inputUnits": 16,
+          "minimumInputUnits": 16,
+          "inputPoolSize": 1,
+          "outputUnits": 16,
+          "nsPerCall": 43.259344781132356,
+          "warmIterations": 2833664,
+          "iterations": 6936064
+        },
+        {
+          "name": "first-16",
+          "operation": "escapeText",
+          "inputUnits": 16,
+          "minimumInputUnits": 16,
+          "inputPoolSize": 1,
+          "outputUnits": 19,
+          "nsPerCall": 265.3839365307336,
+          "warmIterations": 377856,
+          "iterations": 1130752
+        },
+        {
+          "name": "first-31",
+          "operation": "escapeText",
+          "inputUnits": 31,
+          "minimumInputUnits": 31,
+          "inputPoolSize": 1,
+          "outputUnits": 34,
+          "nsPerCall": 314.6674884647652,
+          "warmIterations": 318464,
+          "iterations": 953600
+        },
+        {
+          "name": "first-32",
+          "operation": "escapeText",
+          "inputUnits": 32,
+          "minimumInputUnits": 32,
+          "inputPoolSize": 1,
+          "outputUnits": 35,
+          "nsPerCall": 320.39512605077914,
+          "warmIterations": 312064,
+          "iterations": 936448
+        },
+        {
+          "name": "dense-31",
+          "operation": "escapeText",
+          "inputUnits": 31,
+          "minimumInputUnits": 31,
+          "inputPoolSize": 1,
+          "outputUnits": 111,
+          "nsPerCall": 615.1862737860897,
+          "warmIterations": 162816,
+          "iterations": 487680
+        },
+        {
+          "name": "unchanged-short",
+          "operation": "escapeText",
+          "inputUnits": 37,
+          "minimumInputUnits": 37,
+          "inputPoolSize": 1,
+          "outputUnits": 37,
+          "nsPerCall": 48.13319611374097,
+          "warmIterations": 2070272,
+          "iterations": 6232832
+        },
+        {
+          "name": "unchanged-long",
+          "operation": "escapeText",
+          "inputUnits": 155648,
+          "minimumInputUnits": 155648,
+          "inputPoolSize": 1,
+          "outputUnits": 155648,
+          "nsPerCall": 28779.492374100697,
+          "warmIterations": 3481,
+          "iterations": 10425
+        },
+        {
+          "name": "quoted-json",
+          "operation": "escapeText",
+          "inputUnits": 33171,
+          "minimumInputUnits": 33171,
+          "inputPoolSize": 1,
+          "outputUnits": 41363,
+          "nsPerCall": 122156.53827361566,
+          "warmIterations": 1000,
+          "iterations": 2456
+        },
+        {
+          "name": "japanese-emoji",
+          "operation": "escapeText",
+          "inputUnits": 44032,
+          "minimumInputUnits": 44032,
+          "inputPoolSize": 1,
+          "outputUnits": 60416,
+          "nsPerCall": 328320.9792122534,
+          "warmIterations": 1000,
+          "iterations": 914
+        },
+        {
+          "name": "long-body",
+          "operation": "escapeText",
+          "inputUnits": 349440,
+          "minimumInputUnits": 349440,
+          "inputPoolSize": 1,
+          "outputUnits": 351488,
+          "nsPerCall": 1070885.6761565816,
+          "warmIterations": 1000,
+          "iterations": 281
+        },
+        {
+          "name": "dense-quotes",
+          "operation": "escapeText",
+          "inputUnits": 28672,
+          "minimumInputUnits": 28672,
+          "inputPoolSize": 1,
+          "outputUnits": 69632,
+          "nsPerCall": 240273.68105515582,
+          "warmIterations": 1002,
+          "iterations": 1251
+        },
+        {
+          "name": "first-24",
+          "operation": "escapeText",
+          "inputUnits": 24,
+          "minimumInputUnits": 24,
+          "inputPoolSize": 1,
+          "outputUnits": 27,
+          "nsPerCall": 306.7446870501828,
+          "warmIterations": 327680,
+          "iterations": 978176
+        },
+        {
+          "name": "last-31",
+          "operation": "escapeText",
+          "inputUnits": 31,
+          "minimumInputUnits": 31,
+          "inputPoolSize": 1,
+          "outputUnits": 35,
+          "nsPerCall": 318.7118532431323,
+          "warmIterations": 311552,
+          "iterations": 941312
+        },
+        {
+          "name": "two-near-31",
+          "operation": "escapeText",
+          "inputUnits": 31,
+          "minimumInputUnits": 31,
+          "inputPoolSize": 1,
+          "outputUnits": 38,
+          "nsPerCall": 331.6029331140357,
+          "warmIterations": 297216,
+          "iterations": 904704
+        },
+        {
+          "name": "two-far-31",
+          "operation": "escapeText",
+          "inputUnits": 31,
+          "minimumInputUnits": 31,
+          "inputPoolSize": 1,
+          "outputUnits": 38,
+          "nsPerCall": 337.27892648381254,
+          "warmIterations": 293376,
+          "iterations": 889600
+        },
+        {
+          "name": "dense-32",
+          "operation": "escapeText",
+          "inputUnits": 32,
+          "minimumInputUnits": 32,
+          "inputPoolSize": 1,
+          "outputUnits": 112,
+          "nsPerCall": 635.6193228036874,
+          "warmIterations": 157184,
+          "iterations": 472064
+        },
+        {
+          "name": "dense-255",
+          "operation": "escapeText",
+          "inputUnits": 255,
+          "minimumInputUnits": 255,
+          "inputPoolSize": 1,
+          "outputUnits": 895,
+          "nsPerCall": 3771.644003717859,
+          "warmIterations": 26880,
+          "iterations": 79616
+        },
+        {
+          "name": "first-255",
+          "operation": "escapeText",
+          "inputUnits": 255,
+          "minimumInputUnits": 255,
+          "inputPoolSize": 1,
+          "outputUnits": 258,
+          "nsPerCall": 1007.1223052244405,
+          "warmIterations": 99584,
+          "iterations": 297984
+        },
+        {
+          "name": "first-256",
+          "operation": "escapeText",
+          "inputUnits": 256,
+          "minimumInputUnits": 256,
+          "inputPoolSize": 1,
+          "outputUnits": 259,
+          "nsPerCall": 1010.5092706088362,
+          "warmIterations": 98560,
+          "iterations": 296960
+        },
+        {
+          "name": "spaced-8",
+          "operation": "escapeText",
+          "inputUnits": 1024,
+          "minimumInputUnits": 1024,
+          "inputPoolSize": 1,
+          "outputUnits": 1536,
+          "nsPerCall": 6076.246923575122,
+          "warmIterations": 16576,
+          "iterations": 49408
+        },
+        {
+          "name": "spaced-32",
+          "operation": "escapeText",
+          "inputUnits": 1024,
+          "minimumInputUnits": 1024,
+          "inputPoolSize": 1,
+          "outputUnits": 1152,
+          "nsPerCall": 4034.878912973325,
+          "warmIterations": 24832,
+          "iterations": 74368
+        },
+        {
+          "name": "sparse-8192",
+          "operation": "escapeText",
+          "inputUnits": 8192,
+          "minimumInputUnits": 8192,
+          "inputPoolSize": 1,
+          "outputUnits": 8198,
+          "nsPerCall": 24161.270524790638,
+          "warmIterations": 4152,
+          "iterations": 12424
+        },
+        {
+          "name": "mixed-short",
+          "operation": "escapeText",
+          "inputUnits": 255,
+          "minimumInputUnits": 7,
+          "inputPoolSize": 36,
+          "outputUnits": 434,
+          "nsPerCall": 431.3541618743093,
+          "warmIterations": 230912,
+          "iterations": 695552
+        },
+        {
+          "name": "mixed-long",
+          "operation": "escapeText",
+          "inputUnits": 16384,
+          "minimumInputUnits": 256,
+          "inputPoolSize": 24,
+          "outputUnits": 57344,
+          "nsPerCall": 27247.272875816932,
+          "warmIterations": 3672,
+          "iterations": 11016
+        },
+        {
+          "name": "quotes-only",
+          "operation": "escapeText",
+          "inputUnits": 256,
+          "minimumInputUnits": 256,
+          "inputPoolSize": 1,
+          "outputUnits": 256,
+          "nsPerCall": 87.50613501764067,
+          "warmIterations": 1137920,
+          "iterations": 3428352
+        },
+        {
+          "name": "line-endings",
+          "operation": "escapeText",
+          "inputUnits": 1280,
+          "minimumInputUnits": 1280,
+          "inputPoolSize": 1,
+          "outputUnits": 1280,
+          "nsPerCall": 278.83054766613736,
+          "warmIterations": 362024,
+          "iterations": 1075984
+        },
+        {
+          "name": "mixed-context",
+          "operation": "escapeText",
+          "inputUnits": 257,
+          "minimumInputUnits": 15,
+          "inputPoolSize": 27,
+          "outputUnits": 439,
+          "nsPerCall": 503.85106393693616,
+          "warmIterations": 196352,
+          "iterations": 595712
+        }
+      ],
+      "checksum": 3745770835
+    }
+  ]
+}

@@ -23,7 +23,7 @@ for (const [variant, path] of Object.entries(apis)) {
 	}
 }
 const protocolHashes = {};
-for (const path of ['bench/library/run.mjs', 'bench/library/select.mjs', 'bench/library/prepare-before.mjs', 'bench/library/esm.mjs', 'bench/competitors/worker.mjs', 'bench/competitors/cases.mjs', 'bench/competitors/package-lock.json']) protocolHashes[path] = await hash(join(root, path));
+for (const path of ['bench/library/run.mjs', 'bench/library/select.mjs', 'bench/library/prepare-before.mjs', 'bench/library/esm.mjs', 'bench/competitors/worker.mjs', 'bench/competitors/cases.mjs', 'bench/competitors/suite.mjs', 'bench/implementations.mjs', 'bench/competitors/package-lock.json']) protocolHashes[path] = await hash(join(root, path));
 const implementationHashes = {};
 for (const path of ['src/native.ts', 'src/escape.ts', 'src/unescape.ts', 'src/rust/src/napi_bindings.rs', 'src/rust/src/native_escape.rs', 'src/rust/Cargo.toml', 'src/rust/Cargo.lock']) implementationHashes[path] = await hash(join(root, path));
 let baseline;
@@ -35,7 +35,7 @@ if (beforeApi) {
 const result = { startedAt: new Date().toISOString(), node: process.version, platform: process.platform, arch: process.arch,
 	cpu: cpus()[0]?.model, commit: process.env.GITHUB_SHA ?? null, sourceHashes, protocolHashes, implementationHashes,
 	baseline, apis, variants, rounds,
-	protocol: 'Fresh process per variant/round; rotated order; unchanged competitor worker and 25 cases; output consumed with Buffer.byteLength; initialization excluded.', runs: [] };
+	protocol: 'Fresh process per variant/round; rotated order; shared competitor worker and historical 25 HTML cases; output consumed with Buffer.byteLength; initialization excluded.', runs: [] };
 for (let round = 0; round < rounds; round++) {
 	for (let offset = 0; offset < variants.length; offset++) {
 		const variant = variants[(round + offset) % variants.length];

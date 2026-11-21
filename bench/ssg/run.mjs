@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { mkdir, readFile, readdir, rm, writeFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
-import { spawn, execFileSync } from 'node:child_process';
+import { spawn } from 'node:child_process';
 import { cpus, platform, arch, release, totalmem } from 'node:os';
 import { fileURLToPath } from 'node:url';
 import { join } from 'node:path';
@@ -23,14 +23,14 @@ assert(rounds >= (smoke ? 1 : 3), 'Use at least three independent rounds');
 assert(workers.every(n => n === 0 || n === 2));
 const pageCounts = { articles: 1000, catalog: 250, props: 64 };
 const packageVersion = async path => JSON.parse(await readFile(join(root, path), 'utf8')).version;
-let sourceCommit = process.env.GITHUB_SHA;
-if (!sourceCommit) {
-	try { sourceCommit = execFileSync('git', ['--git-dir=target/native-history.git', '--work-tree=.', 'rev-parse', 'HEAD'], { cwd: root, encoding: 'utf8' }).trim(); } catch { sourceCommit = null; }
-}
+// A historical bare checkout does not identify the current workspace. Local
+// runs use the measured file hashes; CI can supply its actual source commit.
+const sourceCommit = process.env.GITHUB_SHA ?? null;
 const sourceFiles = ['bench/ssg/run.mjs', 'bench/ssg/adapter.mjs', 'bench/ssg/profile.mjs', 'bench/ssg/integration.mjs',
 	'bench/ssg/bootstrap.mjs', 'bench/ssg/output.mjs', 'bench/ssg/report.mjs', 'bench/astro/ssg-site/astro.config.mjs',
 	'bench/astro/ssg-site/src/pages/[page].astro', 'bench/astro/ssg-site/src/components/Article.md',
 	'bench/astro/package-lock.json', 'bench/competitors/package-lock.json',
+	'src/index.ts', 'src/escape.ts', 'src/unescape.ts', 'dist/index.mjs',
 	'dist/native.mjs', 'dist/escape-core.mjs', 'dist/wasm.mjs', 'dist/escape_html.wasm'];
 for (const file of await readdir(join(root, 'dist/native'))) {
 	if (file.endsWith('.node')) sourceFiles.push(`dist/native/${file}`);
