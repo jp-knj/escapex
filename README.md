@@ -56,6 +56,8 @@ and releases remain available. See [migration details](USAGE.md#migration).
 ## Benchmarks
 
 The [benchmark comparison](https://github.com/jp-knj/escapex/blob/main/bench/COMPARISON.md)
-retains the measurements and conditions recorded under the former name.
-It includes API calls, Astro builds, regressions and links to raw evidence.
-The rename makes no new performance claim.
+includes current-workspace measurements of the standard JavaScript entry,
+Native, Wasm and competing libraries, with separate text and attribute API
+comparisons and replay of actual Astro escape inputs. It retains the earlier
+full-build results, conditions, regressions and links to raw samples. Results
+depend on the input and runtime; API timings do not establish a full-build speedup.

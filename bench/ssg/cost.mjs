@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { mkdir, readFile, writeFile, rm } from 'node:fs/promises';
 import { spawn } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
-import { join } from 'node:path';
+import { dirname, join, resolve } from 'node:path';
 import { createHash } from 'node:crypto';
 import { cpus } from 'node:os';
 import { hashOutput } from './output.mjs';
@@ -13,9 +13,12 @@ import { fingerprint } from './fingerprint.mjs';
 const root = fileURLToPath(new URL('../../', import.meta.url));
 const site = join(root, 'bench/astro/ssg-site');
 const work = join(root, 'target/ssg-tuning');
-const variants = (process.env.COST_VARIANTS ?? 'before,native,wasm,escape-html,fast-escape-html,html-escaper').split(',');
-const rounds = Number(process.env.COST_ROUNDS ?? 5);
-assert(rounds >= 3);
+const variants = (process.env.COST_VARIANTS ?? 'esm,native,wasm,escape-html,fast-escape-html,html-escaper').split(',');
+assert(variants.length > 0 && new Set(variants).size === variants.length && variants.every(value =>
+	['esm', 'native', 'wasm', 'escape-html', 'fast-escape-html', 'html-escaper', 'before', 'candidate'].includes(value)), 'Unknown or repeated COST_VARIANTS entry');
+const rounds = Number(process.env.COST_ROUNDS ?? Math.max(3, variants.length));
+assert(Number.isInteger(rounds) && rounds >= 3);
+const hashOptions = { includeBefore: variants.includes('before') };
 const baseline = JSON.parse(await readFile(new URL('./expected-inputs.json', import.meta.url)));
 async function execute(args, options) {
 	const child = spawn(process.execPath, args, { ...options, stdio: ['ignore', 'pipe', 'pipe'] });
@@ -29,12 +32,14 @@ async function execute(args, options) {
 await mkdir(work, { recursive: true });
 const result = { startedAt: new Date().toISOString(), node: process.version, cpu: cpus()[0]?.model,
 	platform: process.platform, arch: process.arch, commit: process.env.GITHUB_SHA ?? null,
-	baselineCommit: '79c0f63ea166dceabebb79279cb3c560cb3c1fc0', sourceHashes: await fingerprint(),
+	baselineCommit: variants.includes('before') ? '79c0f63ea166dceabebb79279cb3c560cb3c1fc0' : undefined,
+	sourceHashes: await fingerprint(hashOptions), reusedInputs: process.env.COST_REUSE_INPUTS === '1',
 	protocol: 'Warm replay of actual SSG inputs, including Buffer.byteLength; not a full-build speedup or strict upper bound.',
 	rounds, variants, inputs: [], runs: [], summary: [] };
 for (const profile of baseline) {
 	const { scenario, pages } = profile;
 	const file = join(work, `${scenario}-inputs.json`);
+	let capturedOutput;
 	if (process.env.COST_REUSE_INPUTS !== '1') {
 		const runDir = join(work, `capture-${scenario}`);
 		await rm(runDir, { recursive: true, force: true });
@@ -43,10 +48,10 @@ for (const profile of baseline) {
 		await execute(['--import', new URL('./capture-inputs.mjs', import.meta.url).href,
 			join(root, 'bench/astro/node_modules/astro/bin/astro.mjs'), 'build', '--silent'], {
 			cwd: site, env: { ...process.env, NODE_OPTIONS: '', NODE_DISABLE_COMPILE_CACHE: '1', CI: '1',
-				ASTRO_TELEMETRY_DISABLED: '1', SSG_RUN_DIR: runDir, SSG_SCENARIO: scenario, SSG_VARIANT: 'native',
+				ASTRO_TELEMETRY_DISABLED: '1', SSG_RUN_DIR: runDir, SSG_SCENARIO: scenario, SSG_VARIANT: 'esm',
 				SSG_PAGES: String(pages), SSG_WORKERS: '0', SSG_PROFILE: '0', SSG_CAPTURE_FILE: file },
 		});
-		const capturedOutput = await hashOutput(join(runDir, 'dist'));
+		capturedOutput = await hashOutput(join(runDir, 'dist'));
 		assert.equal(capturedOutput.htmlFiles, pages);
 		// Compare on this OS: Markdown line endings can differ between checkouts.
 		await rm(join(runDir, 'dist'), { recursive: true, force: true });
@@ -63,7 +68,8 @@ for (const profile of baseline) {
 	const actual = createProfile();
 	for (const input of inputs) recordInput(actual, input);
 	assert.deepEqual(actual, profile.input);
-	result.inputs.push({ scenario, pages, sha256: createHash('sha256').update(bytes).digest('hex'), profile: actual });
+	result.inputs.push({ scenario, pages, sha256: createHash('sha256').update(bytes).digest('hex'), profile: actual,
+		output: capturedOutput, comparedWith: capturedOutput ? 'escape-html' : undefined });
 	for (let round = 0; round < rounds; round++) {
 		for (let i = 0; i < variants.length; i++) {
 			const variant = variants[(i + round) % variants.length];
@@ -78,4 +84,7 @@ for (const profile of baseline) {
 	console.log(scenario, result.summary.filter(s => s.scenario === scenario));
 }
 result.completedAt = new Date().toISOString();
-await writeFile(process.env.COST_OUTPUT ?? join(work, 'cost.json'), JSON.stringify(result, null, 2) + '\n');
+assert.deepEqual(await fingerprint(hashOptions), result.sourceHashes, 'Measured sources or artifacts changed during the run');
+const output = resolve(root, process.env.COST_OUTPUT ?? join(work, 'cost.json'));
+await mkdir(dirname(output), { recursive: true });
+await writeFile(output, JSON.stringify(result, null, 2) + '\n');

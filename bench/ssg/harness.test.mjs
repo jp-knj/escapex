@@ -5,6 +5,8 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { createProfile, recordInput, mergeProfiles } from './profile.mjs';
 import { hashOutput } from './output.mjs';
+import { execFileSync } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
 
 test('input profiling counts UTF-16, every target, unchanged inputs, and thread totals', () => {
 	const a = createProfile();
@@ -38,5 +40,23 @@ test('output verification detects same-length changes, file names, and non-HTML 
 		assert.deepEqual(await hashOutput(root), original);
 		await rename(join(root, 'page'), join(root, 'other'));
 		assert.notEqual((await hashOutput(root)).sha256, original.sha256);
+	} finally { await rm(root, { recursive: true, force: true }); }
+});
+
+test('SSG replay and rendering adapter select the public default ESM function', async () => {
+	const root = await mkdtemp(join(tmpdir(), 'escape-ssg-esm-'));
+	try {
+		const file = join(root, 'inputs.json');
+		await writeFile(file, JSON.stringify(['plain', '<&\'"', '\ud800日本😀\udfff', '\r\n', 'a'.repeat(256) + '&']));
+		const replay = JSON.parse(execFileSync(process.execPath, [fileURLToPath(new URL('./cost-worker.mjs', import.meta.url)), 'esm', file], { encoding: 'utf8' }));
+		assert.equal(replay.variant, 'esm');
+		assert.equal(replay.callsPerCorpus, 5);
+		assert(replay.msPerCorpus > 0 && replay.iterations > 0 && replay.warmup > 0);
+		const adapter = new URL('./adapter.mjs', import.meta.url).href;
+		const api = new URL('../../dist/index.mjs', import.meta.url).href;
+		execFileSync(process.execPath, ['--input-type=module', '-e',
+			`import assert from 'node:assert/strict'; import { escapeHTML } from ${JSON.stringify(adapter)}; import * as api from ${JSON.stringify(api)}; assert.equal(escapeHTML, api.escapeHTML);`], {
+			env: { ...process.env, SSG_VARIANT: 'esm', SSG_RUN_DIR: root, SSG_PROFILE: '0' },
+		});
 	} finally { await rm(root, { recursive: true, force: true }); }
 });

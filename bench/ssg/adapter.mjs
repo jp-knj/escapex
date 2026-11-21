@@ -10,6 +10,7 @@ const variant = process.env.SSG_VARIANT;
 const started = performance.now();
 let fn;
 switch (variant) {
+	case 'esm': fn = (await import('../../dist/index.mjs')).escapeHTML; break;
 	case 'native': fn = (await import('../../dist/native.mjs')).escapeHTML; break;
 	case 'wasm': {
 		const api = await import('../../dist/wasm.mjs');

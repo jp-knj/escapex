@@ -2,8 +2,16 @@
 
 This runs the installed Astro CLI in a fresh Node process for every sample. It
 compares the public native and Wasm APIs with `escape-html`, `fast-escape-html`,
-and `html-escaper`. Native includes its JavaScript fast paths. The root JavaScript
-API and native scalar implementation are not separate entries in this comparison.
+and `html-escaper` by default. Native includes its JavaScript fast paths. The
+standard JavaScript entry is available as `esm`; include it with
+`SSG_VARIANTS=esm,native,wasm,escape-html,fast-escape-html,html-escaper`. The
+historical default variant list is retained for the existing CI collector.
+Native scalar is not a separate entry in this comparison.
+
+For a shorter comparison of actual escape inputs, including the standard ESM
+entry by default, use `npm run bench:ssg:replay`. See the
+[current workspace protocol](../README.md#current-workspace-comparison). Replay
+excludes the rest of the build and cannot establish full-build savings.
 
 ```sh
 npm ci

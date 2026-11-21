@@ -8,7 +8,8 @@ const [variant, file] = process.argv.slice(2);
 const requireCompetitor = createRequire(new URL('../competitors/package.json', import.meta.url));
 const inputs = JSON.parse(readFileSync(file));
 let fn;
-if (variant === 'native') fn = (await import('../../dist/native.mjs')).escapeHTML;
+if (variant === 'esm') fn = (await import('../../dist/index.mjs')).escapeHTML;
+else if (variant === 'native') fn = (await import('../../dist/native.mjs')).escapeHTML;
 else if (variant === 'candidate') fn = (await import(pathToFileURL(process.env.COST_NATIVE_API))).escapeHTML;
 else if (variant === 'before') fn = (await import('../../target/ssg-tuning/before-api/native.mjs')).escapeHTML;
 else if (variant === 'wasm') {

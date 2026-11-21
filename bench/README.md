@@ -3,6 +3,60 @@
 The [comparison with other libraries](COMPARISON.md) covers API timings and
 Astro build times, with links to the samples.
 
+## Current workspace comparison
+
+Build the current sources before measuring. Use Node 24 or 26 for the Astro
+input capture, install the benchmark dependencies, and run one command at a
+time on an otherwise idle host:
+
+```sh
+npm run build:all
+npm ci --prefix bench/competitors --ignore-scripts
+npm ci --prefix bench/astro
+result_dir=target/current-comparison
+BENCH_VARIANTS=esm,native,escape-html,fast-escape-html,html-escaper \
+  BENCH_ROUNDS=5 BENCH_OUTPUT="$result_dir/escapeHTML.json" npm run bench:compare
+BENCH_OPERATION=escapeText BENCH_OUTPUT="$result_dir/escapeText.json" npm run bench:compare
+BENCH_OPERATION=escapeAttribute BENCH_OUTPUT="$result_dir/escapeAttribute.json" npm run bench:compare
+COST_OUTPUT="$result_dir/replay.json" npm run bench:ssg:replay
+node bench/competitors/report.mjs "$result_dir"
+```
+
+The HTML comparison keeps the existing 25 inputs and measures the default ESM
+entry, Native, and three pinned JavaScript competitors. Context comparisons
+measure `escapeText` or `escapeAttribute` in ESM, Wasm and Native, adding three
+cases for quotes, CR/LF and changing inputs around the 16/128/256-unit boundaries.
+The competing libraries do not expose these same context APIs; selecting them
+for a context operation fails before timing. No output-changing adapters are
+used to make them appear equivalent.
+
+`BENCH_OPERATION` defaults to `escapeHTML`. `BENCH_VARIANTS` selects compatible
+implementations and `BENCH_ROUNDS` defaults to their count (at least three).
+Each variant runs in a fresh process per round, with rotated order. Warmup is
+at least 100 ms and 10,000 short calls or 1,000 long calls; measurement is at
+least 300 ms per case. Every output is consumed with `Buffer.byteLength`.
+An independent regexp oracle checks the selected operation before timing.
+Initialization is excluded. All samples, medians, ranges, installed competitor
+versions, source hashes and selected built-artifact hashes are saved. Sources
+and artifacts must remain unchanged throughout a run. `BENCH_OUTPUT` selects
+the JSON destination; default filenames distinguish the three operations.
+
+The SSG replay captures actual inputs using the default ESM entry, compares
+complete Astro output with `escape-html`, and checks the captured profiles.
+It then compares ESM, Native, Wasm and the three JavaScript competitors in six
+rotating rounds. Historical `before` is opt-in and no predecessor checkout is
+needed for the default command. `COST_VARIANTS`, `COST_ROUNDS`, and `COST_OUTPUT`
+customize the run. `COST_REUSE_INPUTS=1` reuses the captured files and skips the
+fresh build/output comparison; this is recorded in the JSON. Replay measures
+only escape calls and output consumption, not compilation or file writes.
+
+The report command verifies summaries against their samples and checks that
+shared source hashes and host/runtime metadata agree across the four files.
+Do not interpret overlapping ranges or a few percent difference as a reliable
+ranking. Full-build timings remain a separate experiment.
+
+## Earlier evaluations
+
 The [native optimization decision](native-optimization-20261112.md) summarizes
 why the evaluated selection and buffer changes were not adopted, with links to
 the archived measurements and reproduction code.

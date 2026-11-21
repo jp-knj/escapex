@@ -1,25 +1,30 @@
 import assert from 'node:assert/strict';
 import { performance } from 'node:perf_hooks';
-import { escapeHTML as reference } from '../../dist/index.mjs';
 import { loadImplementation } from '../implementations.mjs';
-import { cases } from './cases.mjs';
+import { casesFor } from './cases.mjs';
+import { operations, reference as referenceOperation } from './suite.mjs';
 
 const variant = process.argv[2];
+const operation = process.argv[3] ?? 'escapeHTML';
+assert(operations.includes(operation), 'Unknown operation');
+const reference = value => referenceOperation(operation, value);
 const loaders = {
-	esm: async () => reference,
-	wasm: async () => (await loadImplementation('wasm')).escapeHTML,
-	native: async () => (await import('../../dist/native.mjs')).escapeHTML,
+	esm: async () => (await loadImplementation('esm'))[operation],
+	wasm: async () => (await loadImplementation('wasm'))[operation],
+	native: async () => (await import('../../dist/native.mjs'))[operation],
 	'escape-html': async () => (await import('escape-html')).default,
 	'fast-escape-html': async () => (await import('fast-escape-html')).escapeHTML,
 	'html-escaper': async () => (await import('html-escaper')).escape,
 	'@napi-rs/escape': async () => (await import('@napi-rs/escape')).escapeHTML,
 };
+assert(Object.hasOwn(loaders, variant), 'Unknown variant');
+assert(operation === 'escapeHTML' || ['esm', 'wasm', 'native'].includes(variant), `${variant} does not expose ${operation}`);
 const fn = await loaders[variant]();
 // Compare equivalent HTML outside the timed region. The native competitor
 // uses a different apostrophe spelling and also escapes forward slashes.
 const normalize = (s) => s.replaceAll('&#x27;', '&#39;').replaceAll('&#x2f;', '/');
 
-const probe = '\ud800&<>\'"\0\udfff';
+const probe = '\ud800&<>\'"\r\n\0\udfff';
 const compatibility = { preservesLoneSurrogates: normalize(fn(probe)) === reference(probe),
 	identicalEntitySpelling: fn("'") === reference("'"), escapesSlash: fn('/') !== '/' };
 const nonStringContract = [undefined, null, 0, true, new String('<')].map(value => {
@@ -28,7 +33,7 @@ const nonStringContract = [undefined, null, 0, true, new String('<')].map(value 
 });
 let checksum = 0;
 const measurements = [];
-for (const [name, value] of Object.entries(cases)) {
+for (const [name, value] of Object.entries(casesFor(operation))) {
 	const inputs = Array.isArray(value) ? value : [value];
 	for (const input of inputs) assert.equal(normalize(fn(input)), reference(input));
 	const inputUnits = Math.max(...inputs.map(input => input.length));
@@ -52,8 +57,8 @@ for (const [name, value] of Object.entries(cases)) {
 	let iterations = 0;
 	const start = performance.now();
 	do { consume(); iterations += batch; } while (performance.now() - start < 300);
-	measurements.push({ name, inputUnits, minimumInputUnits, inputPoolSize: inputs.length, outputUnits,
+	measurements.push({ name, operation, inputUnits, minimumInputUnits, inputPoolSize: inputs.length, outputUnits,
 		nsPerCall: (performance.now() - start) * 1e6 / iterations, warmIterations, iterations });
 }
 
-console.log(JSON.stringify({ variant, compatibility, nonStringContract, measurements, checksum }));
+console.log(JSON.stringify({ variant, operation, compatibility, nonStringContract, measurements, checksum }));
