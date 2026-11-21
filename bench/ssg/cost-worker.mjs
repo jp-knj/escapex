@@ -3,6 +3,7 @@ import { readFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import { performance } from 'node:perf_hooks';
 import { pathToFileURL } from 'node:url';
+import { reference } from '../competitors/suite.mjs';
 
 const [variant, file] = process.argv.slice(2);
 const requireCompetitor = createRequire(new URL('../competitors/package.json', import.meta.url));
@@ -20,8 +21,7 @@ else if (variant === 'wasm') {
 else if (variant === 'fast-escape-html') fn = requireCompetitor(variant).escapeHTML;
 else if (variant === 'html-escaper') fn = requireCompetitor(variant).escape;
 else throw new Error(`Unknown variant ${variant}`);
-const reference = requireCompetitor('escape-html');
-for (const input of inputs) assert.equal(fn(input), reference(input));
+for (const input of inputs) assert.equal(fn(input), reference('escapeHTML', input));
 let checksum = 0;
 const run = () => { for (const input of inputs) checksum = (checksum + Buffer.byteLength(fn(input))) >>> 0; };
 let start = performance.now();
