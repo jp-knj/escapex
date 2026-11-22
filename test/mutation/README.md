@@ -5,6 +5,11 @@ mutates `src/escape.ts` and `src/unescape.ts`, rebuilds JavaScript in an isolate
 sandbox, and runs the existing ESM tests against that build. The command runner
 executes the whole selected suite for each mutant; per-test coverage is disabled.
 
+The mutation build disables declaration output and tsconfig loading. Stryker's
+tsconfig rewriter uses a compiler API absent from TypeScript 7; the bundler's
+explicit ES2022 target needs no tsconfig aliases. Normal type and declaration
+checks still run separately in CI.
+
 Open `target/mutation/index.html` for annotated source and surviving mutants.
 `target/mutation/mutation.json` contains the machine-readable results. Both are
 also uploaded by the mutation CI workflow.
