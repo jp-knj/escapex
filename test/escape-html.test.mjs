@@ -16,21 +16,24 @@ test('ESM: UTF-16, boundary, large input and type contract', () => {
 test('ESM: primitive-string errors preserve their messages without coercion', () => {
 	const revoked = Proxy.revocable({}, {});
 	revoked.revoke();
-	let coerced = false;
-	const object = { [Symbol.toPrimitive]() { coerced = true; return '&'; } };
+	let inspected = false;
+	const touch = () => { inspected = true; throw new Error('Invalid input was inspected'); };
+	const invalid = [null, undefined, 1, NaN, false, 1n, Symbol('input'), new String('&'),
+		Object.create(null), { [Symbol.toPrimitive]: touch }, { toString: touch, valueOf: touch },
+		new Proxy({}, { get: touch }), revoked.proxy];
 	for (const [name, operation, recovered] of [
 		['escape', 'escape', '&amp;'], ['escapeHTML', 'escape', '&amp;'],
 		['escapeText', 'escapeText', '&amp;'], ['escapeAttribute', 'escapeAttribute', '&amp;'],
 		['unescape', 'unescape', '&'], ['unescapeHTML', 'unescape', '&'],
 	]) {
-		for (const value of [null, undefined, 1, Symbol('input'), new String('&'), object, revoked.proxy]) {
+		for (const value of invalid) {
 			assert.throws(() => api[name](value), {
 				name: 'TypeError', message: `${operation} expects a primitive string`,
 			});
 			assert.equal(api[name]('&'), recovered);
 		}
 	}
-	assert.equal(coerced, false);
+	assert.equal(inspected, false);
 });
 
 test('ESM: matches html-escaper for string inputs, including malformed references', () => {

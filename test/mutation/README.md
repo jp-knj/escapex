@@ -2,8 +2,18 @@
 
 Run `npm ci` and `npm run test:mutation` with Node 24.11 or newer. Stryker 10.1.1
 mutates `src/escape.ts` and `src/unescape.ts`, rebuilds JavaScript in an isolated
-sandbox, and runs the existing ESM tests against that build. The command runner
-executes the whole selected suite for each mutant; per-test coverage is disabled.
+sandbox, and runs the ESM tests against that build. The command runner first runs
+`test/escape-contract.test.mjs`, then runs `test/escape-html.test.mjs` only if the
+focused checks pass. Per-test coverage is disabled. Both files also run in the
+normal unit suite on every supported CI platform.
+
+The focused checks use literal expected outputs for short/long scans, target
+spacing, clean suffixes, context-specific characters, and exact single-pass
+decoding. Two-target HTML inputs run first: reversing a scan's loop condition
+returns incorrect output for these inputs, while a single-target input can
+loop indefinitely. Stopping after a failed focused test preserves that
+assertion failure instead of subsequently timing out in the exhaustive suite.
+No timing assertion or private scan-threshold assertion is added.
 
 The mutation build disables declaration output and tsconfig loading. Stryker's
 tsconfig rewriter uses a compiler API absent from TypeScript 7; the bundler's
