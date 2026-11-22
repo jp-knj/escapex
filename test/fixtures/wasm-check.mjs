@@ -1,3 +1,5 @@
+import { verifyContextRegressions } from './context-regressions.mjs';
+
 const entities = { '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;', '\r': '&#13;', '\n': '&#10;' };
 const patterns = { html: /[&<>'"]/g, text: /[&<>]/g, attribute: /[&<>'"\r\n]/g };
 
@@ -71,6 +73,7 @@ export function verifyEscape(escapeHTML, mode = 'html') {
 	return count;
 }
 
-export function verifyContexts({ escapeText, escapeAttribute }) {
-	return verifyEscape(escapeText, 'text') + verifyEscape(escapeAttribute, 'attribute');
+export function verifyContexts(api) {
+	return verifyEscape(api.escapeText, 'text') + verifyEscape(api.escapeAttribute, 'attribute')
+		+ verifyContextRegressions(api);
 }

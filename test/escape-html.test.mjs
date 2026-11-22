@@ -13,6 +13,25 @@ test('ESM: UTF-16, boundary, large input and type contract', () => {
 	assert(verifyUnescape(api) > 65000);
 });
 
+test('ESM: primitive-string errors preserve their messages without coercion', () => {
+	const revoked = Proxy.revocable({}, {});
+	revoked.revoke();
+	let coerced = false;
+	const object = { [Symbol.toPrimitive]() { coerced = true; return '&'; } };
+	for (const [name, operation] of [
+		['escape', 'escape'], ['escapeHTML', 'escape'],
+		['escapeText', 'escapeText'], ['escapeAttribute', 'escapeAttribute'],
+	]) {
+		for (const value of [null, undefined, 1, Symbol('input'), new String('&'), object, revoked.proxy]) {
+			assert.throws(() => api[name](value), {
+				name: 'TypeError', message: `${operation} expects a primitive string`,
+			});
+			assert.equal(api[name]('&'), '&amp;');
+		}
+	}
+	assert.equal(coerced, false);
+});
+
 test('ESM: matches html-escaper for string inputs, including malformed references', () => {
 	let seed = 0x12345678;
 	const random = () => { seed ^= seed << 13; seed ^= seed >>> 17; seed ^= seed << 5; return seed >>> 0; };
