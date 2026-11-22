@@ -1,0 +1,42 @@
+name: Mutation tests
+on:
+  pull_request:
+    paths:
+      - 'src/escape.ts'
+      - 'src/unescape.ts'
+      - 'test/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'stryker.config.mjs'
+      - 'tsdown.config.mts'
+      - '.github/workflows/mutation.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  mutation:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        suite: [before-pr-6, current]
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - name: Load the earlier test suite for comparison
+        if: matrix.suite == 'before-pr-6'
+        run: |
+          git fetch --no-tags --depth=1 origin fd31b9def97ccdabb51811f2747a53919c2fda51
+          git restore --source=FETCH_HEAD -- test/escape-html.test.mjs test/fixtures/wasm-check.mjs test/fixtures/unescape-check.mjs
+      - run: npm run test:mutation
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        if: always()
+        with:
+          name: mutation-${{ matrix.suite }}
+          path: target/mutation/
+          if-no-files-found: error

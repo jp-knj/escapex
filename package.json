@@ -45,6 +45,7 @@
     "check:rust": "cargo fmt --manifest-path src/rust/Cargo.toml --check && cargo clippy --manifest-path src/rust/Cargo.toml --release --target wasm32-unknown-unknown --target-dir target/rust-check --offline --locked -- -D warnings",
     "test": "npm run build && npm run test:unit && npm run test:package && npm run test:bench && npm run test:release",
     "test:unit": "node --test test/escape-html.test.mjs test/wasm.test.mjs",
+    "test:mutation": "stryker run",
     "test:package": "node --test test/bundlers.test.mjs test/documentation.test.mjs",
     "test:browser": "node scripts/test-browser.mjs",
     "test:rust": "cargo test --manifest-path src/rust/Cargo.toml --release --target-dir target/rust-tests --offline --locked -- --nocapture",
@@ -73,6 +74,7 @@
     "test:candidate": "node --test test/bundlers.test.mjs test/documentation.test.mjs test/native-package.test.mjs"
   },
   "devDependencies": {
+    "@stryker-mutator/core": "10.1.1",
     "@types/node": "22.19.15",
     "html-escaper": "3.0.3",
     "playwright": "1.58.2",
