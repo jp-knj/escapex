@@ -1,0 +1,115 @@
+
+> escapex@0.0.1 test
+> npm run build && npm run test:unit && npm run test:package && npm run test:bench && npm run test:release
+
+
+> escapex@0.0.1 build
+> npm run build:js && npm run build:wasm
+
+
+> escapex@0.0.1 build:js
+> tsdown
+
+ℹ tsdown v0.23.7 powered by rolldown v1.3.0
+ℹ config file: /Users/kenji/Projects/escape-html/target/pr-current-benchmarks/tsdown.config.mts
+ℹ entry: src/index.ts, src/wasm.ts, src/native.ts
+ℹ target: es2022
+ℹ tsconfig: tsconfig.json
+ℹ Build start
+ℹ Cleaning 11 files
+ℹ dist/native.mjs       4.12 kB │ gzip: 1.59 kB
+ℹ dist/wasm.mjs         3.13 kB │ gzip: 1.29 kB
+ℹ dist/index.mjs        0.14 kB │ gzip: 0.11 kB
+ℹ dist/escape-core.mjs  5.61 kB │ gzip: 1.34 kB
+ℹ dist/wasm.d.mts       0.86 kB │ gzip: 0.40 kB
+ℹ dist/index.d.mts      0.71 kB │ gzip: 0.34 kB
+ℹ dist/native.d.mts     0.68 kB │ gzip: 0.32 kB
+ℹ 7 files, total: 15.26 kB
+✔ Build complete in 99ms
+
+> escapex@0.0.1 build:wasm
+> node scripts/wasm.mjs
+
+    Finished `release` profile [optimized] target(s) in 0.10s
+    Finished `release` profile [optimized] target(s) in 0.01s
+
+> escapex@0.0.1 test:unit
+> node --test test/escape-html.test.mjs test/wasm.test.mjs
+
+✔ ESM: UTF-16, boundary, large input and type contract (785.723625ms)
+✔ ESM: matches html-escaper for string inputs, including malformed references (60.338875ms)
+✔ Wasm scalar: initialization, UTF-16, growth and input types (979.569833ms)
+✔ Wasm scalar: import-free ABI, bounds and reuse (9.239ms)
+✔ Wasm optimized: initialization, UTF-16, growth and input types (924.996042ms)
+✔ Wasm optimized: import-free ABI, bounds and reuse (8.741875ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1981.372458
+
+> escapex@0.0.1 test:package
+> node --test test/bundlers.test.mjs test/documentation.test.mjs
+
+✔ rolldown: escapeText-only bundle stays within its size budget (493.334583ms)
+✔ rolldown: escapeAttribute-only bundle stays within its size budget (2.204833ms)
+✔ rolldown: unescapeHTML-only bundle stays within its size budget (1.959834ms)
+✔ rolldown: packed ESM and Wasm in browser-targeted bundle (1764.986ms)
+✔ rolldown: packed ESM and Wasm in SSR bundle (1708.305208ms)
+✔ rolldown: removes unused ESM and Wasm imports (8.159792ms)
+✔ vite: escapeText-only bundle stays within its size budget (50.94375ms)
+✔ vite: escapeAttribute-only bundle stays within its size budget (6.710709ms)
+✔ vite: unescapeHTML-only bundle stays within its size budget (6.214541ms)
+✔ vite: packed ESM and Wasm in browser-targeted bundle (1723.675209ms)
+✔ vite: packed ESM and Wasm in SSR bundle (1718.730875ms)
+✔ vite: removes unused ESM and Wasm imports (13.328833ms)
+✔ packed declarations resolve in Bundler and NodeNext modes (362.372542ms)
+✔ installed package works in a separate Node process without development dependencies (31.458041ms)
+✔ installed README example renders HTML text and quoted attributes (519.354917ms)
+✔ installed usage examples: API contracts, SSR, SSG, double escaping and Wasm (159.32825ms)
+ℹ tests 16
+ℹ suites 0
+ℹ pass 16
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 8035.908083
+
+> escapex@0.0.1 test:bench
+> node --test bench/stats.test.mjs bench/ssg/harness.test.mjs bench/competitors/harness.test.mjs
+
+✔ context benchmarks reject competitors with different escaping contracts before timing (36.1065ms)
+✔ benchmark oracle distinguishes quotes, CR/LF and malformed UTF-16 across APIs (20.4175ms)
+✔ input profiling counts UTF-16, every target, unchanged inputs, and thread totals (0.536541ms)
+✔ output verification detects same-length changes, file names, and non-HTML assets (5.994333ms)
+✔ SSG replay and rendering adapter select default ESM without benchmark dependencies (467.87725ms)
+✔ paired comparison retains each process baseline when host speed varies (0.765209ms)
+✔ paired comparison detects a regression even with different absolute process times (0.221708ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 520.930791
+
+> escapex@0.0.1 test:release
+> node --test test/release.test.mjs
+
+✔ initial setup cannot be switched out of dry-run mode (31.1385ms)
+✔ placeholder publication requires its explicit flag (31.616792ms)
+✔ publication validates all archive hashes and the source commit before registry writes (311.859167ms)
+✔ release assembly rejects missing and wrong-version native artifacts before creating output (85.902125ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 508.741333
