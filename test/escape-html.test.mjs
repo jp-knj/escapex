@@ -18,15 +18,16 @@ test('ESM: primitive-string errors preserve their messages without coercion', ()
 	revoked.revoke();
 	let coerced = false;
 	const object = { [Symbol.toPrimitive]() { coerced = true; return '&'; } };
-	for (const [name, operation] of [
-		['escape', 'escape'], ['escapeHTML', 'escape'],
-		['escapeText', 'escapeText'], ['escapeAttribute', 'escapeAttribute'],
+	for (const [name, operation, recovered] of [
+		['escape', 'escape', '&amp;'], ['escapeHTML', 'escape', '&amp;'],
+		['escapeText', 'escapeText', '&amp;'], ['escapeAttribute', 'escapeAttribute', '&amp;'],
+		['unescape', 'unescape', '&'], ['unescapeHTML', 'unescape', '&'],
 	]) {
 		for (const value of [null, undefined, 1, Symbol('input'), new String('&'), object, revoked.proxy]) {
 			assert.throws(() => api[name](value), {
 				name: 'TypeError', message: `${operation} expects a primitive string`,
 			});
-			assert.equal(api[name]('&'), '&amp;');
+			assert.equal(api[name]('&'), recovered);
 		}
 	}
 	assert.equal(coerced, false);

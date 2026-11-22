@@ -14,6 +14,15 @@ Open `target/mutation/index.html` for annotated source and surviving mutants.
 `target/mutation/mutation.json` contains the machine-readable results. Both are
 also uploaded by the mutation CI workflow.
 
+Run `npm run --silent test:mutation:summary` for counts, scores with and without
+timeouts, and survivor locations. To compare two reports, use
+`npm run --silent test:mutation:summary -- current.json previous.json`.
+The comparison rejects different production source or mutant sets.
+
+The [initial before/after measurement](../../bench/results/mutation-20261122/README.md)
+records the exact faults detected by the expanded tests and the remaining
+performance-related survivors.
+
 This measures the ESM suite's ability to detect the generated faults. It does
 not mutate Rust, native loading, or the Wasm wrapper. Cross-platform functional
 tests remain separate. A larger assertion count does not by itself imply a
