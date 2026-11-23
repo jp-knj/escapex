@@ -140,6 +140,8 @@ test('native loader: the bundled native entry fails eagerly for missing and corr
 		if (corrupt) { f.local(id); f.package(id); }
 		await assert.rejects(import(f.url), error => checkError(error, id, corrupt ? 'ERR_DLOPEN_FAILED' : 'MODULE_NOT_FOUND'));
 		const esm = await import(pathToFileURL(join(f.root, 'dist', 'index.mjs')));
-		assert.equal(esm.escape('&'), '&amp;', 'default ESM remains usable after native import fails');
+		// Two targets fail promptly for a reversed scan condition, before a
+		// single-target call could enter that mutant's nonterminating loop.
+		assert.equal(esm.escape('&&'), '&amp;&amp;', 'default ESM remains usable after native import fails');
 	}
 });
