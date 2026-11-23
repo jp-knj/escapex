@@ -33,7 +33,9 @@ The Wasm contract tests stub instantiation and ABI return values, using real
 initialization failures and retries, signed/unsigned error sentinels, error
 types/messages, recovery after allocation failure, memory growth, and UTF-16
 decoding. Literal input/output expectations keep the fixture independent of
-the encoders. The regular unit suite additionally exercises the actual scalar
+the encoders. Input-memory comparisons stop at the first differing code unit;
+formatting a large array diff must not turn an assertion failure into a timeout.
+The regular unit suite additionally exercises the actual scalar
 and optimized Wasm binaries. No large allocation is needed to test exhaustion.
 
 The mutation build disables declaration output and tsconfig loading. Stryker's

@@ -34,7 +34,11 @@ function fixture(input = '&', output = '&amp;') {
 		exports[operation] = length => {
 			state.calls.push(operation);
 			assert.equal(length, input.length);
-			assert.deepEqual(Array.from(new Uint16Array(memory.buffer, pointer, length)), units(input));
+			const actual = new Uint16Array(memory.buffer, pointer, length);
+			const expected = units(input);
+			// Stop at the first mismatch: formatting a diff of tens of thousands
+			// of code units can hide an assertion failure behind a runner timeout.
+			for (let index = 0; index < length; index++) assert.equal(actual[index], expected[index], `input code unit ${index}`);
 			if (state.failure === 'output') return state.code;
 			ensure(pointer + (length + output.length) * 2);
 			new Uint16Array(memory.buffer, pointer + length * 2, output.length).set(units(output));
