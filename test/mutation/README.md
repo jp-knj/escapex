@@ -2,10 +2,11 @@
 
 Run `npm ci` and `npm run test:mutation` with Node 24.11 or newer. Stryker 10.1.1
 mutates `src/escape.ts`, `src/unescape.ts`, `src/native-platform.ts`,
-`src/native-libc.ts`, and `src/wasm.ts` in an isolated sandbox. Escaping and Wasm
-wrapper tests use rebuilt JavaScript; platform/libc tests import instrumented
-TypeScript directly, without a native binary. The command runner first runs the
-escape, platform, libc, and Wasm contract tests, then runs
+`src/native-libc.ts`, `src/native-loader.ts`, and `src/wasm.ts` in an isolated
+sandbox. Escaping and Wasm wrapper tests use rebuilt JavaScript;
+platform/libc/loader tests import instrumented TypeScript directly, without a
+native binary. The command runner first runs the
+escape, platform, libc, native loader, and Wasm contract tests, then runs
 `test/escape-html.test.mjs` only if those checks pass. Per-test coverage is
 disabled. These tests also run in the normal unit suite on every CI platform.
 
@@ -27,6 +28,14 @@ The libc tests inject report/filesystem callbacks into the internal detector.
 They exercise glibc precedence, musl detection through ldd or shared objects,
 exceptions from either callback, incomplete reports, and unknown environments
 on any host. Native loading still uses the real Node APIs.
+
+The native loader tests use real filesystem paths (including spaces, Unicode,
+and URL-escaped characters), module resolution, and optional-package execution.
+They cover local precedence, installation isolation, missing/corrupt binaries,
+complete diagnostics, and the identity of arbitrary thrown causes. Successful
+local loads use Node's module cache; corrupt addons exercise real failed dlopen
+calls. A rebuilt-bundle check also verifies eager failure and continued access
+to the default ESM entry. No valid native binary is needed for these tests.
 
 The Wasm contract tests stub instantiation and ABI return values, using real
 `WebAssembly.Memory` objects. They cover each missing or mistyped export,
@@ -57,8 +66,9 @@ records the exact faults detected by the expanded tests and the remaining
 performance-related survivors.
 
 This measures faults in escaping, decoding, native package-name selection,
-libc detection, and the Wasm JavaScript wrapper. It does not mutate Rust or the
-native binary loader. Cross-platform functional tests remain separate.
+libc detection, native binary loading, and the Wasm JavaScript wrapper. It does
+not mutate Rust or the native wrapper's JS/Node-API dispatch. Cross-platform
+functional tests remain separate.
 A larger assertion count does not by itself imply a higher mutation score.
 When comparing with older reports that cover only escaping/decoding, inspect
 those two files separately: adding a mutation target changes the denominator.
