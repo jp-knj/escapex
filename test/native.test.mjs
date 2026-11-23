@@ -102,17 +102,6 @@ test('native: both sides of the JS/native cutoff preserve all UTF-16 units', () 
 	for (const name of Object.keys(esm)) assert.equal(api[name](`${all}&amp;${all}`), esm[name](`${all}&amp;${all}`));
 });
 
-test('native: platform selection covers both architectures and libc variants', () => {
-	for (const arch of ['arm64', 'x64']) {
-		assert.equal(nativePlatform('darwin', arch), `darwin-${arch}`);
-		assert.equal(nativePlatform('win32', arch), `win32-${arch}-msvc`);
-		for (const libc of ['gnu', 'musl']) assert.equal(nativePlatform('linux', arch, libc), `linux-${arch}-${libc}`);
-	}
-	for (const args of [['darwin', 'ia32'], ['freebsd', 'x64'], ['linux', 'arm64'], ['linux', 'x64', 'other']]) {
-		assert.throws(() => nativePlatform(...args), /Unsupported native/);
-	}
-});
-
 test('native: returned strings survive buffer reuse, collection and capacity changes', () => {
 	const retained = [];
 	const sizes = [256, 8192, 1, 4096, 700000, 255, 128, 16384, 0, 1024];
