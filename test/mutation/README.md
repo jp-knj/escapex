@@ -8,9 +8,14 @@ platform/libc/loader tests import instrumented TypeScript directly, without a
 native binary. The command runner first runs the
 escape, platform, libc, native loader, and Wasm contract tests, then runs
 `test/escape-html.test.mjs` only if those checks pass. Per-test coverage is
-disabled. These tests also run in the normal unit suite on every CI platform.
+disabled. Focused files run sequentially within each of the four mutation
+workers to avoid nested process concurrency causing spurious timeouts.
+The timeout adds 20 seconds to Stryker's initial-run allowance so slower,
+output-equivalent scanner mutants can finish under CPU contention.
+These tests also run in the normal unit suite on every CI platform.
 
-The focused checks use literal expected outputs for short/long scans, target
+The focused checks validate primitive-string errors before exhaustive fixtures,
+including rejection without coercion. They use literal outputs for short/long scans, target
 spacing, clean suffixes, context-specific characters, and exact single-pass
 decoding. Two-target HTML inputs run first: reversing a scan's loop condition
 returns incorrect output for these inputs, while a single-target input can
