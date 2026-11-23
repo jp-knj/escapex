@@ -1,11 +1,13 @@
 # Mutation testing
 
 Run `npm ci` and `npm run test:mutation` with Node 24.11 or newer. Stryker 10.1.1
-mutates `src/escape.ts` and `src/unescape.ts`, rebuilds JavaScript in an isolated
-sandbox, and runs the ESM tests against that build. The command runner first runs
-`test/escape-contract.test.mjs`, then runs `test/escape-html.test.mjs` only if the
-focused checks pass. Per-test coverage is disabled. Both files also run in the
-normal unit suite on every supported CI platform.
+mutates `src/escape.ts`, `src/unescape.ts`, and `src/native-platform.ts` in an
+isolated sandbox. Escaping tests use the rebuilt JavaScript; platform-selection
+tests import the instrumented TypeScript source directly, without a native
+binary. The command runner first runs `test/escape-contract.test.mjs` and
+`test/native-platform.test.mjs`, then runs `test/escape-html.test.mjs` only if
+the focused checks pass. Per-test coverage is disabled. All three files also
+run in the normal unit suite on every supported CI platform.
 
 The focused checks use literal expected outputs for short/long scans, target
 spacing, clean suffixes, context-specific characters, and exact single-pass
@@ -14,6 +16,12 @@ returns incorrect output for these inputs, while a single-target input can
 loop indefinitely. Stopping after a failed focused test preserves that
 assertion failure instead of subsequently timing out in the exhaustive suite.
 No timing assertion or private scan-threshold assertion is added.
+
+The platform tests check all eight package suffixes, unsupported OS/architecture
+combinations, exact Linux libc identifiers, and error diagnostics. In particular,
+an unsupported OS paired with `gnu` or `musl` must still be rejected. These tests
+run independently with `node --test test/native-platform.test.mjs` and require
+no Rust build. They cover package-name selection, not host libc detection.
 
 The mutation build disables declaration output and tsconfig loading. Stryker's
 tsconfig rewriter uses a compiler API absent from TypeScript 7; the bundler's
@@ -33,10 +41,12 @@ The [initial before/after measurement](../../bench/results/mutation-20261122/REA
 records the exact faults detected by the expanded tests and the remaining
 performance-related survivors.
 
-This measures the ESM suite's ability to detect the generated faults. It does
-not mutate Rust, native loading, or the Wasm wrapper. Cross-platform functional
-tests remain separate. A larger assertion count does not by itself imply a
-higher mutation score.
+This measures the suites' ability to detect faults in escaping, decoding, and
+native package-name selection. It does not mutate Rust, native loading, libc
+detection, or the Wasm wrapper. Cross-platform functional tests remain separate.
+A larger assertion count does not by itself imply a higher mutation score.
+When comparing with older reports that cover only escaping/decoding, inspect
+those two files separately: adding a mutation target changes the denominator.
 
 Inspect survivors before changing tests: a changed search threshold can select
 a different correct algorithm without changing output. Timeouts are reported
