@@ -5,7 +5,7 @@ import { mkdirSync, mkdtempSync, readdirSync, readFileSync, writeFileSync } from
 import { createRequire } from 'node:module';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { targets } from './native-targets.mjs';
+import { publicationNames, validateNativeMetadata } from './package-metadata.mjs';
 
 assert.equal(process.argv.length, 2, 'release:setup accepts no arguments and always uses --dry-run');
 const root = fileURLToPath(new URL('../', import.meta.url));
@@ -14,9 +14,8 @@ const require = createRequire(import.meta.url);
 const cli = require.resolve('setup-npm-trusted-publish/bin/cli.js');
 const tool = require('setup-npm-trusted-publish/package.json');
 assert.equal(tool.version, metadata.devDependencies['setup-npm-trusted-publish']);
-const names = targets.map(({ id }) => `${metadata.name}-${id}`);
-assert.deepEqual([...Object.keys(metadata.optionalDependencies)].sort(), [...names].sort());
-names.push(metadata.name);
+validateNativeMetadata(metadata, JSON.parse(readFileSync(join(root, 'npm/native/package.json'), 'utf8')));
+const names = publicationNames(metadata);
 const destination = join(root, 'target/release-setup');
 mkdirSync(destination, { recursive: true });
 const scratch = mkdtempSync(join(destination, 'preview-'));

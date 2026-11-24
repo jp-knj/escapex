@@ -38,12 +38,22 @@ These functions do not sanitize HTML or validate URLs, CSS or JavaScript.
 | Import | Use |
 |---|---|
 | `escapex` | JavaScript; start here for templates, SSR, SSG and browsers. No initialization. |
-| `escapex/native` | Optional Node.js addon for measured workloads; keep optional dependencies enabled. |
+| `escapex/native` | Node.js addon; install `escapex-native` at the same version, with optional dependencies enabled. |
 | `escapex/wasm` | Explicit WebAssembly use; load the supplied asset and await `init` once. |
 
 All three expose the same string functions. Native and Wasm performance depends
 on the input and runtime; measure your complete rendering or build workload.
 See [the usage guide](USAGE.md) for SSR/SSG examples, setup and API contracts.
+
+Installing `escapex` alone includes JavaScript and both Wasm assets, without
+native binaries. To use the synchronous native API, add its dependencies:
+
+```sh
+npm install escapex escapex-native
+```
+
+Existing `escapex/native` users must add `escapex-native` and refresh their
+lockfile. Imports, functions, types and output stay the same.
 
 ## Migrating from `@jp-knj/html-escape`
 

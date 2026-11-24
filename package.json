@@ -44,7 +44,7 @@
     "check": "tsc --noEmit && npm run check:rust",
     "check:rust": "cargo fmt --manifest-path src/rust/Cargo.toml --check && cargo clippy --manifest-path src/rust/Cargo.toml --release --target wasm32-unknown-unknown --target-dir target/rust-check --offline --locked -- -D warnings",
     "test": "npm run build && npm run test:unit && npm run test:package && npm run test:bench && npm run test:release",
-    "test:unit": "node --test test/escape-contract.test.mjs test/escape-html.test.mjs test/native-platform.test.mjs test/native-libc.test.mjs test/wasm-contract.test.mjs test/wasm.test.mjs",
+    "test:unit": "node --test test/escape-contract.test.mjs test/escape-html.test.mjs test/native-platform.test.mjs test/native-libc.test.mjs test/native-loader.test.mjs test/wasm-contract.test.mjs test/wasm.test.mjs",
     "test:mutation": "stryker run",
     "test:mutation:summary": "node test/mutation/summarize.mjs",
     "test:package": "node --test test/bundlers.test.mjs test/documentation.test.mjs",
@@ -56,7 +56,7 @@
     "build:native": "node scripts/native.mjs",
     "build:native:scalar": "node scripts/native.mjs --scalar",
     "check:native": "cargo clippy --manifest-path src/rust/Cargo.toml --release --features native --locked -- -D warnings",
-    "test:native": "node --test test/native-platform.test.mjs test/native-libc.test.mjs test/native.test.mjs test/native-package.test.mjs",
+    "test:native": "node --test test/native-platform.test.mjs test/native-libc.test.mjs test/native-loader.test.mjs test/native.test.mjs test/native-package.test.mjs",
     "test:all": "npm run build:all && npm run test:unit && npm run test:package && npm run test:native && npm run test:rust && npm run test:bench",
     "test:bench": "node --test bench/stats.test.mjs bench/ssg/harness.test.mjs bench/competitors/harness.test.mjs",
     "bench:compare": "node bench/competitors/run.mjs",
@@ -72,7 +72,8 @@
     "release:pack": "node scripts/release-pack.mjs",
     "release:publish": "node scripts/release-publish.mjs",
     "test:release": "node --test test/release.test.mjs",
-    "test:candidate": "node --test test/bundlers.test.mjs test/documentation.test.mjs test/native-package.test.mjs"
+    "test:candidate": "node --test test/bundlers.test.mjs test/documentation.test.mjs test/native-package.test.mjs",
+    "size": "node scripts/package-size.mjs"
   },
   "devDependencies": {
     "@stryker-mutator/core": "10.1.1",
@@ -114,14 +115,12 @@
   "publishConfig": {
     "access": "public"
   },
-  "optionalDependencies": {
-    "escapex-darwin-arm64": "0.0.1",
-    "escapex-darwin-x64": "0.0.1",
-    "escapex-linux-arm64-gnu": "0.0.1",
-    "escapex-linux-arm64-musl": "0.0.1",
-    "escapex-linux-x64-gnu": "0.0.1",
-    "escapex-linux-x64-musl": "0.0.1",
-    "escapex-win32-arm64-msvc": "0.0.1",
-    "escapex-win32-x64-msvc": "0.0.1"
+  "peerDependencies": {
+    "escapex-native": "0.0.1"
+  },
+  "peerDependenciesMeta": {
+    "escapex-native": {
+      "optional": true
+    }
   }
 }

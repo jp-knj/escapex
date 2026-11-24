@@ -2,6 +2,10 @@
 
 ## escapex 0.0.1 (release candidate)
 
+- Native installation now requires `npm install escapex escapex-native` with
+  matching versions. `escapex` alone includes JS/Wasm without platform binaries.
+  The `escapex/native` import and synchronous API are unchanged.
+
 - Rename `@jp-knj/html-escape` to `escapex` and its eight optional native
   packages to `escapex-<platform>`, all at `0.0.1`.
 - Move the repository to `jp-knj/escapex`; future tags use `escapex-v<version>`.
@@ -9,7 +13,7 @@
 - Add template, SSR and SSG examples, entry selection, migration instructions
   and guidance on avoiding double escaping.
 - Preserve all function names, types, output, `/native`, `/wasm` and Wasm asset
-  filenames. Migration changes dependency names and import prefixes only.
+  filenames. Native users also add the `escapex-native` dependency.
 - Retain previous benchmarks and their measurement conditions. Performance
   changes and new APIs are deferred to the next version.
 

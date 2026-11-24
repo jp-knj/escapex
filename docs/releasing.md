@@ -1,7 +1,9 @@
 # Releasing escapex
 
-The first escapex version is `0.0.1`, with eight optional packages named
-`escapex-<platform>` at the same version. The packaged [USAGE.md](../USAGE.md)
+The first escapex version is `0.0.1`, with the `escapex-native` installer and eight
+optional packages named `escapex-<platform>` at the same version. The installer
+owns the platform dependencies; the main package declares an optional peer.
+The packaged [USAGE.md](../USAGE.md)
 documents the APIs and migration from `@jp-knj/html-escape`.
 
 Release preparation ends with a verified candidate, release notes and a handoff.
@@ -34,7 +36,7 @@ Assembly uses native and Wasm artifacts from that same run and builds the main
 JavaScript package. It then installs the **assembled tarballs** with npm and
 reruns package, type, documentation, native and browser checks against them.
 
-The `release-candidate` artifact contains nine tarballs, `manifest.json` and
+The `release-candidate` artifact contains ten tarballs, `sizes.json`, `manifest.json` and
 `SHA256SUMS`. The manifest records the source commit/run, versions, sizes,
 SHA-256 and npm-style SHA-512 integrity. Assembly checks platform restrictions,
 exact package contents and optional-dependency versions. Publication dry-run
@@ -48,6 +50,7 @@ npm run release:pack -- target/release-artifacts target/release-candidate
 npm run release:publish -- --dry-run target/release-candidate
 RELEASE_CANDIDATE_DIR=target/release-candidate npm run test:candidate
 RELEASE_CANDIDATE_DIR=target/release-candidate npm run test:browser
+RELEASE_CANDIDATE_DIR=target/release-candidate npm run size -- --all-native --output target/release-candidate/sizes.json
 ```
 
 Local assembly needs `GITHUB_SHA` and `GITHUB_RUN_ID` from the source run for
@@ -59,7 +62,7 @@ checksums and verification results with the handoff. Release notes are in
 ## Initial npm setup (later publication only)
 
 The pinned tool is [setup-npm-trusted-publish 2.2.0](https://github.com/azu/setup-npm-trusted-publish)
-by azu. Preview all nine packages without publishing:
+by azu. Preview all ten packages without publishing:
 
 ```sh
 npm run release:setup
@@ -72,7 +75,7 @@ npm run release:bootstrap -- --publish-placeholders
 ```
 
 This explicitly publishes administrative `0.0.0` placeholders for the eight
-platform packages and `escapex`. They contain no library implementation.
+platform packages, `escapex-native` and `escapex`. They contain no library implementation.
 It uses the installed, pinned azu CLI and saves the package list to
 `target/release-setup/packages.txt`. Keep credentials in the npm authentication
 flow; do not put them in this repository.
@@ -109,14 +112,25 @@ any npm write, it verifies archive order, sizes, both hashes, names, versions,
 and main-package metadata. It also checks the exact main commit and successful
 candidate run in this repository's `release.yml` workflow.
 
-Native packages are published first, then the main package, at matching versions
+Platform packages are published first, then `escapex-native`, then `escapex`, at matching versions
 with the `latest` tag and provenance. Every registry integrity is checked.
 Retries skip identical versions and reject conflicting bytes. Progress is saved
 in `publication.json` without changing the candidate manifest.
 
-The job installs the main package from npm and verifies its native import.
+The job installs the main package normally and checks JS/Wasm without any native
+packages, then installs `escapex-native` and verifies the native import.
 Only after success does it create `escapex-v<version>` and a GitHub Release containing
 the tested tarballs, manifest and checksums. A verification branch cannot publish.
+
+## Size budgets
+
+`npm run size` checks the main archive (at most 15,000 bytes), its unpacked files
+(45,000 bytes) and a minified browser bundle exporting every JS API (2,500 bytes).
+It records individual imports and the metadata-only installer's size too.
+Native CI adds `--native <platform>` to record each binary package; candidate
+assembly uses `--all-native` to measure all eight final platform archives.
+Reports are retained even if a budget fails. These are archive/file sizes and
+exclude development dependencies, npm cache, lockfiles and filesystem allocation.
 
 References: [azu's CLI](https://github.com/azu/setup-npm-trusted-publish),
 [npm Trusted Publishing](https://docs.npmjs.com/trusted-publishers/),

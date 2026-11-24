@@ -6,7 +6,7 @@ import { readFileSync, writeFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { setTimeout } from 'node:timers/promises';
-import { targets } from './native-targets.mjs';
+import { publicationNames, validateNativeMetadata } from './package-metadata.mjs';
 
 const args = process.argv.slice(2);
 const dryRun = args.includes('--dry-run');
@@ -21,8 +21,10 @@ assert.equal(manifest.version, metadata.version);
 assert.match(manifest.commit, /^[0-9a-f]{40}$/);
 assert.match(manifest.runId, /^\d+$/);
 assert.equal(manifest.published, false);
-const names = [...targets.map(target => metadata.name + '-' + target.id), metadata.name];
-assert.deepEqual(manifest.packages.map(pkg => pkg.name), names, 'Expected eight native packages followed by the main package');
+const installer = JSON.parse(readFileSync(join(root, 'npm/native/package.json'), 'utf8'));
+validateNativeMetadata(metadata, installer);
+const names = publicationNames(metadata);
+assert.deepEqual(manifest.packages.map(pkg => pkg.name), names, 'Expected eight platform packages, native installer, then main package');
 for (const pkg of manifest.packages) {
 	assert.equal(pkg.version, metadata.version);
 	assert.equal(pkg.file, pkg.name.replace(/^@/, '').replace('/', '-') + '-' + pkg.version + '.tgz');
@@ -34,6 +36,7 @@ for (const pkg of manifest.packages) {
 	assert.equal(packed.name, pkg.name);
 	assert.equal(packed.version, pkg.version);
 	if (pkg.name === metadata.name) assert.deepEqual(packed, metadata, 'Main package differs from the checked-out source');
+	if (pkg.name === installer.name) assert.deepEqual(packed, installer, 'Native installer differs from the checked-out source');
 }
 assert.equal(readFileSync(join(directory, 'SHA256SUMS'), 'utf8'),
 	manifest.packages.map(pkg => `${pkg.sha256}  ${pkg.file}\n`).join(''), 'SHA256SUMS differs from the manifest');

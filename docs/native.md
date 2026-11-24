@@ -145,7 +145,9 @@ benchmark JSON as `evidence-<target>-node<major>`. The environment check rejects
 a mismatched Node/Rust architecture or libc. Hosted runners execute the CPU
 instructions natively; these are not QEMU runs.
 
-Keep npm optional dependencies enabled when installing. Explicit native import
+Install `escapex` and `escapex-native` at matching versions and keep npm optional
+dependencies enabled. `escapex-native` owns the eight platform dependencies;
+`escapex` alone installs only JavaScript and Wasm. Explicit native import
 throws an error with the platform, expected package and original loader cause
 if the addon is missing, incompatible or corrupt. It does not silently switch
 implementations. Missing native packages do not prevent default ESM/Wasm use.

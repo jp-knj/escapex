@@ -5,6 +5,19 @@ import * as api from '../dist/index.mjs';
 // Keep these small, literal-output checks separate from exhaustive fixtures.
 // Stryker runs this file first and stops if it fails. In particular, reversed
 // loop conditions must fail on two targets before a single-target call can hang.
+test('ESM contract: every entry rejects non-primitive strings without coercion', () => {
+	let coerced = false;
+	const hostile = { [Symbol.toPrimitive]() { coerced = true; throw new Error('coerced'); } };
+	for (const [name, operation] of [['escape', 'escape'], ['escapeHTML', 'escape'],
+		['escapeText', 'escapeText'], ['escapeAttribute', 'escapeAttribute'],
+		['unescape', 'unescape'], ['unescapeHTML', 'unescape']]) {
+		for (const value of [undefined, null, 0, true, 1n, Symbol(), {}, [], new String('&'), hostile]) {
+			assert.throws(() => api[name](value), { name: 'TypeError', message: `${operation} expects a primitive string` }, name);
+		}
+	}
+	assert.equal(coerced, false);
+});
+
 test('ESM contract: HTML scanning preserves targets, gaps, and suffixes', () => {
 	assert.equal(api.escapeHTML('&&'), '&amp;&amp;', 'both targets in a short input');
 	assert.equal(api.escapeHTML('&' + 'x'.repeat(15) + '&'),

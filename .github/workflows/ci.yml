@@ -18,9 +18,17 @@ jobs:
       - uses: ./.github/actions/setup
         with:
           node: ${{ matrix.node }}
+      - run: npm ci --prefix bench/competitors --ignore-scripts
       - run: npm run check
       - run: npm test
       - run: npm run test:rust
+      - run: npm run size
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        if: always()
+        with:
+          name: package-size-node${{ matrix.node }}
+          path: target/package-size.json
+          if-no-files-found: error
   browsers:
     runs-on: ubuntu-24.04
     steps:
