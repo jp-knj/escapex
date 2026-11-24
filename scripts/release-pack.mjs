@@ -1,4 +1,4 @@
-// Assemble the current workflow's eight tested native tarballs and the JS/Wasm package.
+// Assemble eight tested platform tarballs, the native installer and JS/Wasm.
 // npm pack is local-only; this script has no publishing operation.
 import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
@@ -7,6 +7,7 @@ import { copyFileSync, existsSync, mkdirSync, readFileSync, readdirSync, writeFi
 import { join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { targets } from './native-targets.mjs';
+import { validateNativeMetadata } from './package-metadata.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 assert(process.argv.length <= 4, 'Usage: node scripts/release-pack.mjs [artifact-directory] [output-directory]');
@@ -14,6 +15,8 @@ const artifacts = resolve(root, process.argv[2] ?? 'target/release-artifacts');
 const output = resolve(root, process.argv[3] ?? 'target/release-candidate');
 assert(!existsSync(output) || readdirSync(output).length === 0, 'Use a new or empty output directory');
 const metadata = JSON.parse(readFileSync(join(root, 'package.json'), 'utf8'));
+const installer = JSON.parse(readFileSync(join(root, 'npm/native/package.json'), 'utf8'));
+validateNativeMetadata(metadata, installer);
 assert.match(metadata.version, /^\d+\.\d+\.\d+$/, 'Expected a stable release version');
 assert.equal(metadata.publishConfig.access, 'public');
 const packageFiles = metadata.files.filter(file => !file.endsWith('.node'));
@@ -27,7 +30,7 @@ const inspect = (file, expected) => {
 const candidates = [];
 for (const target of targets) {
 	const name = `${metadata.name}-${target.id}`;
-	assert.equal(metadata.optionalDependencies[name], metadata.version);
+	assert.equal(installer.optionalDependencies[name], metadata.version);
 	const file = join(artifacts, `native-${target.id}`, archiveName(name));
 	assert(existsSync(file), `Missing tested platform tarball: ${file}`);
 	const pkg = inspect(file, ['package.json', 'LICENSE', `escape_html.${target.id}.node`]);
@@ -41,17 +44,17 @@ for (const target of targets) {
 	assert.equal(pkg.publishConfig.access, 'public');
 	candidates.push({ name, source: file });
 }
-assert.equal(Object.keys(metadata.optionalDependencies).length, targets.length);
 mkdirSync(output, { recursive: true });
 const args = ['pack', '--json', '--ignore-scripts', '--pack-destination', output,
 	'--cache', join(root, 'target/npm-cache')];
-const [packed] = JSON.parse(execFileSync(process.env.npm_execpath ? process.execPath : 'npm',
-	[...(process.env.npm_execpath ? [process.env.npm_execpath] : []), ...args], { cwd: root, encoding: 'utf8' }));
-assert.equal(packed.filename, archiveName(metadata.name));
-const main = inspect(join(output, packed.filename), [...packageFiles, 'package.json']);
-assert.deepEqual(main, metadata);
 for (const candidate of candidates) copyFileSync(candidate.source, join(output, archiveName(candidate.name)));
-candidates.push({ name: metadata.name });
+for (const [cwd, pkg, files] of [[join(root, 'npm/native'), installer, ['README.md', 'LICENSE']], [root, metadata, packageFiles]]) {
+	const [packed] = JSON.parse(execFileSync(process.env.npm_execpath ? process.execPath : 'npm',
+		[...(process.env.npm_execpath ? [process.env.npm_execpath] : []), ...args], { cwd, encoding: 'utf8' }));
+	assert.equal(packed.filename, archiveName(pkg.name));
+	assert.deepEqual(inspect(join(output, packed.filename), [...files, 'package.json']), pkg);
+	candidates.push({ name: pkg.name });
+}
 const packages = candidates.map(({ name }) => {
 	const file = archiveName(name), bytes = readFileSync(join(output, file));
 	return { name, version: metadata.version, file, size: bytes.length,

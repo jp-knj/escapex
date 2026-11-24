@@ -63,12 +63,14 @@ init('module.wasm');
 	}
 });
 
-test('installed package works in a separate Node process without development dependencies', () => {
+test('normal main-only install runs JS/Wasm without native or development dependencies', () => {
 	execFileSync(process.execPath, ['--input-type=module', '-e', `
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { escape, unescape } from '${packageName}';
 import * as wasm from '${packageName}/wasm';
+await assert.rejects(import('${packageName}/native'), error =>
+  error.message.includes('npm install escapex escapex-native') && error.cause.code === 'MODULE_NOT_FOUND');
 await wasm.init(await readFile(new URL(import.meta.resolve('${packageName}/escape_html.scalar.wasm'))));
 for (const api of [{ escape, unescape }, wasm]) {
   assert.equal(api.escape('&<'), '&amp;&lt;');

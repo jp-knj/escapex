@@ -90,6 +90,10 @@ only `/wasm` needs asynchronous initialization before use.
 
 ## Native entry
 
+```sh
+npm install escapex escapex-native
+```
+
 ```js
 import { escapeAttribute } from 'escapex/native';
 
@@ -97,11 +101,14 @@ const attribute = escapeAttribute(JSON.stringify({ title: '日本語 😀 "quote
 const html = `<div data-props="${attribute}"></div>`;
 ```
 
-The native entry is Node.js only. Install optional dependencies so npm can
-select its matching package. macOS, Linux and Windows support ARM64 and x86-64;
+The native entry is Node.js only. The separate `escapex-native` package opts in
+to native installation; keep optional dependencies enabled so npm can select
+its matching binary. macOS, Linux and Windows support ARM64 and x86-64;
 Linux has separate glibc and musl packages. Every native package must match the
-main package's version. A missing or incompatible addon causes an explicit
-import error with the platform and underlying cause.
+main package's version, including `escapex-native`. A missing, incompatible or
+corrupt installer or binary causes an import error with installation instructions
+and the underlying cause. Installing `escapex` alone adds no native binaries;
+JavaScript and both Wasm assets remain available.
 
 The native API uses JavaScript for short strings and some sparse HTML inputs.
 Long suitable inputs use Rust with runtime NEON/SSE2/AVX2 selection. No caller
@@ -148,9 +155,17 @@ npm install escapex@0.0.1
 | `@jp-knj/html-escape/escape_html.scalar.wasm` | `escapex/escape_html.scalar.wasm` |
 | `@jp-knj/html-escape-<platform>` | `escapex-<platform>` |
 
-Normally npm selects the native package through optional dependencies. If you
-explicitly pin a platform package, rename it too and use version `0.0.1` for both
-packages. No function, type, escaping output or Wasm asset filename changes.
+For native use, including existing `escapex/native` installations, add the
+installer and refresh the application's lockfile:
+
+```sh
+npm install escapex@0.0.1 escapex-native@0.0.1
+```
+
+The installer now owns the eight optional platform dependencies. A direct
+platform dependency alone does not replace `escapex-native`. If you explicitly
+pin one, rename it too and keep all versions at `0.0.1`. No import, function,
+type, escaping output or Wasm asset filename changes for existing escapex users.
 The repository is now [jp-knj/escapex](https://github.com/jp-knj/escapex).
 Old npm packages and the existing `v0.0.1` GitHub tag/release are preserved;
 future escapex releases use `escapex-v<version>` tags.

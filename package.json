@@ -72,7 +72,8 @@
     "release:pack": "node scripts/release-pack.mjs",
     "release:publish": "node scripts/release-publish.mjs",
     "test:release": "node --test test/release.test.mjs",
-    "test:candidate": "node --test test/bundlers.test.mjs test/documentation.test.mjs test/native-package.test.mjs"
+    "test:candidate": "node --test test/bundlers.test.mjs test/documentation.test.mjs test/native-package.test.mjs",
+    "size": "node scripts/package-size.mjs"
   },
   "devDependencies": {
     "@stryker-mutator/core": "10.1.1",
@@ -114,14 +115,12 @@
   "publishConfig": {
     "access": "public"
   },
-  "optionalDependencies": {
-    "escapex-darwin-arm64": "0.0.1",
-    "escapex-darwin-x64": "0.0.1",
-    "escapex-linux-arm64-gnu": "0.0.1",
-    "escapex-linux-arm64-musl": "0.0.1",
-    "escapex-linux-x64-gnu": "0.0.1",
-    "escapex-linux-x64-musl": "0.0.1",
-    "escapex-win32-arm64-msvc": "0.0.1",
-    "escapex-win32-x64-msvc": "0.0.1"
+  "peerDependencies": {
+    "escapex-native": "0.0.1"
+  },
+  "peerDependenciesMeta": {
+    "escapex-native": {
+      "optional": true
+    }
   }
 }

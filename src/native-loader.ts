@@ -15,8 +15,11 @@ export function loadNativeBinding(id: string, moduleURL: string): NativeBinding 
 	const local = new URL(`./native/escape_html.${id}.node`, moduleURL);
 	const packageName = `escapex-${id}`;
 	try {
-		return existsSync(local) ? require(fileURLToPath(local)) : require(packageName);
+		if (existsSync(local)) return require(fileURLToPath(local));
+		// Resolve from the opt-in package so nested dependency layouts work too.
+		const nativeRequire = createRequire(require.resolve('escapex-native/package.json'));
+		return nativeRequire(packageName);
 	} catch (cause) {
-		throw new Error(`Cannot load escapex/native for ${id}. Install ${packageName} at the same version with optional dependencies enabled, or run npm run build:native in the source checkout.`, { cause });
+		throw new Error(`Cannot load escapex/native for ${id}. Run npm install escapex escapex-native with matching versions and optional dependencies enabled (requires ${packageName}), or run npm run build:native in the source checkout.`, { cause });
 	}
 }

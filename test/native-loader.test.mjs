@@ -13,7 +13,7 @@ import { detectLinuxLibc } from '../src/native-libc.ts';
 const ids = ['darwin-arm64', 'darwin-x64', 'linux-arm64-gnu', 'linux-x64-gnu',
 	'linux-arm64-musl', 'linux-x64-musl', 'win32-arm64-msvc', 'win32-x64-msvc'];
 const cache = createRequire(import.meta.url).cache;
-const message = id => `Cannot load escapex/native for ${id}. Install escapex-${id} at the same version with optional dependencies enabled, or run npm run build:native in the source checkout.`;
+const message = id => `Cannot load escapex/native for ${id}. Run npm install escapex escapex-native with matching versions and optional dependencies enabled (requires escapex-${id}), or run npm run build:native in the source checkout.`;
 
 function fixture(t) {
 	const root = realpathSync(mkdtempSync(join(tmpdir(), 'escapex loader # 日本語 ')));
@@ -27,8 +27,12 @@ function fixture(t) {
 	return {
 		root, entry, url: pathToFileURL(entry).href,
 		local(id) { return write(join(root, 'dist', 'native', `escape_html.${id}.node`), 'invalid native addon'); },
-		package(id, code = 'module.exports = { origin: "optional" };', main = 'index.cjs') {
-			const dir = join(root, 'node_modules', `escapex-${id}`);
+		installer(manifest = { exports: { './package.json': './package.json' } }) {
+			return write(join(root, 'node_modules', 'escapex-native', 'package.json'), JSON.stringify(manifest));
+		},
+		package(id, code = 'module.exports = { origin: "optional" };', main = 'index.cjs', nested = false) {
+			this.installer();
+			const dir = join(root, 'node_modules', ...(nested ? ['escapex-native', 'node_modules'] : []), `escapex-${id}`);
 			write(join(dir, 'package.json'), JSON.stringify({ name: `escapex-${id}`, main }));
 			return write(join(dir, main), code);
 		},
@@ -65,14 +69,16 @@ test('native loader: local binaries take precedence for every package suffix and
 	}
 });
 
-test('native loader: absent local binaries select each optional package relative to the entry', t => {
+test('native loader: absent local binaries select hoisted or nested dependencies of the installer', t => {
 	for (const id of ids) {
-		const f = fixture(t);
-		const optional = f.package(id, `module.exports = { origin: "optional", id: ${JSON.stringify(id)} };`);
-		const binding = loadNativeBinding(id, f.url);
-		assert.deepEqual(binding, { origin: 'optional', id });
-		assert.equal(binding, cache[optional].exports);
-		assert.equal(loadNativeBinding(id, f.url), binding, 'Node module identity is preserved');
+		for (const nested of [false, true]) {
+			const f = fixture(t);
+			const optional = f.package(id, `module.exports = { origin: "optional", id: ${JSON.stringify(id)} };`, 'index.cjs', nested);
+			const binding = loadNativeBinding(id, f.url);
+			assert.deepEqual(binding, { origin: 'optional', id });
+			assert.equal(binding, cache[optional].exports);
+			assert.equal(loadNativeBinding(id, f.url), binding, 'Node module identity is preserved');
+		}
 	}
 });
 
@@ -85,15 +91,28 @@ test('native loader: separate installations resolve their own optional package',
 	assert.deepEqual(loadNativeBinding(id, second.url), { installation: 'second' });
 });
 
-test('native loader: missing binaries identify the platform, package, recovery options, and cause', t => {
+test('native loader: missing installer or binary identifies recovery options and cause', t => {
 	for (const id of ids) {
-		const f = fixture(t);
-		assert.throws(() => loadNativeBinding(id, f.url), error => {
-			checkError(error, id, 'MODULE_NOT_FOUND');
-			assert(error.cause.message.includes(`'escapex-${id}'`));
-			return true;
-		});
+		for (const installerPresent of [false, true]) {
+			const f = fixture(t);
+			if (installerPresent) f.installer();
+			assert.throws(() => loadNativeBinding(id, f.url), error => {
+				checkError(error, id, 'MODULE_NOT_FOUND');
+				assert(error.cause.message.includes(installerPresent ? `'escapex-${id}'` : "'escapex-native/package.json'"));
+				return true;
+			});
+		}
 	}
+});
+
+test('native loader: corrupt installer metadata retains the original failure', t => {
+	const f = fixture(t);
+	writeFileSync(f.installer(), 'invalid JSON');
+	assert.throws(() => loadNativeBinding('darwin-arm64', f.url), error => {
+		checkError(error, 'darwin-arm64');
+		assert.match(error.cause.message, /JSON|package config/i);
+		return true;
+	});
 });
 
 test('native loader: a corrupt local binary fails without executing an available optional package', t => {

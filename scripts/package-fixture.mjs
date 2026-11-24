@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
-import { mkdtemp, readFile, writeFile } from 'node:fs/promises';
+import { mkdtemp, readFile, readdir, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -11,6 +11,7 @@ import { targets } from './native-targets.mjs';
 export const root = fileURLToPath(new URL('../', import.meta.url));
 export const metadata = JSON.parse(await readFile(join(root, 'package.json')));
 export const packageName = metadata.name;
+export const nativeInstaller = `${packageName}-native`;
 
 export function npm(args, options = {}) {
 	// npm_execpath avoids spawning npm.cmd through a shell on Windows.
@@ -38,7 +39,16 @@ export async function preparePackage({ native = false } = {}) {
 	const installed = join(consumer, 'node_modules', packageName);
 	await writeFile(join(consumer, 'package.json'), '{"type":"module","private":true}\n');
 	let nativePackage;
-	const archives = [mainArchive || join(consumer, pack.filename)];
+	const install = archives => npm(['install', '--offline', '--ignore-scripts', '--no-audit', '--no-fund',
+		...archives, '--cache', join(consumer, '.npm-cache')], { cwd: consumer, stdio: 'pipe' });
+	// A normal install must not fetch any native package. Do not omit optional deps:
+	// that would hide a regression back to automatic binary installation.
+	install([mainArchive || join(consumer, pack.filename)]);
+	assert.deepEqual((await readdir(join(consumer, 'node_modules'))).filter(name => !name.startsWith('.')), [packageName]);
+	const installedMetadata = JSON.parse(await readFile(join(installed, 'package.json')));
+	assert.equal(installedMetadata.optionalDependencies, undefined);
+	assert.deepEqual(installedMetadata.peerDependencies, { [nativeInstaller]: metadata.version });
+	assert.deepEqual(installedMetadata.peerDependenciesMeta, { [nativeInstaller]: { optional: true } });
 	if (native) {
 		const target = targets.find((entry) => entry.os === process.platform && entry.cpu === process.arch
 			&& (!entry.libc || entry.libc === (process.report.getReport().header.glibcVersionRuntime ? 'glibc' : 'musl')));
@@ -49,13 +59,15 @@ export async function preparePackage({ native = false } = {}) {
 			'--json', '--ignore-scripts', '--pack-destination', consumer,
 			'--cache', join(consumer, '.npm-cache')], { cwd: join(root, 'npm', target.id), encoding: 'utf8' }));
 		assert.deepEqual(binaryPack.files.map(({ path }) => path).sort(), ['LICENSE', 'package.json', `escape_html.${target.id}.node`].sort());
-		archives.push(nativeArchive || join(consumer, binaryPack.filename));
+		const installerArchive = candidate && join(candidate, archiveName(nativeInstaller));
+		const [installerPack] = JSON.parse(npm(['pack', ...(installerArchive ? [installerArchive, '--dry-run'] : []),
+			'--json', '--ignore-scripts', '--pack-destination', consumer,
+			'--cache', join(consumer, '.npm-cache')], { cwd: join(root, 'npm/native'), encoding: 'utf8' }));
+		assert.deepEqual(installerPack.files.map(({ path }) => path).sort(), ['LICENSE', 'README.md', 'package.json']);
+		// Exercise adding native support to an existing JS/Wasm installation.
+		install([installerArchive || join(consumer, installerPack.filename), nativeArchive || join(consumer, binaryPack.filename)]);
 	}
-	// Exercise npm installation for both JS-only and native consumers.
-	npm(['install', '--offline', '--ignore-scripts', '--no-audit', '--no-fund', '--package-lock=false',
-		...(!native ? ['--omit=optional'] : []), ...archives, '--cache', join(consumer, '.npm-cache')],
-		{ cwd: consumer, stdio: 'pipe' });
-	return { consumer, installed, pack, nativePackage };
+	return { consumer, installed, pack, nativePackage, nativeInstaller };
 }
 
 export async function bundleConsumer(consumer, tool, { unused = false, ssr = false } = {}) {

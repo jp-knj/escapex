@@ -77,6 +77,7 @@ jobs:
       - run: npm run test:native
       - run: npm run test:unit
       - run: npm run test:package
+      - run: npm run size -- --native ${{ matrix.platform.id }}
       - run: npm run bench:search
       - name: Compare the three JavaScript competitors
         if: env.RUN_COMPETITORS == 'true'
@@ -100,6 +101,7 @@ jobs:
           path: |
             target/native-environment.json
             target/native-rust-tests.log
+            target/package-size.json
             target/bench-results/*.json
           if-no-files-found: warn
       - name: Pack platform package without publishing
@@ -152,6 +154,7 @@ jobs:
             npm run test:native
             npm run test:unit
             npm run test:package
+            npm run size -- --native "$NATIVE_PLATFORM"
             npm run bench:search
             if [ "$RUN_COMPETITORS" = true ]; then
               npm ci --prefix bench/competitors --ignore-scripts
@@ -173,6 +176,7 @@ jobs:
           path: |
             target/native-environment.json
             target/native-rust-tests.log
+            target/package-size.json
             target/bench-results/*.json
           if-no-files-found: warn
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4

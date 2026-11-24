@@ -13,8 +13,6 @@ const triple = targetArg === -1 ? execFileSync('rustc', ['-vV'], { encoding: 'ut
 const target = targets.find((candidate) => candidate.triple === triple);
 if (!target) throw new Error(`Unsupported native build target: ${triple}`);
 const metadata = JSON.parse(readFileSync(join(root, 'package.json'), 'utf8'));
-const lockPath = join(root, 'package-lock.json');
-const lock = JSON.parse(readFileSync(lockPath, 'utf8'));
 
 // Metadata is deterministic and can be refreshed without compiling other targets.
 for (const entry of targets) {
@@ -29,17 +27,18 @@ for (const entry of targets) {
 		engines: metadata.engines, publishConfig: { access: 'public' },
 	}, null, 2) + '\n');
 	copyFileSync(join(root, 'LICENSE'), join(dir, 'LICENSE'));
-	// These packages have not been published yet. Source installs resolve the
-	// exact same versions from the checked-in manifests; npm omits this lockfile
-	// from the published package, whose optionalDependencies remain registry versions.
-	lock.packages[`node_modules/${metadata.name}-${entry.id}`] = {
-		version: metadata.version, resolved: `file:npm/${entry.id}`, optional: true,
-		license: metadata.license, os: [entry.os], cpu: [entry.cpu],
-		...(entry.libc ? { libc: [entry.libc] } : {}), engines: metadata.engines,
-	};
 }
-lock.packages = Object.fromEntries(Object.entries(lock.packages).sort(([a], [b]) => a.localeCompare(b, 'en')));
-writeFileSync(lockPath, JSON.stringify(lock, null, 2) + '\n');
+const installer = join(root, 'npm', 'native');
+mkdirSync(installer, { recursive: true });
+writeFileSync(join(installer, 'package.json'), JSON.stringify({
+	name: `${metadata.name}-native`, version: metadata.version,
+	description: `Opt-in native dependencies for ${metadata.name}/native`,
+	license: metadata.license, repository: metadata.repository,
+	exports: { './package.json': './package.json' }, files: ['README.md', 'LICENSE'],
+	engines: metadata.engines, publishConfig: { access: 'public' },
+	optionalDependencies: Object.fromEntries(targets.map(entry => [`${metadata.name}-${entry.id}`, metadata.version])),
+}, null, 2) + '\n');
+copyFileSync(join(root, 'LICENSE'), join(installer, 'LICENSE'));
 
 if (!metadataOnly) {
 	// Never inherit target-cpu=native / +avx2 into a distributable binary.
