@@ -1,9 +1,9 @@
 export default {
-	mutate: ['src/escape.ts', 'src/unescape.ts', 'src/native-platform.ts'],
+	mutate: ['src/escape.ts', 'src/unescape.ts', 'src/native-platform.ts', 'src/native-libc.ts', 'src/wasm.ts'],
 	testRunner: 'command',
 	// A failed focused assertion must stop the command before an exhaustive
 	// fixture reaches a different input on which the same mutant never returns.
-	commandRunner: { command: 'node --test test/escape-contract.test.mjs test/native-platform.test.mjs && node --test test/escape-html.test.mjs' },
+	commandRunner: { command: 'node --test test/escape-contract.test.mjs test/native-platform.test.mjs test/native-libc.test.mjs test/wasm-contract.test.mjs && node --test test/escape-html.test.mjs' },
 	// Build the instrumented source inside Stryker's sandbox. Testing the
 	// workspace's existing dist would silently test unmutated code instead.
 	buildCommand: 'npm run build:js -- --config tsdown.mutation.config.mts',
