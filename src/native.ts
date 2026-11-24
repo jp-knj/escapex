@@ -1,40 +1,19 @@
-import { createRequire } from 'node:module';
-import { existsSync, readFileSync } from 'node:fs';
+import { readFileSync } from 'node:fs';
 import { platform, arch, report } from 'node:process';
-import { fileURLToPath } from 'node:url';
 import { nativePlatform } from './native-platform.ts';
+import { detectLinuxLibc } from './native-libc.ts';
+import { loadNativeBinding } from './native-loader.ts';
 import { HTML_ENTITIES } from './escape.ts';
 import { escapeHTML as escapeShortHTML, escapeText as escapeShortText,
 	escapeAttribute as escapeShortAttribute, unescapeHTML as unescapeShortHTML } from './index.ts';
 
-interface NativeBinding {
-	escapeHtml(value: string): string;
-	escapeText(value: string): string;
-	escapeAttribute(value: string): string;
-	unescapeHtml(value: string): string;
-}
-
 function linuxLibc(): 'gnu' | 'musl' {
-	let diagnostic: { header?: { glibcVersionRuntime?: string }; sharedObjects?: string[] } | undefined;
-	try { diagnostic = report.getReport() as typeof diagnostic; } catch { /* Fall back to ldd. */ }
-	if (diagnostic?.header?.glibcVersionRuntime) return 'gnu';
-	// process.report can be disabled by an embedder; the system ldd script is a fallback.
-	try { if (readFileSync('/usr/bin/ldd', 'utf8').includes('musl')) return 'musl'; } catch { /* Try the report below. */ }
-	const objects = diagnostic?.sharedObjects;
-	if (objects?.some((path) => /(?:ld-musl-|libc\.musl-)/.test(path))) return 'musl';
-	throw new Error('Cannot identify Linux libc for escapex/native (expected glibc or musl)');
+	return detectLinuxLibc(() => report.getReport(), () => readFileSync('/usr/bin/ldd', 'utf8'));
 }
 
-function load(): NativeBinding {
+function load() {
 	const id = nativePlatform(platform, arch, platform === 'linux' ? linuxLibc() : undefined);
-	const require = createRequire(import.meta.url);
-	const local = new URL(`./native/escape_html.${id}.node`, import.meta.url);
-	const packageName = `escapex-${id}`;
-	try {
-		return existsSync(local) ? require(fileURLToPath(local)) : require(packageName);
-	} catch (cause) {
-		throw new Error(`Cannot load escapex/native for ${id}. Install ${packageName} at the same version with optional dependencies enabled, or run npm run build:native in the source checkout.`, { cause });
-	}
+	return loadNativeBinding(id, import.meta.url);
 }
 
 // Fail on explicit import when the binary is unavailable, even for a no-op input.
