@@ -18,6 +18,7 @@ jobs:
       - uses: ./.github/actions/setup
         with:
           node: ${{ matrix.node }}
+      - run: npm ci --prefix bench/competitors --ignore-scripts
       - run: npm run check
       - run: npm test
       - run: npm run test:rust
